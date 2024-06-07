@@ -31,9 +31,13 @@ public class Student {
 	
 	private Integer status; //ステータス
 	
+	//デフォルトコンストラクタ
 	public Student() {
 	}
-
+	
+	
+	
+    //ゲッター
 	public Integer getId() {
 		return id;
 	}
