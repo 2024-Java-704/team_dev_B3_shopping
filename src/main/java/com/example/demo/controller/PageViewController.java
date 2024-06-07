@@ -33,8 +33,8 @@ public class PageViewController {
 	}
 	
 	//マイページ画面表示
-	@GetMapping("/mypage/{id}")
-	public String mypage(@PathVariable("id") String id) {
+	@GetMapping("/mypage")
+	public String mypage() {
 		return "mypage";
 	}
 
