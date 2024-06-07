@@ -1,5 +1,9 @@
 package com.example.demo.repository;
 
-public interface BookinfoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.demo.entity.Bookinfo;
+
+public interface BookinfoRepository extends JpaRepository<Bookinfo, Integer>{
 
 }

@@ -1,5 +1,9 @@
 package com.example.demo.repository;
 
-public interface RequestRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.demo.entity.Request;
+
+public interface RequestRepository extends JpaRepository<Request, Integer> {
 
 }
