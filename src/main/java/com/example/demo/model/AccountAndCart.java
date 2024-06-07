@@ -47,5 +47,13 @@ public class AccountAndCart {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public List<CartItems> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(List<CartItems> cartItems) {
+		this.cartItems = cartItems;
+	}
 	
 }
