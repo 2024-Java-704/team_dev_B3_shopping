@@ -37,7 +37,7 @@ public class Student {
 	
 	
 	
-    //ゲッター
+    //ゲッター セッター
 	public Integer getId() {
 		return id;
 	}
