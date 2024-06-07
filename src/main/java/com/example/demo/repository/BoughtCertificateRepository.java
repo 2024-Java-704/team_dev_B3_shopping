@@ -1,5 +1,9 @@
 package com.example.demo.repository;
 
-public interface BoughtCertificateRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.demo.entity.BoughtCertificate;
+
+public interface BoughtCertificateRepository extends JpaRepository<BoughtCertificate, Integer>{
 
 }
