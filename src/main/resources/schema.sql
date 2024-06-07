@@ -1,32 +1,33 @@
 -- 各種テーブル削除
-DROP TABLE IF EXISTS student CASCADE;
-DROP TABLE IF EXISTS staff cascade;
-DROP TABLE IF EXISTS admin CASCADE;
+DROP TABLE IF EXISTS bought_certificate CASCADE;
+DROP TABLE IF EXISTS bought_history CASCADE;
+DROP TABLE IF EXISTS bookmark CASCADE;
 DROP TABLE IF EXISTS sale_list CASCADE;
-DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS request CASCADE;
 DROP TABLE IF EXISTS bookinfo CASCADE;
-DROP TABLE IF EXISTS bookmark cascade;
-DROP TABLE IF EXISTS bought_history cascade;
-DROP TABLE IF EXISTS bought_certificate cascade;
-DROP TABLE IF EXISTS request cascade;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS admin CASCADE;
+DROP TABLE IF EXISTS staff CASCADE;
+DROP TABLE IF EXISTS students CASCADE;
 
--- 学生アカウントテーブル
-CREATE TABLE student(
+-- 学生アカウント
+CREATE TABLE students(
 id SERIAL,
-student_name varchar(255) NOT NULL,
-birthday date NOT NULL,
-address varchar(255) NOT NULL,
-student_email varchar(255) NOT NULL UNIQUE,
-student_pass varchar(255) NOT NULL,
-student_number varchar(255) NOT NULL UNIQUE,
-bank_account varchar(255),
+student_name VARCHAR(255) NOT NULL,
+birthday DATE NOT NULL,
+address VARCHAR(255) NOT NULL,
+student_email VARCHAR(255) NOT NULL UNIQUE,
+student_pass VARCHAR(255) NOT NULL,
+student_number VARCHAR(255) NOT NULL UNIQUE,
+bank_account VARCHAR(255),
 student_status INTEGER NOT NULL,
-ban_day TimeStamp,
+ban_day TIMESTAMP,
 
 PRIMARY KEY (id)
 );
 
--- 教員アカウントテーブル
+
+-- 教員アカウント
  CREATE TABLE staff
 (
 id SERIAL,
@@ -38,16 +39,16 @@ staff_number VARCHAR(255) NOT NULL UNIQUE,
 PRIMARY KEY (id)
 );
 
--- 管理者アカウントテーブル
+-- 管理者アカウント
 CREATE TABLE admin(
 id SERIAL,
-admin_name TEXT,
-admin_pass TEXT,
+admin_name VARCHAR(255),
+admin_pass VARCHAR(255),
 
 PRIMARY KEY (id)
 );
 
--- カテゴリーテーブル
+-- カテゴリー
 CREATE TABLE categories(
 id SERIAL,
 category_name VARCHAR(255),
@@ -55,7 +56,7 @@ category_name VARCHAR(255),
 PRIMARY KEY(id)
 );
 
--- 書籍情報テーブル
+-- 書籍情報
 CREATE TABLE bookinfo(
 id SERIAL,
 category_id INTEGER NOT NULL,
@@ -64,7 +65,7 @@ author VARCHAR(255) NOT NULL,
 publisher VARCHAR(255) NOT NULL,
 isbn VARCHAR(255) NOT NULL UNIQUE,
 grade INTEGER NOT NULL,
-class VARCHAR(255) NOT NULL,
+lecture VARCHAR(255) NOT NULL,
 condition VARCHAR(255) NOT NULL,
 price INTEGER NOT NULL,
 
@@ -72,7 +73,19 @@ PRIMARY KEY(id),
 FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
--- 出品リストテーブル
+--入荷予約
+CREATE TABLE request
+(
+id SERIAL,
+student_id INTEGER NOT NULL , 
+bookinfo_id INTEGER NOT NULL , 
+
+PRIMARY KEY (id),
+FOREIGN KEY(student_id) REFERENCES students(id),
+FOREIGN KEY(bookinfo_id) REFERENCES bookinfo(id)
+);
+
+-- 出品リスト
 CREATE TABLE sale_list(
 id SERIAL,
 student_id INTEGER NOT NULL,
@@ -82,24 +95,21 @@ item_status INTEGER NOT NULL,
 sale_method INTEGER NOT NULL,
 
 PRIMARY KEY(id),
-FOREIGN KEY(student_id) REFERENCES student(id),
+FOREIGN KEY(student_id) REFERENCES students(id),
 FOREIGN KEY(bookinfo_id) REFERENCES bookinfo(id)
 );
 
-
-
 -- 商品ブックマークテーブル
 CREATE TABLE bookmark
- 	(
+ (
 id SERIAL,
 student_id INTEGER NOT NULL,
 salelist_id INTEGER NOT NULL,
 
 PRIMARY KEY (id),
-FOREIGN KEY(student_id) references student(id), 
-FOREIGN KEY(salelist_id) references sale_list(id) 
+FOREIGN KEY(student_id) REFERENCES students(id), 
+FOREIGN KEY(salelist_id) REFERENCES sale_list(id) 
 );
-
 
 -- 購入履歴
 CREATE TABLE bought_history
@@ -112,8 +122,8 @@ accept INTEGER NOT NULL,
 delivery INTEGER,
 
 PRIMARY KEY (id),
-FOREIGN KEY(student_id) references student(id), 
-FOREIGN KEY(salelist_id) references sale_list(id) 
+FOREIGN KEY(student_id) REFERENCES students(id), 
+FOREIGN KEY(salelist_id) REFERENCES sale_list(id) 
 );
 
 --購入証明書
@@ -121,20 +131,8 @@ CREATE TABLE bought_certificate
 (
 id SERIAL,
 salelist_id INTEGER NOT NULL,
-bought_day TimeStamp NOT NULL,
+bought_day TIMESTAMP NOT NULL,
 
 PRIMARY KEY (id),
-FOREIGN KEY(salelist_id) references sale_list(id)
-);
-
---入荷予約
-CREATE TABLE request
-(
-id SERIAL,
-student_id INTEGER NOT NULL, 
-bookinfo_id INTEGER NOT NULL, 
-
-PRIMARY KEY (id),
-FOREIGN KEY(student_id) references student(id),
-FOREIGN KEY(bookinfo_id) references bookinfo(id)
+FOREIGN KEY(salelist_id) REFERENCES sale_list(id)
 );
