@@ -12,7 +12,7 @@ public class AccountAndCart {
 	
 	private String name; //名前
 	
-	List<CartItems> cartItems;
+	List<CartItems> cartItems;//カートリスト
 	
 	
 	//デフォルトコンストラクタ
