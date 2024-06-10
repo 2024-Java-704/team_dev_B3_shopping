@@ -20,11 +20,14 @@ public class PurchaseController {
 		@Autowired
 		HttpSession session;
 
-		@Autowired
-		CartItems cartItems;
-		
-		@Autowired
-		AccountAndCart accountAndCart;
+	@Autowired
+	HttpSession session;
+	
+	@Autowired
+	CartItems cartItems;
+
+	@Autowired
+	AccountAndCart accountAndCart;
 
 	@Autowired
 	BookinfoRepository bookinfoRepository;
