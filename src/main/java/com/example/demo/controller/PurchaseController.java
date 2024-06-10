@@ -12,6 +12,8 @@ import com.example.demo.model.AccountAndCart;
 import com.example.demo.model.CartItems;
 import com.example.demo.repository.BookinfoRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class PurchaseController {
 
@@ -20,7 +22,7 @@ public class PurchaseController {
 	
 	@Autowired
 	CartItems cartItems;
-		
+
 	@Autowired
 	AccountAndCart accountAndCart;
 
