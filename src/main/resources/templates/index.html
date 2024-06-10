@@ -12,11 +12,11 @@
 	<table>
 		<tr>
 			<th>商品名</th>
-			<td></td>
-		</tr>
-		<tr>
 			<th>価格</th>
-			<td></td>
+		</tr>
+		<tr th:each="book:${books}">
+			<td><a th:href="@{/items/detail(id=${book.id})}"  th:text="${book.title}"></a></td>
+			<td th:text="${book.price}"></td>
 		</tr>
 	</table>
 </body>
