@@ -7,14 +7,23 @@
 <body>
 <h1>新規登録申請確認画面</h1>
 
-<input type="box" name="name" placeholder="名前"><br>
-<input type="text" name="number" placeholder="学籍番号"><br>
-<input type="text" name="address" placeholder="住所"><br>
-<input type="text" name="birth" placeholder="生年月日"><br>
-<input type="text" name="password" placeholder="パスワード"><br>
-<input type="text" name="email" placeholder="メールアドレス"><br>
+<form action="/new/users/complete" method="post">
+<p th:text="${name}"></p>
+<p th:text="${number}"></p>
+<p th:text="${address}"></p>
+<p th:text="${birth}"></p>
+<p th:text="${password}"></p>
+<p th:text="${email}"></p>
 <p>画像</p>
 
+<input type="hidden" name="name" th:value="${name}">
+<input type="hidden" name="number" th:value="${number}">
+<input type="hidden" name="address" th:value="${address}">
+<input type="hidden" name="birth" th:value="${birth}">
+<input type="hidden" name="password" th:value="${password}">
+<input type="hidden" name="email" th:value="${email}">
+
 <button>申請する</button>
+</form>
 </body>
 </html>

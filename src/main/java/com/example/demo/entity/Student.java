@@ -120,7 +120,14 @@ public class Student {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	public Student(String name, String number, String address, Date birth, String password, String email,Integer status) {
+	public Student(String name, String number, String address, Date birth, String pass, String email,Integer status) {
+		this.name=name;
+		this.number=number;
+		this.address=address;
+		this.birth=birth;
+		this.pass=pass;
+		this.email=email;
+		this.status=status;
 	
 	}
 

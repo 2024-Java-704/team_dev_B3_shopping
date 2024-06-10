@@ -100,8 +100,9 @@ public class AccountController {
 
 		Student student = new Student(name, number, address, birth, password, email, 1);
 		studentRepository.save(student);
+		System.out.println(student);
 
-		return "login";
+		return "adduserconfirmcomplete";
 	}
 
 	//ログイン画面の表示
@@ -122,7 +123,7 @@ public class AccountController {
 		List<String> errorList = new ArrayList<>();
 
 		//エラーチェック
-		if (email.length() == 0 || number.length() == 0) {
+		if (email.length() == 0 && number.length() == 0) {
 			errorList.add("メールアドレス又は学籍番号を入力してください");
 		}
 
@@ -133,8 +134,10 @@ public class AccountController {
 
 		if (errorList.size() > 0) {
 			model.addAttribute("errorList", errorList);
+			return "login";
 		}
-
+		
+		
 		List<Student> emailStudent = studentRepository.findByEmailAndPass(email, password);
 		List<Student> numberStudent = studentRepository.findByNumberAndPass(number, password);
 
@@ -160,6 +163,7 @@ public class AccountController {
 
 		return "redirect:/items";
 	}
+	
 	
 
 }
