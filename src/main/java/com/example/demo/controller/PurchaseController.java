@@ -15,11 +15,14 @@ import com.example.demo.repository.BookinfoRepository;
 @Controller
 public class PurchaseController {
 
-		@Autowired
-		CartItems cartItems;
+	@Autowired
+	HttpSession session;
+	
+	@Autowired
+	CartItems cartItems;
 		
-		@Autowired
-		AccountAndCart accountAndCart;
+	@Autowired
+	AccountAndCart accountAndCart;
 
 	@Autowired
 	BookinfoRepository bookinfoRepository;
