@@ -39,6 +39,16 @@
 			<td th:text="${book.price}"></td>
 		</tr>
 	</table>
+	
+	<form action="/cart/add" method="post">
+		<input type="hidden" th:value="${book.id}">
+		<button>カートに追加</button>
+	</form>
+	
+	<form action="/bookmark" method="post">
+		<input type="hidden" th:value="${book.id}">
+		<button>ブックマークに追加</button>
+	</form>
 </body>
 
 </html>
