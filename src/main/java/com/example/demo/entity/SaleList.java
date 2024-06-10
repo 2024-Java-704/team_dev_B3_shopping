@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "sale_list")
@@ -31,6 +32,12 @@ public class SaleList {
 	
 	@Column(name = "sale_method")
 	private Integer saleMethod;
+	
+	@Transient
+	private String title;
+	
+	@Transient
+	private Integer price;
 	
 	//デフォルトコンストラクタ
 	public SaleList() {
@@ -84,6 +91,23 @@ public class SaleList {
 	public void setSaleMethod(Integer saleMethod) {
 		this.saleMethod = saleMethod;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
 	
 	
 }

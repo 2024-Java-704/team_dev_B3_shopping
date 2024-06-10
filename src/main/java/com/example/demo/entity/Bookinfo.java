@@ -36,6 +36,7 @@ public class Bookinfo {
 	//デフォルトコンストラクタ
 	public Bookinfo() {
 		
+	
 	}
 
 	public Integer getId() {
@@ -78,6 +79,7 @@ public class Bookinfo {
 		this.publisher = publisher;
 	}
 
+
 	public String getIsbn() {
 		return isbn;
 	}
@@ -117,7 +119,5 @@ public class Bookinfo {
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
-	
-	
 
 }

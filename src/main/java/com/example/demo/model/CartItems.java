@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CartItems {
 	
 	private Integer id; //主キー
@@ -12,9 +15,10 @@ public class CartItems {
 	}
 	
 	public CartItems(Integer id,String title) {
-	this.id=id;
-	this.title=title;
+		this.id = id;
+		this.title = title;
 	}
+	
 	//ゲッター　セッター
 	public Integer getId() {
 		return id;
@@ -31,7 +35,5 @@ public class CartItems {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	
 	
 }
