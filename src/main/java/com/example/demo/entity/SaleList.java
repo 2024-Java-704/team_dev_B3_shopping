@@ -36,4 +36,54 @@ public class SaleList {
 	public SaleList() {
 		
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
+	}
+
+	public Integer getBookInfo() {
+		return bookInfo;
+	}
+
+	public void setBookInfo(Integer bookInfo) {
+		this.bookInfo = bookInfo;
+	}
+
+	public LocalDate getSaleDay() {
+		return saleDay;
+	}
+
+	public void setSaleDay(LocalDate saleDay) {
+		this.saleDay = saleDay;
+	}
+
+	public Integer getItemStatus() {
+		return itemStatus;
+	}
+
+	public void setItemStatus(Integer itemStatus) {
+		this.itemStatus = itemStatus;
+	}
+
+	public Integer getSaleMethod() {
+		return saleMethod;
+	}
+
+	public void setSaleMethod(Integer saleMethod) {
+		this.saleMethod = saleMethod;
+	}
+	
+	
 }
