@@ -22,6 +22,11 @@ public class PutUpController {
 			@RequestParam("grade") String grade,
 			@RequestParam("lecture") String lecture,
 			Model model) {
+		model.addAttribute("title", title);
+		model.addAttribute("publisher", publisher);
+		model.addAttribute("isbn", isbn);
+		model.addAttribute("grade", grade);
+		model.addAttribute("lecture", lecture);
 		return "";
 	}
 
