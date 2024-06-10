@@ -16,15 +16,15 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PurchaseController {
-		
-		@Autowired
-		HttpSession session;
+
+	@Autowired
+	HttpSession session;
 	
-		@Autowired
-		CartItems cartItems;
-		
-		@Autowired
-		AccountAndCart accountAndCart;
+	@Autowired
+	CartItems cartItems;
+
+	@Autowired
+	AccountAndCart accountAndCart;
 
 	@Autowired
 	BookinfoRepository bookinfoRepository;
