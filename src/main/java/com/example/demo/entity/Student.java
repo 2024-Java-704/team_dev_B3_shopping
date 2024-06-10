@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,20 +16,30 @@ public class Student {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer id; //ユーザーID
 	
+	@Column(name = "student_name")
 	private String name;  //学生名
 	
+	@Column(name = "birthday")
 	private Date birth; //生年月日
 	
 	private String address; //住所
 	
+	@Column(name = "student_email")
 	private String email; //メールアドレス
 	
+	@Column(name = "student_pass")
 	private String pass; //パスワード
 	
+	@Column(name = "student_number")
 	private String number; //学籍番号
 	
+	@Column(name = "bank_account")
 	private String bankAccount; //口座情報
 	
+	@Column(name = "ban_day")
+	private Date banDay; //凍結日
+	
+	@Column(name = "student_status")
 	private Integer status; //ステータス
 	
 	//デフォルトコンストラクタ
@@ -109,7 +120,7 @@ public class Student {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	public Student(String name, String number, String address, Date birth, String password, String email) {
+	public Student(String name, String number, String address, Date birth, String password, String email,Integer status) {
 	
 	}
 
