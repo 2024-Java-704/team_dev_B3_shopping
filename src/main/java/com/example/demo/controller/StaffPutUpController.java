@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ public class StaffPutUpController {
 
 	//出品申請詳細画面を表示する。
 	@GetMapping("/itemrequest/{id}/detail")
+
 	public String putUpDetail(
 			@PathVariable("id") Integer id,
 			Model model) {
@@ -23,6 +25,7 @@ public class StaffPutUpController {
 
 	//出品申請確認画面を表示する。
 	@PostMapping("/itemrequest/{id}/approval")
+
 	public String putUpConfirm(
 			@PathVariable("id") Integer id,
 			Model model) {
