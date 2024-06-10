@@ -29,6 +29,17 @@ public class AccountAndCart {
 		
 	}
 	
+	//カートに追加する
+	public void add(CartItems cartitems) {
+		for(CartItems cartitem : cartItems) {
+			if(cartitems.getId()==cartitem.getId()) {//リストにデータがある場合
+				return;
+				}
+		}
+		//リストに該当するIDが存在しない場合追加
+		cartItems.add(cartitems);
+		
+	}
 	
 	//ゲッター　セッター
 
@@ -55,5 +66,6 @@ public class AccountAndCart {
 	public void setCartItems(List<CartItems> cartItems) {
 		this.cartItems = cartItems;
 	}
+	
 	
 }
