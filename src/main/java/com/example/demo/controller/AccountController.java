@@ -97,17 +97,11 @@ public class AccountController {
 			@RequestParam("password") String password,
 			@RequestParam("email") String email,
 			Model model) {
-		model.addAttribute("name", name);
-		model.addAttribute("number", number);
-		model.addAttribute("address", address);
-		model.addAttribute("birth", birth);
-		model.addAttribute("password", password);
-		model.addAttribute("email", email);
 
-		Student student = new Student(name, number, address, birth, password, email);
+		Student student = new Student(name, number, address, birth, password, email, 1);
 		studentRepository.save(student);
 
-		return "redirect:/login";
+		return "login";
 	}
 
 	//ログイン画面の表示
@@ -166,4 +160,6 @@ public class AccountController {
 
 		return "redirect:/items";
 	}
+	
+
 }
