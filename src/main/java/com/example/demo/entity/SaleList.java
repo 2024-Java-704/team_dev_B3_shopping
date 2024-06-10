@@ -107,6 +107,7 @@ public class SaleList {
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
+
 	
 	
 }

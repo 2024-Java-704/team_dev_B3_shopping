@@ -9,29 +9,37 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class AccountAndCart {
 	private Integer id; //主キー
-	
+
 	private String name; //名前
 	
-	List<CartItems> cartItems;
-	
+	List<CartItems> cartItems;//カートリスト
 	
 	//デフォルトコンストラクタ
-	public AccountAndCart(){
+	public AccountAndCart() {
 	}
-	
+
 	public AccountAndCart(Integer id, String name) {
-		this.id=id;
-		this.name=name;
+		this.id = id;
+		this.name = name;
+	}
+
+	public AccountAndCart(List<CartItems> cartItems) {
+
 	}
 	
-	
-	public AccountAndCart(List<CartItems> cartItems) {
+	//カートに追加する
+	public void add(CartItems cartitems) {
+		for(CartItems cartitem : cartItems) {
+			if(cartitems.getId()==cartitem.getId()) {//リストにデータがある場合
+				return;
+				}
+		}
+		//リストに該当するIDが存在しない場合追加
+		cartItems.add(cartitems);
 		
 	}
 	
-	
 	//ゲッター　セッター
-
 	public Integer getId() {
 		return id;
 	}
@@ -55,5 +63,4 @@ public class AccountAndCart {
 	public void setCartItems(List<CartItems> cartItems) {
 		this.cartItems = cartItems;
 	}
-	
 }
