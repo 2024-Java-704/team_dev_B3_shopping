@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.Bookmark;
-import com.example.demo.entity.SaleList;
 import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BookmarkRepository;
 import com.example.demo.repository.SaleListRepository;
@@ -32,7 +31,7 @@ public class PageViewController {
 	//商品一覧画面表示
 	@GetMapping("/items")
 	public String index(Model model) {
-		List<SaleList> books = saleListRepository.findAll();
+		List<Bookinfo> books = bookinfoRepository.findAll();
 		model.addAttribute("books", books);
 		return "index";
 	}
