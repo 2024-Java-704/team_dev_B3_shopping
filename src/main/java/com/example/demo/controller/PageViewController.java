@@ -1,22 +1,38 @@
 package com.example.demo.controller;
 
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.demo.entity.Bookinfo;
+import com.example.demo.repository.BookinfoRepository;
 
 @Controller
 public class PageViewController {
 	
+	@Autowired
+	BookinfoRepository bookinfoRepository;
+	
 	//商品一覧画面表示
 	@GetMapping("/items")
-	public String index() {
+	public String index(Model model) {
+		List<Bookinfo> books = bookinfoRepository.findAll();
+		model.addAttribute("books", books);
 		return "index";
 	}
 	
 	//商品詳細画面表示
-	@GetMapping("/items/{id}")
-	public String detail(@PathVariable("id") String id) {
+	@GetMapping("/items/detail")
+	public String detail(@RequestParam("id") Integer id, Model model) {
+		Bookinfo book = bookinfoRepository.findById(id).get();
+		model.addAttribute("book", book);
 		return "detail";
 	}
 	
@@ -33,8 +49,8 @@ public class PageViewController {
 	}
 	
 	//マイページ画面表示
-	@GetMapping("/mypage/{id}")
-	public String mypage(@PathVariable("id") String id) {
+	@GetMapping("/mypage")
+	public String mypage() {
 		return "mypage";
 	}
 
