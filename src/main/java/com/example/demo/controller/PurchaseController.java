@@ -52,6 +52,7 @@ public class PurchaseController {
 
 	@GetMapping("/purchase/order")
 	public String purchaseAccess(Model model) {
+		
 		return "perchaseCheck";
 	}
 //	↑購入画面の表示
