@@ -16,9 +16,6 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PurchaseController {
-	
-		@Autowired
-		HttpSession session;
 
 	@Autowired
 	HttpSession session;
