@@ -11,9 +11,9 @@ public class AccountAndCart {
 	private Integer id; //主キー
 
 	private String name; //名前
-
-	List<CartItems> cartItems;
-
+	
+	List<CartItems> cartItems;//カートリスト
+	
 	//デフォルトコンストラクタ
 	public AccountAndCart() {
 	}

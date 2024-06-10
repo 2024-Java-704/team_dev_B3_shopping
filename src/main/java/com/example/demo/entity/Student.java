@@ -109,6 +109,8 @@ public class Student {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	public Student(String name, String number, String address, Date birth, String password, String email) {
 	
+	}
 
 }
