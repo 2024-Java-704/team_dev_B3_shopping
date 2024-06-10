@@ -15,9 +15,8 @@
 			<th>価格</th>
 		</tr>
 		<tr th:each="soldList:${sales}">
-			<td th:text="${soldList.}"
-<!--			<td th:text="${soldList.title}"></td>-->
-<!--			<td th:text="${soldList.price}">円</td>-->
+			<td th:text="${soldList.title}"></td>
+			<td th:text="${soldList.price}">円</td>
 		</tr>
 	</table>
 </body>
