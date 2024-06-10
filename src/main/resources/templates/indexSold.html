@@ -15,8 +15,9 @@
 			<th>価格</th>
 		</tr>
 		<tr th:each="soldList:${sales}">
-<!--			@{/sold/{saleListId}/details(saleListId=${soldList.id})}"-->
-			<td th:text="${soldList.title}"></td>
+			<td>
+				<a th:href="@{/sold/{saleListId}/details(saleListId=${soldList.id})}"><th:block th:text="${soldList.title}"></th:block></a>
+			</td>
 			<td th:text="${soldList.price}">円</td>
 		</tr>
 	</table>
