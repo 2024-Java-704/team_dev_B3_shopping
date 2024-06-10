@@ -40,8 +40,8 @@ public class PurchaseController {
 	public String cartAdd(@RequestParam("bookinfoId") Integer bookinfoId) {
 
 		Bookinfo bookinfo = bookinfoRepository.findById(bookinfoId).get();
-		String name = bookinfo.getTitle();
-		CartItems cartItems = new CartItems(bookinfoId, name);
+//		String name = bookinfo.getTitle();
+		CartItems cartItems = new CartItems(bookinfo.getId(), bookinfo.getTitle());
 		accountAndCart.add(cartItems);
 		return "cart";
 	}

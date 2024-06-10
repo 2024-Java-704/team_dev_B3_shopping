@@ -33,7 +33,7 @@ public class AccountAndCart {
 		for(CartItems cartitem : cartItems) {
 			if(cartitems.getId()==cartitem.getId()) {//リストにデータがある場合
 				return;
-				}
+			}
 		}
 		//リストに該当するIDが存在しない場合追加
 		cartItems.add(cartitems);
@@ -61,7 +61,7 @@ public class AccountAndCart {
 		return cartItems;
 	}
 
-	public void setCartItems(List<CartItems> cartItems) {
-		this.cartItems = cartItems;
-	}
+//	public void setCartItems(List<CartItems> cartItems) {
+//		this.cartItems = cartItems;
+//	}
 }

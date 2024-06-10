@@ -106,7 +106,7 @@ public class AccountController {
 	}
 
 	//ログイン画面の表示
-	@GetMapping({ "/login", "/logout" })
+	@GetMapping({ "/","/login", "/logout" })
 	public String index() {
 		session.invalidate();
 		return "login";
