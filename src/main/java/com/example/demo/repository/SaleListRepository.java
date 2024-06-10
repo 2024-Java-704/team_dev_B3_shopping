@@ -8,7 +8,8 @@ import com.example.demo.entity.SaleList;
 
 public interface SaleListRepository extends JpaRepository<SaleList, Integer>{
 
-	List<SaleList> findByStudentIdIs(Integer studentId);
+	List<SaleList> findByStudentIdIsNot(Integer studentId);
 	
 	List<SaleList> findByItemStatusIs(Integer itemStatus);
+	
 }

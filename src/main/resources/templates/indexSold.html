@@ -9,16 +9,22 @@
 <body>
 	<h1>商品一覧</h1>
 	
-	<table>
+	<table border="2">
 		<tr>
 			<th>商品名</th>
 			<th>価格</th>
 		</tr>
 		<tr th:each="soldList:${sales}">
-			<td th:text="${soldList.title}"></td>
+			<td>
+				<a th:href="@{/sold/{saleListId}/details(saleListId=${soldList.id})}"><th:block th:text="${soldList.title}"></th:block></a>
+			</td>
 			<td th:text="${soldList.price}">円</td>
 		</tr>
 	</table>
+	
+	<form action="/request" method="get">
+		<button>売上受け取り申請</button>
+	</form>
 </body>
 
 </html>
