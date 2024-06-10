@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="/request" method="post">
+	<table border="2">
+		<tr>
+			<th>商品名</th>
+			<th>価格</th>
+		</tr>
+		<tr th:each="soldList:${sales}">
+			<td>
+				<input type="radio" name="wantsPrice" th:value="${soldList.price}">
+				<input type="hidden" name="wantsId" th:value="${soldList.id}">
+				<th:block th:text="${soldList.title}"></th:block>
+			</td>
+			<td th:text="${soldList.price}">円</td>
+		</tr>
+	</table>
+	<button>申請確認</button>
+	</form>
+</body>
+</html>
