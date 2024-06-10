@@ -9,12 +9,13 @@
 <body>
 	<h1>商品一覧</h1>
 	
-	<table>
+	<table border="2">
 		<tr>
 			<th>商品名</th>
 			<th>価格</th>
 		</tr>
 		<tr th:each="soldList:${sales}">
+<!--			@{/sold/{saleListId}/details(saleListId=${soldList.id})}"-->
 			<td th:text="${soldList.title}"></td>
 			<td th:text="${soldList.price}">円</td>
 		</tr>
