@@ -52,6 +52,7 @@ public class AccountController {
 			Model model) {
 		List<String> errorList = new ArrayList<>();
 		List<Student> userList = studentRepository.findByNumber(number);
+		List<Student> emailList = studentRepository.findByEmail(email);
 		model.addAttribute("name", name);
 		model.addAttribute("number", number);
 		model.addAttribute("address", address);
@@ -61,9 +62,14 @@ public class AccountController {
 
 		//エラーチェック
 		if (userList != null && userList.size() > 0) {
-			errorList.add("	既に登録されている学籍番号です");
+			errorList.add("既に登録されている学籍番号です");
 		}
-		if (name.length() == 0) {
+
+		if (emailList != null && emailList.size() > 0) {
+			errorList.add("既に登録されているメールアドレスです");
+		}
+
+		if (email.length() == 0) {
 			errorList.add("名前を入力してください");
 		}
 
@@ -110,7 +116,6 @@ public class AccountController {
 
 		Student student = new Student(name, number, address, birth, password, email, 1);
 		studentRepository.save(student);
-		System.out.println(student);
 
 		return "adduserconfirmcomplete";
 	}
@@ -150,10 +155,8 @@ public class AccountController {
 		List<Student> emailStudent = studentRepository.findByEmailAndPass(email, password);
 		List<Student> numberStudent = studentRepository.findByNumberAndPass(number, password);
 
-		
 		if (numberStudent.isEmpty() && emailStudent.isEmpty()) {
 
-			
 			// DBに存在しなかった場合
 			model.addAttribute("message", "メールアドレス又は学籍番号とパスワードが一致しませんでした");
 			return "login";
@@ -179,7 +182,7 @@ public class AccountController {
 	@GetMapping({ "/staff", "/logout" })
 	public String staffAccess() {
 		session.invalidate();
-		return "teacherlogin";
+		return "stafflogin";
 	}
 
 	//ログイン処理
@@ -204,7 +207,7 @@ public class AccountController {
 
 		if (errorList.size() > 0) {
 			model.addAttribute("errorList", errorList);
-			return "teacherlogin";
+			return "stafflogin";
 		}
 
 		List<Staff> emailStaff = staffRepository.findByStaffEmailAndStaffPass(email, pass);
@@ -214,7 +217,7 @@ public class AccountController {
 
 			// DBに存在しなかった場合
 			model.addAttribute("message", "メールアドレス又は職員番号とパスワードが一致しませんでした");
-			return "teacherlogin";
+			return "stafflogin";
 		}
 
 		//セッションにIDと名前を登録
@@ -243,15 +246,15 @@ public class AccountController {
 	//ログイン処理
 	@PostMapping("/admin")
 	public String adminLogin(
-			@RequestParam("adminId") Integer id,
+			@RequestParam("adminName") String name,
 			@RequestParam("adminPass") String pass,
 			Model model) {
 
 		List<String> errorList = new ArrayList<>();
 
 		//エラーチェック
-		if (id == null) {
-			errorList.add("IDを入力してください");
+		if (name == null) {
+			errorList.add("名前を入力してください");
 		}
 
 		if (pass.length() == 0) {
@@ -264,12 +267,12 @@ public class AccountController {
 			return "adminlogin";
 		}
 
-		List<Admin> idAdmin = adminRepository.findByIdAndAdminPass(id, pass);
+		List<Admin> idAdmin = adminRepository.findByAdminNameAndAdminPass(name, pass);
 
 		if (idAdmin.size() == 0) {
 
 			// DBに存在しなかった場合
-			model.addAttribute("message", "IDとパスワードが一致しませんでした");
+			model.addAttribute("message", "名前とパスワードが一致しませんでした");
 			return "adminlogin";
 		}
 
@@ -282,4 +285,28 @@ public class AccountController {
 
 		return "redirect:/items";
 	}
+
+	//退会確認画面の表示
+	@GetMapping("/user/delete")
+	public String studentDelete() {
+		return "userdelete";
+	}
+
+	//退会処理
+	@PostMapping("/user/delete")
+	public String studentDeleteSuccess() {
+		Integer accountId = accountandcart.getId();
+		Student student = studentRepository.findById(accountId).get();
+		student.setStatus(4);
+		studentRepository.save(student);
+
+		return "redirect:/login";
+	}
+
+	//ログアウト処理
+	@GetMapping("/logout")
+	public String userLogout() {
+		return "redirect:/login";
+	}
+
 }

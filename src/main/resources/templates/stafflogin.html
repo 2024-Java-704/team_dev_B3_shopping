@@ -7,15 +7,15 @@
 </head>
 
 <body>
-	<h1>ログイン画面</h1>
+	<h1>職員ログイン画面</h1>
 	<span th:text="${errorList}" style="color: rgb(255, 0, 0)"></span><br>
 	<p th:text="${message}" style="color: rgb(255, 0, 0)"></p>
 	<form action="/staff" method="post">
 		<p>メールアドレス又は職員番号</p>
-		<input type="text" name="staffEmail" placeholder="メールアドレス"><br>
+		<input type="email" name="staffEmail" placeholder="メールアドレス"><br>
 		<input type="text" name="staffNumber" placeholder="職員番号"><br>
 		<p>パスワード</p>
-		<input type="text" name="staffPass" placeholder="入力欄"><br>
+		<input type="password" name="staffPass" placeholder="パスワード"　required><br>
 
 		<button>ログイン</button>
 	</form>

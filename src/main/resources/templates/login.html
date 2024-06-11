@@ -10,10 +10,10 @@
 <p th:text="${message}" style="color: rgb(255, 0, 0)"></p>
 <form action="/login" method="post">
 <p >メールアドレス又は学籍番号</p>
-<input type="text" name="email" placeholder="メールアドレス"><br>
-<input type="text" name="number" placeholder="学籍番号"><br>
+<input type="email" name="email" placeholder="メールアドレス" ><br>
+<input type="text" name="number" placeholder="学籍番号" ><br>
 <p>パスワード</p>
-<input type="text" name="password" placeholder="入力欄"><br>
+<input type="password" name="password" placeholder="パスワード" required><br>
 
 <a href="/new/users">会員登録申請</a>
 <br>
