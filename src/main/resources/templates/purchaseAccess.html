@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>購入確認</title>
+</head>
+
+<body>
+	<form action="/book" method="get">
+	<table border="1">
+		<tr>
+			<th>受け取り方法</th>
+			<td><input type="radio" name= "recieve" value="1">郵便</td>
+			<td><input type="radio" name= "recieve" value="2">窓口受け取り</td>
+		</tr>
+		<tr>
+			<th>名前</th>
+			<td><input type="text" name="name"></td>
+		</tr>
+		<tr>
+			<th>住所</th>
+			<td><input type="text" name="address"></td>
+		</tr>
+		<tr>
+			<th>電話番号</th>
+			<td><input type="text" name="telephone"></td>
+		</tr>
+		<tr>
+			<th>支払い方法</th>
+			<td><input type="radio" name ="payment" value="1">クレジット</td>
+			<td><input type="radio" name ="payment" value="2">窓口支払い</td>
+		</tr>
+	</table>
+	
+	<button>確認</button>
+	</form>
+</body>
+
+</html>

@@ -8,45 +8,44 @@
 
 <body>
 	<h1>購入確認</h1>
-カート内アイテム一覧
-<table border="1">
-	<tr>
-		<th>本の名前</th>
-		</tr>
-		<tr>
-			<th>値段</th>
-			</tr>
-</table>
-
-
+	カート内アイテム一覧
 	<table border="1">
 		<tr>
-			<th>受け取り方法</th>
-			<td input type="radio" name="q1" value="郵便">郵便</td>
-			<td input type="radio" name="q2" value="窓口受け取り">窓口受け取り</td>
+			<th>本の名前</th>
+			<th>値段</th>
 		</tr>
-		<tr>
-			<th>名前</th>
-			<td imput type="text" name="name"></td>
+		<tr th:each="book:${@accountAndCart.cartItems}">
+			<td th:text="${book.title}"></td>
+			<td th:text="${book.price}"></td>
 		</tr>
-		<tr>
-			<th>住所</th>
-			<td imput type="text" name="address"></td>
-		</tr>
-		<tr>
-			<th>電話番号</th>
-			<td imput type="text" name="telephone"></td>
-		</tr>
-		<tr>
-			<th>支払い方法</th>
-			<td input type="radio" name="q1" value="カード">クレジットカード</td>
-			<td input type="radio" name="q2" value="窓口支払い">窓口支払い</td>
-		</tr>
-	
-
 	</table>
-	<button>確認</button>
 
+	<form action="/book/complete" method="post">
+		<table border="1">
+			<tr>
+				<th>受け取り方法</th>
+				<td th:text=${recieve}></td>
+
+			</tr>
+			<tr>
+				<th>名前</th>
+				<td th:text=${name}></td>
+			</tr>
+			<tr>
+				<th>住所</th>
+				<td th:text=${address}></td>
+			</tr>
+			<tr>
+				<th>電話番号</th>
+				<td th:text=${telephone}></td>
+			</tr>
+			<tr>
+				<th>支払い方法</th>
+				<td th:text=${payment}></td>
+			</tr>
+		</table>
+		<button>注文確定</button>
+	</form>
 </body>
 
 </html>
