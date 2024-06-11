@@ -67,7 +67,7 @@ isbn VARCHAR(255) NOT NULL UNIQUE,
 grade INTEGER NOT NULL,
 lecture VARCHAR(255) NOT NULL,
 condition VARCHAR(255) NOT NULL,
-price INTEGER NOT NULL,
+price INTEGER,
 
 PRIMARY KEY(id),
 FOREIGN KEY (category_id) REFERENCES categories(id)
