@@ -148,7 +148,7 @@ public class Student {
 
 	public Student(Integer status) {
 		this.status = status;
-	
+	}
 	public Date getBanDay() {
 		return banDay;
 	}
