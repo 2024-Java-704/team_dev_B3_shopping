@@ -104,32 +104,30 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 		
 		//Nullチェックをしないとエラーが出るので後ほど記述
 		
-		Staff uniqueCheck = staffRepository.findById(id).get();
-		Staff unique = staffRepository.findById(id).get();
-		
-		//メールアドレスと職員番号どちらも変わっていない場合
-		if(uniqueCheck.getStaffEmail().equals(email) && uniqueCheck.getStaffNumber().equals(number)) {
-			
-			Staff staff = new Staff(id, name, unique.getStaffEmail(), pass, unique.getStaffNumber());
-			staffRepository.save(staff);
-		}
-		//メールアドレスが変わっていない場合
-		if(uniqueCheck.getStaffEmail().equals(email)) {
-			Staff staff = new Staff(id, name, unique.getStaffEmail(), pass, number);
-			staffRepository.save(staff);
-			
-//			これは動かない
-//			staff.setStaffEmail(email);
-//			Staff staff = new Staff(id, name, pass, number);
-			
-		}
-		//職員番号が変わっていない場合
-		if(uniqueCheck.getStaffNumber().equals(number)) {
-			Staff staff = new Staff(id, name, email, pass, unique.getStaffNumber());
-			
-			staffRepository.save(staff);
-		}
-		
+		//動きはするけど無駄コード
+//		Staff uniqueCheck = staffRepository.findById(id).get();
+//		Staff unique = staffRepository.findById(id).get();
+//		
+//		//メールアドレスと職員番号どちらも変わっていない場合
+//		if(uniqueCheck.getStaffEmail().equals(email) && uniqueCheck.getStaffNumber().equals(number)) {
+//			
+//			Staff staff = new Staff(id, name, unique.getStaffEmail(), pass, unique.getStaffNumber());
+//			staffRepository.save(staff);
+//		}
+//		//メールアドレスが変わっていない場合
+//		if(uniqueCheck.getStaffEmail().equals(email)) {
+//			Staff staff = new Staff(id, name, unique.getStaffEmail(), pass, number);
+//			staffRepository.save(staff);
+//			
+//			
+//		}
+//		//職員番号が変わっていない場合
+//		if(uniqueCheck.getStaffNumber().equals(number)) {
+//			Staff staff = new Staff(id, name, email, pass, unique.getStaffNumber());
+//			
+//			staffRepository.save(staff);
+//		}
+//		
 		Staff staff = new Staff(id, name, email, pass, number);
 		staffRepository.save(staff);
 		return "redirect:/staffList";
