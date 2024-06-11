@@ -39,7 +39,7 @@ public class Bookinfo {
 	}
 
 	public Bookinfo(String title, String publisher, String isbn, String condition, Integer grade, String lecture,
-			String author, String category_name) {
+			String author, Integer categoryId) {
 		this.title = title;
 		this.publisher = publisher;
 		this.isbn = isbn;
