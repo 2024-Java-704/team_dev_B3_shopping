@@ -32,10 +32,10 @@ public class ProceedsController {
 	@GetMapping("/sold")
 	public String proceedsAccess(Model model) {
 		
-		if(AccountAndCart.getId() == null) {
-			System.out.println("ログインしてないよ");
-			return "needLogin";
-		}
+//		if(AccountAndCart.getId() == null) {
+//			System.out.println("ログインしてないよ");
+//			return "needLogin";
+//		}
 		
 		List<SaleList> sales = saleListRepository.findByItemStatusIs(2);
 			sales.removeAll(saleListRepository.findByStudentIdIsNot(AccountAndCart.getId()));
