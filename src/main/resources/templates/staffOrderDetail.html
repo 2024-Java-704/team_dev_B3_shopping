@@ -12,61 +12,61 @@
 	<table>
 		<tr>
 			<th>タイトル</th>
-			<td th:text="${saleList.title}"></td>
+			<td th:text="${bookinfo.title}"></td>
 		</tr>
 		<tr>
 			<th>著者</th>
-			<td th:text="${saleList.author}"></td>
+			<td th:text="${bookinfo.author}"></td>
 		</tr>
 		<tr>
 			<th>出版社</th>
-			<td th:text="${saleList.publisher}"></td>
+			<td th:text="${bookinfo.publisher}"></td>
 		</tr>
 		<tr>
 			<th>ISBN</th>
-			<td th:text="${saleList.ISBN}"></td>
+			<td th:text="${bookinfo.isbn}"></td>
 		</tr>
 		<tr>
 			<th>使用した学年</th>
-			<td th:text="${saleList.grade}"></td>
+			<td th:text="${bookinfo.grade}"></td>
 		</tr>
 		<tr>
 			<th>使用した講義</th>
-			<td th:text="${saleList.lecture}"></td>
+			<td th:text="${bookinfo.lecture}"></td>
 		</tr>
 		<tr>
 			<th>状態</th>
-			<td th:text="${saleList.condition}"></td>
+			<td th:text="${bookinfo.condition}"></td>
 		</tr>
 		<th>金額</th>
-		<td th:text="${saleList.price}"></td>
+		<td th:text="${bookinfo.price}"></td>
 		<tr>
 			<th>受渡方法</th>
-			<td th:text="${boughtDetail.accept"></td>
+			<td th:text="${bought.accept}"></td>
 		</tr>
 		<tr>
 			<th>受取ステータス</th>
-			<td th:text="${boughtDetail.delivery}"></td>
+			<td th:text="${bought.delivery}"></td>
 		</tr>
 	</table>
 
-	<th:block th:if="${boughtDetail.accept eq 2}">
-		<form th:action="purchased/change" method="post">
-			<input type="hidden" th:value="${boughtDetail.id}" name="id">
+	<th:block th:if="${bought.accept eq 2}">
+		<form action="/purchased/change" method="post">
+			<input type="hidden" th:value="${bought.id}" name="id">
 			<input type="hidden" value="prepareHand" name="status">
 			<button>受渡準備完了</button>
 		</form>
 
-		<form th:action="purchased/change" method="post">
-			<input type="hidden" th:value="${boughtDetail.id}" name="id">
+		<form action="/purchased/change" method="post">
+			<input type="hidden" th:value="${bought.id}" name="id">
 			<input type="hidden" value="completeHand" name="status">
 			<button>受渡完了</button>
 		</form>
 	</th:block>
 
-	<th:block th:if="${boughtDetail.accept eq 1}">
-		<form th:action="purchased/change" method="post">
-			<input type="hidden" th:value="${boughtDetail.id}" name="id">
+	<th:block th:if="${bought.accept eq 1}">
+		<form action="/purchased/change" method="post">
+			<input type="hidden" th:value="${bought.id}" name="id">
 			<input type="hidden" value="completeDelivery" name="status">
 			<button>発送完了</button>
 		</form>

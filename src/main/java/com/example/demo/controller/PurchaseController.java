@@ -47,12 +47,12 @@ public class PurchaseController {
 	}
 
 	//　指定した商品をカートから削除
-	@PostMapping()
-	public String cartDelete(@RequestParam("bookinfoId") Integer bookinfoId) {
-//		CartItems cartItems = bookinfoRepository.findById(bookinfoId).get();
-//		cartItems.delete(bookinfoId);
-		return "redirect:/cart";
-	}
+//	@PostMapping()
+//	public String cartDelete(@RequestParam("bookinfoId") Integer bookinfoId) {
+////		CartItems cartItems = bookinfoRepository.findById(bookinfoId).get();
+////		cartItems.delete(bookinfoId);
+//		return "redirect:/cart";
+//	}
 
 
 	@GetMapping("/purchase/order")

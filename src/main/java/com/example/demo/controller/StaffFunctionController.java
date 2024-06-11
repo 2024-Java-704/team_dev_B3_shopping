@@ -4,18 +4,21 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.BoughtHistory;
 import com.example.demo.entity.SaleList;
+import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BoughtHistoryRepository;
 import com.example.demo.repository.SaleListRepository;
 import com.example.demo.repository.StudentRepository;
 
+@Controller
 public class StaffFunctionController {
 	
 	@Autowired
@@ -26,6 +29,9 @@ public class StaffFunctionController {
 	
 	@Autowired
 	StudentRepository studentRepository;
+	
+	@Autowired
+	BookinfoRepository bookinfoRepository;
 
 	//職員マイページの表示。
 	@GetMapping("/staffpage")
@@ -36,19 +42,29 @@ public class StaffFunctionController {
 	//注文書籍一覧画面の表示。
 	@GetMapping("/purchased")
 	public String order(Model model) {
-		List<BoughtHistory> boughtHistory = boughtHistoryRepository.findAll();
-		model.addAttribute("boughtHistory", boughtHistory);
+		List<SaleList> saleList = saleListRepository.findByItemStatus(2);
+		for (SaleList sale : saleList) {
+			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+			sale.setTitle(bookinfo.getTitle());
+			
+			BoughtHistory boughtHisory = boughtHistoryRepository.findById(sale.getId()).get();
+			sale.setAccept(boughtHisory.getAccept());
+			sale.setDelivery(boughtHisory.getDelivery());
+		}
+		model.addAttribute("saleList", saleList);
 		return "staffOrder";
 	}
 	
 	//注文書籍詳細画面の表示。
-	@GetMapping("/purchased/{id}/detail")
-	public String orderDetail(@PathVariable("id") Integer id, Model model) {
-		BoughtHistory boughtDetail = boughtHistoryRepository.findById(id).get();
-		model.addAttribute("boughtDetail", boughtDetail);
+	@GetMapping("/purchased/detail")
+	public String orderDetail(@RequestParam("id") Integer id, Model model) {
+		SaleList sale = saleListRepository.findById(id).get();
+		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+		model.addAttribute("bookinfo", bookinfo);
 		
-		SaleList saleList = saleListRepository.findById(boughtDetail.getSalelistId()).get();
-		model.addAttribute("saleList", saleList);
+		List<BoughtHistory> boughtHistory = boughtHistoryRepository.findBySalelistId(sale.getId());
+		BoughtHistory bought = boughtHistory.get(0);
+		model.addAttribute("bought", bought);
 		return "staffOrderDetail";
 	}
 	

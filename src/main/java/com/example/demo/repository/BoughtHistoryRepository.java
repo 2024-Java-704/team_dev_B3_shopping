@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entity.BoughtHistory;
 public interface BoughtHistoryRepository extends JpaRepository<BoughtHistory, Integer>{
 	List<BoughtHistory> findByDelivery(Integer delivery);
+	List<BoughtHistory> findBySalelistId(Integer salelistId);
 
 }
