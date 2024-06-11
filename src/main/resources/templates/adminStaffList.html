@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<table border="2">
+		<tr>
+			<th>職員番号</th>
+			<th>職員名</th>
+		</tr>
+		<tr th:each="staffList:${staffList}">
+			<td th:text="${staffList.staffNumber}"></td>
+			<td>
+				<a th:href="@{/staffList/{staffListId}/detail(staffListId=${staffList.id})}"><th:block th:text="${staffList.staffName}"></th:block></a>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

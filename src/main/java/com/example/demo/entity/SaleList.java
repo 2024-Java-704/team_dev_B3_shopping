@@ -42,6 +42,12 @@ public class SaleList {
 	@Transient
 	private Integer price;
 
+	@Transient
+	private Integer accept;
+
+	@Transient
+	private Integer delivery;
+
 	//デフォルトコンストラクタ
 	public SaleList() {
 
@@ -109,6 +115,22 @@ public class SaleList {
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	public Integer getAccept() {
+		return accept;
+	}
+
+	public void setAccept(Integer accept) {
+		this.accept = accept;
+	}
+
+	public Integer getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Integer delivery) {
+		this.delivery = delivery;
 	}
 
 }

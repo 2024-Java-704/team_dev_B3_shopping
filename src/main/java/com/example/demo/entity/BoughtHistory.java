@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 public class BoughtHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	@Column(name = "student_id")
 	private Integer studentId;
 	@Column(name = "salelist_id")
@@ -26,10 +27,18 @@ public class BoughtHistory {
 	public BoughtHistory() {
 
 	}
+
 	public BoughtHistory(Integer payment, Integer accept) {
-		this.payment =payment;
+		this.payment = payment;
 		this.accept = accept;
-		
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getStudentId() {

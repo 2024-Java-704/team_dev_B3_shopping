@@ -23,6 +23,11 @@ public class Bookmark {
 	public Bookmark() {
 
 	}
+	
+	public Bookmark(Integer studentId, Integer salelistId) {
+		this.studentId = studentId;
+		this.salelistId = salelistId;
+	}
 
 	public Integer getId() {
 		return id;

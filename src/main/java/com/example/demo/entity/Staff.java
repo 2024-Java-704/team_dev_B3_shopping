@@ -29,6 +29,21 @@ public class Staff {
 	//デフォルトコンストラクタ
 	public Staff() {
 	}
+	
+	public Staff(String name, String email, String pass, String number) {
+		staffName = name;
+		staffEmail = email;
+		staffPass = pass;
+		staffNumber = number;
+	}
+	
+	public Staff(Integer id, String name, String email, String pass, String number) {
+		this.id = id;
+		staffName = name;
+		staffEmail = email;
+		staffPass = pass;
+		staffNumber = number;
+	}
 
 	//ゲッター　セッター
 	public Integer getId() {

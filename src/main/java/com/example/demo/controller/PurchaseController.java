@@ -42,7 +42,7 @@ public class PurchaseController {
 
 	@Autowired
 	AccountAndCart accountAndCart;
-	
+
 	@Autowired
 	BoughtCertificate boughtCertificate;
 
@@ -51,9 +51,10 @@ public class PurchaseController {
 
 	@Autowired
 	BoughtHistoryRepository boughtHistoryRepository;
-	
+
 	@Autowired
 	BoughtCertificateRepository boughtCertificateRepository;
+
 	//カートを表示する
 	@GetMapping("/cart")
 	public String cartAccess(Model nodel) {
@@ -79,12 +80,20 @@ public class PurchaseController {
 	}
 
 	//　指定した商品をカートから削除
+
 	@PostMapping()
 	public String cartDelete(@RequestParam("bookinfoId") Integer bookinfoId) {
 		//		CartItems cartItems = bookinfoRepository.findById(bookinfoId).get();
 		//		cartItems.delete(bookinfoId);
 		return "redirect:/cart";
 	}
+
+	//	@PostMapping()
+	//	public String cartDelete(@RequestParam("bookinfoId") Integer bookinfoId) {
+	////		CartItems cartItems = bookinfoRepository.findById(bookinfoId).get();
+	////		cartItems.delete(bookinfoId);
+	//		return "redirect:/cart";
+	//	}
 
 	@GetMapping("/purchase/order")
 	public String purchaseAccess(Model model) {
@@ -114,7 +123,7 @@ public class PurchaseController {
 		} else {
 			paymentString = "窓口支払い";
 		}
-		
+
 		boughtHistory = new BoughtHistory(payment, recieve);
 
 		model.addAttribute("name", name);
@@ -130,18 +139,17 @@ public class PurchaseController {
 
 	@PostMapping("/book/complete")
 	private String purchaseComplete(Model model) {
-		for(CartItems cartItems:accountAndCart.getCartItems()) {
+		for (CartItems cartItems : accountAndCart.getCartItems()) {
 			boughtHistory.setStudentId(accountAndCart.getId());
 			boughtHistory.setSalelistId(cartItems.getId());
 			boughtHistoryRepository.save(boughtHistory);
 		}
 		boughtCertificate = new BoughtCertificate(boughtHistory.getSalelistId(), LocalDateTime.now());
 		boughtCertificateRepository.save(boughtCertificate);
-		
-		String number=accountAndCart.getId().toString()+"0001";
-		model.addAttribute("number",number);
 
-		
+		String number = accountAndCart.getId().toString() + "0001";
+		model.addAttribute("number", number);
+
 		return "purchaseComplete";
 
 	}
