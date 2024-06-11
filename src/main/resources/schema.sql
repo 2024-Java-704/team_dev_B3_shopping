@@ -20,7 +20,7 @@ student_email VARCHAR(255) NOT NULL UNIQUE,
 student_pass VARCHAR(255) NOT NULL,
 student_number VARCHAR(255) NOT NULL UNIQUE,
 bank_account VARCHAR(255),
-student_status INTEGER NOT NULL,
+student_status INTEGER NOT NULL, -- 1:仮登録 2:本登録 3:凍結
 ban_day TIMESTAMP,
 
 PRIMARY KEY (id)
@@ -115,11 +115,11 @@ FOREIGN KEY(salelist_id) REFERENCES sale_list(id)
 CREATE TABLE bought_history
 (
 id SERIAL,
-student_id INTEGER NOT NULL , 
+student_id INTEGER NOT NULL ,
 salelist_id INTEGER NOT NULL,
 payment INTEGER NOT NULL,
-accept INTEGER NOT NULL,
-delivery INTEGER,
+accept INTEGER NOT NULL, -- 1:郵送 2:窓口受取
+delivery INTEGER, -- 1:受渡準備完了 2:受渡完了 3:発送完了
 
 PRIMARY KEY (id),
 FOREIGN KEY(student_id) REFERENCES students(id), 

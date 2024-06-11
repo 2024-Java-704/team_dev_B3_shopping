@@ -1,7 +1,9 @@
-INSERT INTO students(student_name,birthday, address,student_email,student_pass,student_number,bank_account,student_status) 
+INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status) 
 VALUES('aaa','2000-01-01','東京','a@a','himitu','a0001','1234',1);
-INSERT INTO students(student_name,birthday, address,student_email,student_pass,student_number,bank_account,student_status,ban_day) 
-VALUES('bbb','2000-02-02','東京','b@b','himitu','b0001','1234',1,CURRENT_TIMESTAMP);
+INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status, ban_day) 
+VALUES('bbb','2000-02-02','東京','b@b','himitu','b0001','1234',3,CURRENT_TIMESTAMP);
+INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status) 
+VALUES('ccc','2000-03-03','東京','c@c','himitu','c0001','1234',2);
 
 INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('aaa','b@b','himitu','b0001');
 
