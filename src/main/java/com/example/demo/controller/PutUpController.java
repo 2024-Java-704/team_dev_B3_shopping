@@ -10,7 +10,7 @@ public class PutUpController {
 	//出品申請画面の表示
 	@GetMapping("/order")
 	public String putUpAccess() {
-		return "";
+		return "order";
 	}
 
 	//ユーザーが入力した情報で出品申請するかの確認画面を表示する。
@@ -19,26 +19,32 @@ public class PutUpController {
 			@RequestParam("title") String title,
 			@RequestParam("publisher") String publisher,
 			@RequestParam("isbn") String isbn,
+			@RequestParam("condition") String condition,
 			@RequestParam("grade") String grade,
 			@RequestParam("lecture") String lecture,
+			@RequestParam("author") String author,
+			@RequestParam("category_name") String category_name,
 			Model model) {
 		model.addAttribute("title", title);
 		model.addAttribute("publisher", publisher);
 		model.addAttribute("isbn", isbn);
 		model.addAttribute("grade", grade);
 		model.addAttribute("lecture", lecture);
-		return "";
+		model.addAttribute("condition", condition);
+		model.addAttribute("category_name", category_name);
+		model.addAttribute("author", author);
+		return "orderConfirm";
 	}
 
 	//申請処理を行い完了画面を表示する。
 	@PostMapping("/order/success")
 	public String putUpConfirmSuccess() {
-		return "";
+		return "orderSuccess";
 	}
 
 	//出品履歴画面を表示する。
 	@GetMapping("/order/history")
 	public String putUpHistory() {
-		return "";
+		return "orderHistory";
 	}
 }
