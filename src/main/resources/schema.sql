@@ -20,7 +20,7 @@ student_email VARCHAR(255) NOT NULL UNIQUE,
 student_pass VARCHAR(255) NOT NULL,
 student_number VARCHAR(255) NOT NULL UNIQUE,
 bank_account VARCHAR(255),
-student_status INTEGER NOT NULL,
+student_status INTEGER NOT NULL, -- 1:仮登録 2:本登録 3:凍結中 4:退会済 5:申請却下
 ban_day TIMESTAMP,
 
 PRIMARY KEY (id)

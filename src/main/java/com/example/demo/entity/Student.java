@@ -46,6 +46,28 @@ public class Student {
 	public Student() {
 	}
 	
+	public Student(String name, String number, String address, Date birth, String pass, String email,Integer status) {
+		this.name=name;
+		this.number=number;
+		this.address=address;
+		this.birth=birth;
+		this.pass=pass;
+		this.email=email;
+		this.status=status;
+	
+	}
+	
+	public Student(Integer id, String name, String number, String address, Date birth, String pass, String email,Integer status) {
+		this.id = id;
+		this.name=name;
+		this.number=number;
+		this.address=address;
+		this.birth=birth;
+		this.pass=pass;
+		this.email=email;
+		this.status=status;
+	
+	}
 	
 	
     //ゲッター セッター
@@ -120,15 +142,15 @@ public class Student {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	public Student(String name, String number, String address, Date birth, String pass, String email,Integer status) {
-		this.name=name;
-		this.number=number;
-		this.address=address;
-		this.birth=birth;
-		this.pass=pass;
-		this.email=email;
-		this.status=status;
 	
+	
+	public Date getBanDay() {
+		return banDay;
+	}
+
+
+	public void setBanDay(Date banDay) {
+		this.banDay = banDay;
 	}
 
 }

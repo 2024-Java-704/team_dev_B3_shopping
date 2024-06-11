@@ -103,6 +103,7 @@ public class ProceedsController {
 		//アイテムのステータスを3に
 		SaleList sales = saleListRepository.findById(id).get();
 		sales.setItemStatus(3);
+		saleListRepository.save(sales);
 		
 		model.addAttribute("orderPrice", wantsPrice);
 		return "paymentOrderComplete";

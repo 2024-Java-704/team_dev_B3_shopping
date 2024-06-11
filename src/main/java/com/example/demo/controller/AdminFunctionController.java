@@ -102,6 +102,8 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 			@RequestParam("number") String number,
 			Model model) {
 		
+		//Nullチェックをしないとエラーが出るので後ほど記述
+		
 		Staff uniqueCheck = staffRepository.findById(id).get();
 		Staff unique = staffRepository.findById(id).get();
 		
@@ -110,7 +112,6 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 			
 			Staff staff = new Staff(id, name, unique.getStaffEmail(), pass, unique.getStaffNumber());
 			staffRepository.save(staff);
-			return "redirect:/staffList";
 		}
 		//メールアドレスが変わっていない場合
 		if(uniqueCheck.getStaffEmail().equals(email)) {
@@ -121,14 +122,12 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 //			staff.setStaffEmail(email);
 //			Staff staff = new Staff(id, name, pass, number);
 			
-			return "redirect:/staffList";
 		}
 		//職員番号が変わっていない場合
 		if(uniqueCheck.getStaffNumber().equals(number)) {
 			Staff staff = new Staff(id, name, email, pass, unique.getStaffNumber());
 			
 			staffRepository.save(staff);
-			return "redirect:/staffList";
 		}
 		
 		Staff staff = new Staff(id, name, email, pass, number);
