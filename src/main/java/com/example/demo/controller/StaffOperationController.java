@@ -143,26 +143,29 @@ public class StaffOperationController {
 		//Nullチェックをしないとエラーが出るので後ほど記述
 		
 		Student uniqueCheck = studentRepository.findById(id).get();
-		
-		//メールアドレスと学籍番号どちらも変わっていない場合
-		if(uniqueCheck.getEmail().equals(email) && uniqueCheck.getNumber().equals(number)) {
-			
-			Student student = new Student(id, name, uniqueCheck.getNumber(), address, birth, pass, uniqueCheck.getEmail(), uniqueCheck.getStatus());
-			studentRepository.save(student);
-		}
-		//メールアドレスが変わっていない場合
-		if(uniqueCheck.getEmail().equals(email)) {
-			
-			Student student = new Student(id, name, number, address, birth, pass, uniqueCheck.getEmail(), uniqueCheck.getStatus());
-			studentRepository.save(student);
-		}
-		//学籍番号が変わっていない場合
-		if(uniqueCheck.getEmail().equals(email)) {
-			
-			Student student = new Student(id, name, uniqueCheck.getNumber(), address, birth, pass, email, uniqueCheck.getStatus());
-			studentRepository.save(student);
-		}
-		
+		//動きはするけど無駄コード
+//		
+//		//メールアドレスと学籍番号どちらも変わっていない場合
+//		if(uniqueCheck.getEmail().equals(email) && uniqueCheck.getNumber().equals(number)) {
+//			
+//			Student student = new Student(id, name, uniqueCheck.getNumber(), address, birth, pass, uniqueCheck.getEmail(), uniqueCheck.getStatus());
+//			studentRepository.save(student);
+//		}
+//		//メールアドレスが変わっていない場合
+//		if(uniqueCheck.getEmail().equals(email)) {
+//			
+//			Student student = new Student(id, name, number, address, birth, pass, uniqueCheck.getEmail(), uniqueCheck.getStatus());
+//			studentRepository.save(student);
+//		}
+//		//学籍番号が変わっていない場合
+//		if(uniqueCheck.getEmail().equals(email)) {
+//			
+//			Student student = new Student(id, name, uniqueCheck.getNumber(), address, birth, pass, email, uniqueCheck.getStatus());
+//			studentRepository.save(student);
+//		}
+//		
+		Student student = new Student(id, name, number, address, birth, pass, email, uniqueCheck.getStatus());
+		studentRepository.save(student);
 		return "redirect:/account";
 	}
 
