@@ -13,30 +13,41 @@ public class Bookinfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "category_id")
 	private Integer categoryId;
-	
+
 	private String title;
-	
+
 	private String author;
-	
+
 	private String publisher;
-	
+
 	private String isbn;
-	
+
 	private Integer grade;
-	
+
 	private String lecture;
-	
+
 	private String condition;
-	
+
 	private Integer price;
-	
+
 	//デフォルトコンストラクタ
 	public Bookinfo() {
-		
-	
+
+	}
+
+	public Bookinfo(String title, String publisher, String isbn, String condition, Integer grade, String lecture,
+			String author, String category_name) {
+		this.title = title;
+		this.publisher = publisher;
+		this.isbn = isbn;
+		this.condition = condition;
+		this.grade = grade;
+		this.lecture = lecture;
+		this.author = author;
+		this.categoryId = categoryId;
 	}
 
 	public Integer getId() {
@@ -78,7 +89,6 @@ public class Bookinfo {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-
 
 	public String getIsbn() {
 		return isbn;
