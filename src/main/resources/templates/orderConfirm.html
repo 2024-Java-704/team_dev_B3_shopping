@@ -11,7 +11,7 @@
 	<p th:text="'タイトル' + ${title}"></p>
 	<p th:text="'著者' + ${author}"></p>
 	<p th:text="'ISBN' + ${isbn}"></p>
-	<p th:text="'カテゴリ' + ${category_name}"></p>
+	<p th:text="'カテゴリ' + ${category_id}"></p>
 	<p th:text="'利用した学年' + ${grade}"></p>
 	<p th:text="'使用した講義' + ${lecture}"></p>
 	<p th:text="'出版社' + ${publisher}"></p>
@@ -21,7 +21,7 @@
 		<input type="hidden" name="title" value="${title}">
 		<input type="hidden" name="author" value="${author}">
 		<input type="hidden" name="isbn" value="${isbn}">
-		<input type="hidden" name="category_name" value="${category_name}">
+		<input type="hidden" name="category_id" value="${category_id}">
 		<input type="hidden" name="grade" value="${grade}">
 		<input type="hidden" name="lecture" value="${lecture}">
 		<input type="hidden" name="publisher" value="${publisher}">
