@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
+@Component
 @Entity
 @Table(name = "sale_list")
 public class SaleList {
@@ -17,37 +20,37 @@ public class SaleList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "student_id")
 	private Integer studentId;
-	
+
 	@Column(name = "bookinfo_id")
 	private Integer bookInfo;
-	
+
 	@Column(name = "sale_day")
 	private LocalDate saleDay;
-	
+
 	@Column(name = "item_status")
 	private Integer itemStatus;
-	
+
 	@Column(name = "sale_method")
 	private Integer saleMethod;
-	
+
 	@Transient
 	private String title;
-	
+
 	@Transient
 	private Integer price;
-	
+
 	@Transient
 	private Integer accept;
-	
+
 	@Transient
 	private Integer delivery;
-	
+
 	//デフォルトコンストラクタ
 	public SaleList() {
-		
+
 	}
 
 	public Integer getId() {
@@ -130,6 +133,4 @@ public class SaleList {
 		this.delivery = delivery;
 	}
 
-	
-	
 }
