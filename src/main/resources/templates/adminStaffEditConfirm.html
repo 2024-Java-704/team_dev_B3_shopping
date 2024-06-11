@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>更新確認</h1>
+	
+	更新前
+		<table border="2">
+		<tr>
+			<th>アカウントID</th>
+			<td th:text="${lastInfo.id}"></td>
+		</tr>
+		<tr>
+			<th>職員番号</th>
+			<td th:text="${lastInfo.StaffNumber}"></td>
+		</tr>
+		<tr>
+			<th>職員名</th>
+			<td th:text="${lastInfo.staffName}"></td>
+		</tr>
+		<tr>
+			<th>メールアドレス</th>
+			<td th:text="${lastInfo.staffEmail}"></td>
+		</tr>
+		<tr>
+			<th>パスワード</th>
+			<td th:text="${lastInfo.staffPass}"></td>
+		</tr>
+	</table>
+	
+	更新後
+	<table border="2">
+		<tr>
+			<th>アカウントID</th>
+			<td th:text="${id}"></td>
+		</tr>
+		<tr>
+			<th>職員番号</th>
+			<td th:text="${number}"></td>
+		</tr>
+		<tr>
+			<th>職員名</th>
+			<td th:text="${name}"></td>
+		</tr>
+		<tr>
+			<th>メールアドレス</th>
+			<td th:text="${email}"></td>
+		</tr>
+		<tr>
+			<th>パスワード</th>
+			<td th:text="${pass}"></td>
+		</tr>
+	</table>
+
+	<form th:action="@{/staffList/{staffId}/update/complete(staffId=${id})}" method="post">
+
+	<input type="hidden" name="number" th:value="${number}">
+	<input type="hidden" name="name" th:value="${name}">
+	<input type="hidden" name="pass" th:value="${pass}">
+	<input type="hidden" name="email" th:value="${email}">
+
+	<button>申請する</button>
+	</form>
+
+</body>
+</html>

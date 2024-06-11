@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<table border="2">
+		<tr>
+			<th>アカウントID</th>
+			<td th:text="${staff.id}"></td>
+		</tr>
+		<tr>
+			<th>職員番号</th>
+			<td th:text="${staff.staffNumber}"></td>
+		</tr>
+		<tr>
+			<th>職員名</th>
+			<td th:text="${staff.staffName}"></td>
+		</tr>
+		<tr>
+			<th>メールアドレス</th>
+			<td th:text="${staff.staffEmail}"></td>
+		</tr>
+		<tr>
+			<th>パスワード</th>
+			<td th:text="${staff.staffPass}"></td>
+		</tr>
+	</table>
+		
+		<form th:action="@{/staffList/{staffId}/update(staffId=${staff.id})}" method="get">
+			<button>更新</button>
+		</form>
+		<form th:action="@{/staffList/{staffId}/delete(staffId=${staff.id})}" method="get">
+			<button>削除</button>
+		</form>
+</body>
+</html>
