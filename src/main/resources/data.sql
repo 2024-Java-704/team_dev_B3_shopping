@@ -4,6 +4,8 @@ INSERT INTO students(student_name,birthday, address, student_email, student_pass
 VALUES('bbb','2000-02-02','東京','b@b','himitu','b0001','1234',3,CURRENT_TIMESTAMP);
 INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status) 
 VALUES('ccc','2000-03-03','東京','c@c','himitu','c0001','1234',2);
+INSERT INTO students(student_name,birthday, address,student_email,student_pass,student_number,bank_account,student_status) 
+VALUES('獄裏番之助','2000-01-02','東京','tuppari@gmail.com','himitu','s14550','4649',5);
 
 INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('aaa','b@b','himitu','b0001');
 

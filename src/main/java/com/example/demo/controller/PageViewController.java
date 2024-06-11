@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.Bookmark;
+import com.example.demo.entity.Student;
 import com.example.demo.entity.SaleList;
 import com.example.demo.entity.Student;
 import com.example.demo.model.AccountAndCart;
@@ -20,6 +21,7 @@ import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BookmarkRepository;
 import com.example.demo.repository.SaleListRepository;
 import com.example.demo.repository.StudentRepository;
+import jakarta.servlet.http.HttpSession;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -57,6 +59,14 @@ public class PageViewController {
 			books.add(sale);
 		}
 		model.addAttribute("books", books);
+		
+		if(accountAndCart.getId() != null) {
+		Student student = studentRepository.findById(accountAndCart.getId()).get();
+		
+			if(student.getStatus() == 5) {
+				model.addAttribute("deniedMessage", "申請が却下されました");
+			}
+		}
 		return "index";
 	}
 	
