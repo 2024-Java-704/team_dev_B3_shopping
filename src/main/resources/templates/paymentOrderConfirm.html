@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>受け取り申請確認</h1>
+	<p>受取金額</p>
+	<th:block th:text="${wantsPrice} + '円'"></th:block>
+	<form action="/request/complete" method="post">
+		<input type="hidden" name="wantsPrice" th:value="${wantsPrice}">
+		<input type="hidden" name="wantsId" th:value="${wantsId}">
+		<button>以上の金額で申請する</button>
+	</form>
+</body>
+</html>

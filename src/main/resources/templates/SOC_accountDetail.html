@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<table border="2">
+		<tr>
+			<th>アカウントID</th>
+			<td th:text="${student.id}"></td>
+		</tr>
+		<tr>
+			<th>学籍番号</th>
+			<td th:text="${student.number}"></td>
+		</tr>
+		<tr>
+			<th>氏名</th>
+			<td th:text="${student.name}"></td>
+		</tr>
+		<tr>
+			<th>ステータス</th>
+				<td th:if="${student.status == 1}" th:text="仮登録"></td>
+				<td th:if="${student.status == 2}" th:text="本会員"></td>
+				<td th:if="${student.status == 3}" th:text="凍結中"></td>
+				<td th:if="${student.status == 4}" th:text="退会済"></td>
+				<td th:if="${student.status == 5}" th:text="申請却下"></td>
+		</tr>
+		<tr>
+			<th>メールアドレス</th>
+			<td th:text="${student.email}"></td>
+		</tr>
+		<tr>
+			<th>パスワード</th>
+			<td th:text="${student.pass}"></td>
+		</tr>
+		<tr>
+			<th>生年月日</th>
+			<td th:text="${student.birth}"></td>
+		</tr>
+		<tr>
+			<th>住所</th>
+			<td th:text="${student.address}"></td>
+		</tr>
+		<tr>
+			<th>口座情報</th>
+			<td th:if="${student.bankAccount != null}" th:text="${student.bankAccount}"></td>
+			<td th:if="${student.bankAccount == null}" th:text="未登録"></td>
+		</tr>
+		<tr>
+			<th>凍結日</th>
+			<td th:if="${student.banDay != null}" th:text="${student.banDay}"></td>
+			<td th:if="${student.banDay == null}" th:text="運用中"></td>
+		</tr>
+	</table>
+		
+		<form th:action="@{/account/{studentId}/update(studentId=${student.id})}" method="get">
+			<button>更新</button>
+		</form>
+		<form th:action="@{/account/{studentId}/freeze(studentId=${student.id})}" method="get">
+			<button>凍結</button>
+		</form>
+		<form th:action="@{/account/{studentId}/delete(studentId=${student.id})}" method="get">
+			<button>削除</button>
+		</form>
+</body>
+</html>
