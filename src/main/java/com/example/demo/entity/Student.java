@@ -10,42 +10,44 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="students")
+@Table(name = "students")
 public class Student {
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id; //ユーザーID
-	
+
 	@Column(name = "student_name")
-	private String name;  //学生名
-	
+	private String name; //学生名
+
 	@Column(name = "birthday")
 	private Date birth; //生年月日
-	
+
 	private String address; //住所
-	
+
 	@Column(name = "student_email")
 	private String email; //メールアドレス
-	
+
 	@Column(name = "student_pass")
 	private String pass; //パスワード
-	
+
 	@Column(name = "student_number")
 	private String number; //学籍番号
-	
+
 	@Column(name = "bank_account")
 	private String bankAccount; //口座情報
-	
+
 	@Column(name = "ban_day")
 	private Date banDay; //凍結日
-	
+
 	@Column(name = "student_status")
 	private Integer status; //ステータス
-	
+
 	//デフォルトコンストラクタ
 	public Student() {
 	}
-	
+
+	//ゲッター セッター
+  
 	public Student(String name, String number, String address, Date birth, String pass, String email,Integer status) {
 		this.name=name;
 		this.number=number;
@@ -69,8 +71,6 @@ public class Student {
 	
 	}
 	
-	
-    //ゲッター セッター
 	public Integer getId() {
 		return id;
 	}
@@ -142,7 +142,20 @@ public class Student {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+
+	public Student(String name, String number, String address, Date birth, String pass, String email, Integer status) {
+		this.name = name;
+		this.number = number;
+		this.address = address;
+		this.birth = birth;
+		this.pass = pass;
+		this.email = email;
+		this.status = status;
+
+	}
+
+	public Student(Integer status) {
+		this.status = status;
 	
 	public Date getBanDay() {
 		return banDay;
@@ -151,6 +164,7 @@ public class Student {
 
 	public void setBanDay(Date banDay) {
 		this.banDay = banDay;
+
 	}
 
 }

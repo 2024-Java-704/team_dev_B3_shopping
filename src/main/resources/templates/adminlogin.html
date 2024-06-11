@@ -5,12 +5,15 @@
 <title>管理者ログイン</title>
 </head>
 <body>
-<h1>ログイン画面</h1>
-
-<p >ID</p>
-<input type="text" name="id" placeholder="入力欄"><br>
+<h1>管理者ログイン画面</h1>
+<span th:text="${errorList}" style="color: rgb(255, 0, 0)"></span><br>
+	<p th:text="${message}" style="color: rgb(255, 0, 0)"></p>
+<form action="/admin" method="post">
+<p >名前</p>
+<input type="password" name="adminName" placeholder="名前" required><br>
 <p>パスワード</p>
-<input type="text" name="password" placeholder="入力欄"><br>
+<input type="password" name="adminPass" placeholder="パスワード" required><br>
 <button >ログイン</button>
+</form>
 </body>
 </html>
