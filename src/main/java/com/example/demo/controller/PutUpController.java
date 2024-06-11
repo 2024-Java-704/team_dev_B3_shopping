@@ -31,7 +31,7 @@ public class PutUpController {
 			@RequestParam("grade") String grade,
 			@RequestParam("lecture") String lecture,
 			@RequestParam("author") String author,
-			@RequestParam("category_name") String category_name,
+			@RequestParam("category_id") Integer category_id,
 			Model model) {
 		model.addAttribute("title", title);
 		model.addAttribute("publisher", publisher);
@@ -39,7 +39,7 @@ public class PutUpController {
 		model.addAttribute("grade", grade);
 		model.addAttribute("lecture", lecture);
 		model.addAttribute("condition", condition);
-		model.addAttribute("category_name", category_name);
+		model.addAttribute("category_id", category_id);
 		model.addAttribute("author", author);
 		return "orderConfirm";
 	}
@@ -56,7 +56,6 @@ public class PutUpController {
 			@RequestParam("author") String author,
 			@RequestParam("category_id") Integer category_id,
 			Model model) {
-
 		Bookinfo bookInfo = new Bookinfo(title, publisher, isbn, condition, category_id, lecture, author, grade);
 		bookinfoRepository.save(bookInfo);
 		return "orderSuccess";

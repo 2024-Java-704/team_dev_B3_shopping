@@ -8,9 +8,16 @@
 
 <body>
 	<h1>出品履歴</h1>
-	<p th:each="i:${model}"></p>
-	<p th:text="${title}"></p>
-	<p th:text="${status}"></p>
+	<span>
+		<p th:text="${title}"></p>
+		<p th:text="${author}"></p>
+		<p th:text="${isbn}"></p>
+		<p th:text="${category_name}"></p>
+		<p th:text="${grade}"></p>
+		<p th:text="${lecture}"></p>
+		<p th:text="${publisher}"></p>
+		<p th:text="${condition}"></p>
+	</span>
 </body>
 
 </html>
