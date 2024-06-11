@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>出品申請</title>
+</head>
+<header>
+
+</header>
+
+<body>
+	<h1>出品申請</h1>
+	<p>タイトル<input type="text" name="title"></p>
+	<p>著者<input type="text" name="author"></p>
+	<p>ISBN<input type="text" name="isbn"></p>
+	<p>カテゴリ<input type="text" name="category_name"></p>
+	<p>利用した学年<input type="text" name="grade"></p>
+	<p>使用した講義<input type="text" name="lecture"></p>
+	<p>出版社<input type="text" name="publisher"></p>
+	<p>本の状態<input type="text" name="condition"></p>
+	
+	<form action="/order" method="post">
+		<input type="hidden" name="title" value="${title}">
+		<input type="hidden" name="author" value="${author}">
+		<input type="hidden" name="isbn" value="${isbn}">
+		<input type="hidden" name="category_name" value="${category_name}">
+		<input type="hidden" name="grade" value="${grade}">
+		<input type="hidden" name="lecture" value="${lecture}">
+		<input type="hidden" name="publisher" value="${publisher}">
+		<input type="hidden" name="condition" value="${condition}">
+		<button>確認</button>
+	</form>
+</body>
+
+</html>
