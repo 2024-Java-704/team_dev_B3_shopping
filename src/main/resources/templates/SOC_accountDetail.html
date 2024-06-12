@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 <body>
 	<header th:replace="header"></header>
@@ -65,8 +66,6 @@
 		<form th:action="@{/account/{studentId}/freeze(studentId=${student.id})}" method="get">
 			<button>凍結</button>
 		</form>
-		<form th:action="@{/account/{studentId}/delete(studentId=${student.id})}" method="get">
-			<button>削除</button>
-		</form>
+
 </body>
 </html>

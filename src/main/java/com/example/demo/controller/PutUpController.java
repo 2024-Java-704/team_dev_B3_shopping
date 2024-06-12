@@ -70,11 +70,11 @@ public class PutUpController {
 		return "orderSuccess";
 	}
 
-	//出品履歴画面を表示する。
-	@GetMapping("/order/history")
-	public String putUpHistory() {
-		Integer accountId = accountAndCart.getId();
-		salelistRepository.
-		return "orderHistory";
-	}
+//	//出品履歴画面を表示する。
+//	@GetMapping("/order/history")
+//	public String putUpHistory() {
+//		Integer accountId = accountAndCart.getId();
+//		salelistRepository.
+//		return "orderHistory";
+//	}
 }

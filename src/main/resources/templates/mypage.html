@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>マイページ</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
@@ -15,7 +16,7 @@
 	<h1>マイページ</h1>
 
 	<th:block th:if="${student.status} eq 1 OR ${student.status} eq 3">
-		<a href="/login">こちらからログイン</a>
+		<div style="text-align: center;"><a href="/login">こちらからログイン</a></div>
 	</th:block>
 
 	<th:block th:if="${student.status}==2">
