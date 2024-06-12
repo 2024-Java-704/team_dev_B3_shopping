@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>出品申請許可確認</title>
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>出品申請許可確認</h1>
+
+	<th:block th:if="${operation eq 1}">
+		<h3>この出品申請を許可しますか</h3>
+
+		<table>
+			<tr>
+				<th>タイトル</th>
+				<td th:text="${sale.title}"></td>
+			</tr>
+			<tr>
+				<th>著者</th>
+				<td th:text="${sale.author}"></td>
+			</tr>
+			<tr>
+				<th>ISBN</th>
+				<td th:text="${sale.isbn}"></td>
+			</tr>
+			<tr>
+				<th>状態</th>
+				<td th:text="${condition}"></td>
+			</tr>
+			<tr>
+				<th>金額</th>
+				<td th:text="${price}"></td>
+			</tr>
+		</table>
+
+		<form action="/itemrequest/approval" method="post">
+			<input type="hidden" th:value="${sale.id}" name="id">
+			<button>出品する</button>
+		</form>
+	</th:block>
+	
+	<th:block th:if="${operation eq 2}">
+		<h3>この出品申請を却下しますか</h3>
+		
+		<table>
+			<tr>
+				<th>タイトル</th>
+				<td th:text="${sale.title}"></td>
+			</tr>
+			<tr>
+				<th>著者</th>
+				<td th:text="${sale.author}"></td>
+			</tr>
+			<tr>
+				<th>ISBN</th>
+				<td th:text="${sale.isbn}"></td>
+			</tr>
+		</table>
+		
+		<form action="/itemrequest/reject" method="post">
+			<input type="hidden" th:value="${sale.id}" name="id">
+			<button>却下する</button>
+		</form>
+	</th:block>
+
+	<form action="/itemrequest/detail" method="get">
+		<input type="hidden" th:value="${sale.id}" name="id">
+		<button>戻る</button>
+	</form>
+</body>
+
+</html>

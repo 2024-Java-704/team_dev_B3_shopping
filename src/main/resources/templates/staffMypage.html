@@ -4,9 +4,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>職員マイページ</title>
+	<link rel="stylesheet" type="text/css" href="/css/headerStyle.css">
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div style="text-align: center;">
 	<h3>学生に対する機能</h3>
 	<a href="/account">学生アカウント一覧</a><br>
 	<a href="/itemrequest">出品申請一覧</a><br>
@@ -19,6 +27,7 @@
 	<a href="/buy">購入履歴</a><br>
 	<a href="/sold">売上</a><br>
 	<a href="/user/delete">退会</a>
+	</div>
 </body>
 
 </html>

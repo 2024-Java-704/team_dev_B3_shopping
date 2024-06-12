@@ -121,7 +121,7 @@ public class AccountController {
 	}
 
 	//ログイン画面の表示
-	@GetMapping({ "/login", "/logout" })
+	@GetMapping("/login")
 	public String studentAccess() {
 		session.invalidate();
 		return "login";
@@ -167,19 +167,21 @@ public class AccountController {
 			Student student = emailStudent.get(0);
 			accountandcart.setId(student.getId());
 			accountandcart.setName(student.getName());
+			accountandcart.setAuthority(1);
 		}
 
 		if (numberStudent.size() > 0) {
 			Student student = numberStudent.get(0);
 			accountandcart.setId(student.getId());
 			accountandcart.setName(student.getName());
+			accountandcart.setAuthority(1);
 		}
 
 		return "redirect:/items";
 	}
 
 	//職員用ログイン画面の表示
-	@GetMapping({ "/staff", "/logout" })
+	@GetMapping("/staff")
 	public String staffAccess() {
 		session.invalidate();
 		return "stafflogin";
@@ -225,19 +227,21 @@ public class AccountController {
 			Staff staff = emailStaff.get(0);
 			accountandcart.setId(staff.getId());
 			accountandcart.setName(staff.getStaffName());
+			accountandcart.setAuthority(2);
 		}
 
 		if (numberStaff.size() > 0) {
 			Staff staff = numberStaff.get(0);
 			accountandcart.setId(staff.getId());
 			accountandcart.setName(staff.getStaffName());
+			accountandcart.setAuthority(2);
 		}
 
-		return "redirect:/items";
+		return "staffMyPage";
 	}
 
 	//管理者用ログイン画面の表示
-	@GetMapping({ "/admin", "/logout" })
+	@GetMapping( "/admin")
 	public String adminAccess() {
 		session.invalidate();
 		return "adminlogin";
@@ -281,9 +285,10 @@ public class AccountController {
 			Admin admin = idAdmin.get(0);
 			accountandcart.setId(admin.getId());
 			accountandcart.setName(admin.getAdminName());
+			accountandcart.setAuthority(3);
 		}
 
-		return "redirect:/items";
+		return "adminMyPage";
 	}
 
 	//退会確認画面の表示

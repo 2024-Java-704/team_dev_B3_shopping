@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>出品申請却下完了画面</title>
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<th:block th:if="${operation eq 1}">
+		<h1>出品申請を許可しました</h1>
+	</th:block>
+	
+	<th:block th:if="${operation eq 2}">
+		<h1>出品申請を却下しました</h1>
+	</th:block>
+
+	<a href="/itemrequest">出品申請一覧に戻る</a>
+</body>
+
+</html>

@@ -46,6 +46,12 @@ public class SaleList {
 	private String title;
 
 	@Transient
+	private String Author;
+	
+	@Transient
+	private String isbn;
+
+	@Transient
 	private Integer price;
 
 	@Transient
@@ -53,10 +59,46 @@ public class SaleList {
 
 	@Transient
 	private Integer delivery;
+	
+	@Transient
+	private String name;
 
 	//デフォルトコンストラクタ
 	public SaleList() {
 
+	}
+
+	public SaleList(Integer id, Integer student_id, Integer bookinfo_id, LocalDate sale_day, Integer item_status,
+			Integer sale_method) {
+		this.id = id;
+		this.studentId = student_id;
+		this.bookInfo = bookinfo_id;
+		this.saleDay = sale_day;
+		this.itemStatus = item_status;
+		this.saleMethod = sale_method;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAuthor() {
+		return Author;
+	}
+
+	public void setAuthor(String author) {
+		Author = author;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public Integer getId() {

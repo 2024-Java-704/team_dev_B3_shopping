@@ -12,6 +12,8 @@ public class AccountAndCart {
 	private Integer id; //主キー
 
 	private String name; //名前
+	
+	private Integer authority; //権限 1:学生 2:職員 3:管理者
 
 	public List<CartItems> cartItems = new ArrayList<CartItems>();//カートリスト
 
@@ -89,7 +91,16 @@ public class AccountAndCart {
 		return cartItems;
 	}
 
+
 	//	public void setCartItems(List<CartItems> cartItems) {
 	//		this.cartItems = cartItems;
 	//	}
+
+	public Integer getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(Integer authority) {
+		this.authority = authority;
+	}
 }

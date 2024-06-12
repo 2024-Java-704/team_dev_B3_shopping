@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>カート一覧</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
@@ -31,10 +32,12 @@
 		</table>
 	<form action="/purchase/order" method="get">
 
+    <br>
+		<div style="text-align: center;">合計金額：[[${sum}]]円</div>
+		<br>
 
 		<button>購入ボタン</button><
 
-		合計金額：[[${sum}]]
 	</form>
 	
 	<form action="/items" method="get">

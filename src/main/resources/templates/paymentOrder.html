@@ -2,7 +2,8 @@
 <htmel xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Insert title here</title>c
+<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 <body>
 	<header th:replace="header"></header>
@@ -18,7 +19,7 @@
 		</tr>
 		<tr th:each="soldList:${sales}">
 			<td>
-				<input type="radio" name="wantsPrice" th:value="${soldList.price}">
+				<input type="radio" name="wantsPrice" class="textbox" th:value="${soldList.price}">
 				<input type="hidden" name="wantsId" th:value="${soldList.id}">
 				<th:block th:text="${soldList.title}"></th:block>
 			</td>

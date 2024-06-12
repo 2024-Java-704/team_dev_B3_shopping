@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>マイページ</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
@@ -15,9 +16,13 @@
 	<h1>マイページ</h1>
 
 	<th:block th:if="${student.status} eq 1 OR ${student.status} eq 3">
-		<a href="/login">こちらからログイン</a>
+		<div style="text-align: center;">
+			<span style="color: red;">!本会員ではないので表示できません</span>
+			<a href="/login">こちらからログイン</a>
+		</div>
 	</th:block>
 
+	<div style="text-align: center;">
 	<th:block th:if="${student.status}==2">
 		<a href="/order">出品申請</a><br>
 		<a href="/order/history">出品履歴</a><br>
@@ -25,6 +30,7 @@
 		<a href="/sold">売上</a><br>
 		<a href="/user/delete">退会</a>
 	</th:block>
+	</div>
 </body>
 
 </html>

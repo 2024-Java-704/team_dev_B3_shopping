@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+@Component
 @Entity
 @Table(name = "bookinfo")
 public class Bookinfo {
@@ -39,7 +42,7 @@ public class Bookinfo {
 	}
 
 	public Bookinfo(String title, String publisher, String isbn, String condition, Integer grade, String lecture,
-			String author, String category_name) {
+			String author, Integer categoryId) {
 		this.title = title;
 		this.publisher = publisher;
 		this.isbn = isbn;

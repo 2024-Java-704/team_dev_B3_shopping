@@ -49,6 +49,21 @@ public class Student {
 	public Student() {
 	}
 
+	public Student(String name, String number, String address, Date birth, String pass, String email, Integer status) {
+		this.name = name;
+		this.number = number;
+		this.address = address;
+		this.birth = birth;
+		this.pass = pass;
+		this.email = email;
+		this.status = status;
+
+	}
+
+	public Student(Integer status) {
+		this.status = status;
+	}
+
 	//ゲッター セッター
   
 	public Student(String name, String number, String address, Date birth, String pass, String email,Integer status) {
@@ -149,7 +164,7 @@ public class Student {
 	public Student(Integer status) {
 		this.status = status;
 	}
-	
+
 	public Date getBanDay() {
 		return banDay;
 	}

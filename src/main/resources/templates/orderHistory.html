@@ -4,20 +4,32 @@
 <head>
 	<meta charset="UTF-8">
 	<title>出品履歴</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>出品履歴</h1>
-	<span>
-		<p th:text="${title}"></p>
-		<p th:text="${author}"></p>
-		<p th:text="${isbn}"></p>
-		<p th:text="${category_name}"></p>
-		<p th:text="${grade}"></p>
-		<p th:text="${lecture}"></p>
-		<p th:text="${publisher}"></p>
-		<p th:text="${condition}"></p>
-	</span>
+
+	<table border="1">
+		<tr>
+			<th>タイトル</th>
+			<th>ステータス</th>
+		</tr>
+		<tr th:each="list:${salelist}">
+			<td><a th:href="@{/items/detail(id=${list.bookInfo})}" th:text="${list.title}"></a></td>
+			<td th:if="${list.itemStatus}==1">出品中</td>
+			<td th:if="${list.itemStatus}==2">売買済み</td>
+			<td th:if="${list.itemStatus}==3">売上受取申請済み</td>
+			<td th:if="${list.itemStatus}==4">売上受取済</td>
+			<td th:if="${list.itemStatus}==5">出品申請中</td>
+		</tr>
+	</table>
+  
 </body>
 
 </html>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.BoughtHistory;
 import com.example.demo.entity.SaleList;
+import com.example.demo.entity.Student;
 import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BoughtHistoryRepository;
 import com.example.demo.repository.SaleListRepository;
@@ -102,15 +103,12 @@ public class StaffFunctionController {
 	@GetMapping("/salesreceipt")
 	public String proceeds(Model model) {
 		List<SaleList> saleList = saleListRepository.findByItemStatus(3);
+		for(SaleList sale: saleList) {
+			Student student = studentRepository.findById(sale.getStudentId()).get();
+			String name = student.getName();
+			sale.setName(name);
+		}
 		model.addAttribute("saleList", saleList);
-		
-//		List<Student> studentList = new ArrayList<>();
-//		for(SaleList sale : saleList) {
-//			Integer studentId = sale.getStudentId();
-//			Student student = studentRepository.findById(studentId).get();
-//			studentList.add(student);
-//		}
-//		model.addAttribute("studentList", studentList);
 		return "staffProceeds";
 	}
 	
@@ -118,6 +116,15 @@ public class StaffFunctionController {
 	@GetMapping("/salesreceipt/detail")
 	public String proceedsDetail(@RequestParam("id") Integer id, Model model) {
 		SaleList sale = saleListRepository.findById(id).get();
+		
+		Student student = studentRepository.findById(sale.getStudentId()).get();
+		String name = student.getName();
+		sale.setName(name);
+		
+		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+		Integer price = bookinfo.getPrice();
+		sale.setPrice(price);
+		
 		model.addAttribute("sale", sale);
 		return "staffProceedsDetail";
 	}
