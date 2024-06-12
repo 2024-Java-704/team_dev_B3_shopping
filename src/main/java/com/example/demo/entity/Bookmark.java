@@ -19,7 +19,9 @@ public class Bookmark {
 	private Integer studentId;
 	@Column(name = "salelist_id")
 	private Integer salelistId;
+	
 
+	//コンストラクタ
 	public Bookmark() {
 
 	}
@@ -53,4 +55,5 @@ public class Bookmark {
 		this.salelistId = salelistId;
 	}
 
+	
 }
