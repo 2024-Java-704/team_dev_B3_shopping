@@ -68,6 +68,15 @@ public class SaleList {
 
 	}
 
+	public SaleList(Integer student_id, Integer bookinfo_id, LocalDate sale_day, Integer item_status,
+			Integer sale_method) {
+		this.studentId = student_id;
+		this.bookInfoId = bookinfo_id;
+		this.saleDay = sale_day;
+		this.itemStatus = item_status;
+		this.saleMethod = sale_method;
+	}
+	
 	public SaleList(Integer id, Integer student_id, Integer bookinfo_id, LocalDate sale_day, Integer item_status,
 			Integer sale_method) {
 		this.id = id;
