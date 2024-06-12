@@ -22,7 +22,7 @@
 			<th></th>
 		</tr>
 		<tr th:each="sale:${saleList}">
-			<td th:text="${sale.student.name}"></td>
+			<td th:text="${sale.name}"></td>
 			<td th:text="${sale.price}"></td>
 			<td>
 				<form action="/salesreceipt/detail" method="get">
