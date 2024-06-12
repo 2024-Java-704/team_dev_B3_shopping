@@ -121,7 +121,7 @@ public class AccountController {
 	}
 
 	//ログイン画面の表示
-	@GetMapping({ "/login", "/logout" })
+	@GetMapping("/login")
 	public String studentAccess() {
 		session.invalidate();
 		return "login";
@@ -179,7 +179,7 @@ public class AccountController {
 	}
 
 	//職員用ログイン画面の表示
-	@GetMapping({ "/staff", "/logout" })
+	@GetMapping("/staff")
 	public String staffAccess() {
 		session.invalidate();
 		return "stafflogin";
@@ -237,7 +237,7 @@ public class AccountController {
 	}
 
 	//管理者用ログイン画面の表示
-	@GetMapping({ "/admin", "/logout" })
+	@GetMapping( "/admin")
 	public String adminAccess() {
 		session.invalidate();
 		return "adminlogin";
