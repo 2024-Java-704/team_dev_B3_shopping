@@ -91,7 +91,7 @@ id SERIAL,
 student_id INTEGER NOT NULL,
 bookinfo_id INTEGER NOT NULL,
 sale_day DATE NOT NULL,
-item_status INTEGER NOT NULL, -- 1:出品中 2:売買済み 3:売上受取申請済 4:売上受取済
+item_status INTEGER NOT NULL, -- 1:出品中 2:売買済み 3:売上受取申請済 4:売上受取済 5:出品申請中
 sale_method INTEGER NOT NULL,
 
 PRIMARY KEY(id),
