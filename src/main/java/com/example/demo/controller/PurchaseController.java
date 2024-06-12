@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -67,6 +69,7 @@ public class PurchaseController {
 
 		Bookinfo bookinfo = bookinfoRepository.findById(bookinfoId).get();
 		//		String name = bookinfo.getTitle();
+		
 		CartItems cartItems = new CartItems(bookinfo.getId(), bookinfo.getTitle(), bookinfo.getPrice());
 		accountAndCart.add(cartItems);
 
@@ -81,19 +84,14 @@ public class PurchaseController {
 
 	//　指定した商品をカートから削除
 
-	@PostMapping()
-	public String cartDelete(@RequestParam("bookinfoId") Integer bookinfoId) {
-		//		CartItems cartItems = bookinfoRepository.findById(bookinfoId).get();
-		//		cartItems.delete(bookinfoId);
+	@GetMapping("/purchase/{id}/delete")
+	public String cartDelete(
+			@PathVariable("id") Integer id) {
+		accountAndCart.del(id);
 		return "redirect:/cart";
 	}
 
-	//	@PostMapping()
-	//	public String cartDelete(@RequestParam("bookinfoId") Integer bookinfoId) {
-	////		CartItems cartItems = bookinfoRepository.findById(bookinfoId).get();
-	////		cartItems.delete(bookinfoId);
-	//		return "redirect:/cart";
-	//	}
+
 
 	@GetMapping("/purchase/order")
 	public String purchaseAccess(Model model) {
@@ -146,11 +144,27 @@ public class PurchaseController {
 		}
 		boughtCertificate = new BoughtCertificate(boughtHistory.getSalelistId(), LocalDateTime.now());
 		boughtCertificateRepository.save(boughtCertificate);
+		
+		accountAndCart.clear(cartItems);
 
-		String number = accountAndCart.getId().toString() + "0001";
+		BoughtHistory boughtHistory2 = boughtHistoryRepository.findByStudentIdOrderByIdDesc(accountAndCart.getId())
+				.get(0);
+		String number = accountAndCart.getId().toString() + "000" + boughtHistory2.getId();
 		model.addAttribute("number", number);
 
 		return "purchaseComplete";
 
 	}
+	
+	// ↑購入完了画面の表示
+	
+	
+//	↓購入履歴画面の表示
+		@GetMapping("/buy")
+			private String purchaseHistory(Model model) {
+			List<BoughtHistory> boughtHistory = boughtHistoryRepository.findByStudentId(accountAndCart.getId());
+			model.addAttribute("boughtHistories",boughtHistory);
+			return "purchaseHistory";
+		}
+
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>購入履歴</title>
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<th:block th:if="${deniedMessage}">[[${deniedMessage}]]</th:block>
+	<h1>購入履歴</h1>
+	<th:block th:if="${boughtHistories}">
+	<table>
+		<tr>
+			<th>商品名</th>
+		</tr>
+		<tr th:each="boughtHistory:${boughtHistories}">
+			<td><a th:href="@{/items/detail(id=${boughtHistory.salelistId})}"  th:text="${boughtHistory.saleList.bookInfo.title}"></a></td>
+		</tr>
+	</table>
+	</th:block>
+	
+	<a href="/mypage">マイページ</a>
+</body>
+</body>
+</html>
