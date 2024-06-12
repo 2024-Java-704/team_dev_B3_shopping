@@ -12,11 +12,18 @@
 	<span th:text="${errorList}" style="color: rgb(255, 0, 0)"></span><br>
 	<p th:text="${message}" style="color: rgb(255, 0, 0)"></p>
 	<form action="/staff" method="post">
-		<p>メールアドレス又は職員番号</p>
-		<input type="email" name="staffEmail" placeholder="メールアドレス"><br>
-		<input type="text" name="staffNumber" placeholder="職員番号"><br>
-		<p>パスワード</p>
-		<input type="password" name="staffPass" placeholder="パスワード"　required><br>
+		<table>
+			<tr>
+				<th>メールアドレス又は職員番号</th>
+				<td><input type="text" name="staffEmail" class="textbox" placeholder="メールアドレス">
+				<input type="text" name="staffNumber" class="textbox" placeholder="職員番号"></td>
+			</tr>
+			<tr>
+				<th>パスワード</th>
+				<td><input type="text" name="staffPass" class="textbox" placeholder="パスワード"　required></td>
+			</tr>
+			
+		</table>
 
 		<button>ログイン</button>
 	</form>

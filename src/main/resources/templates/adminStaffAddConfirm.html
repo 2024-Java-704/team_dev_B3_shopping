@@ -14,11 +14,27 @@
 	<h1>新規登録申請確認画面</h1>
 
 	<form action="/staffList/add/complete" method="post">
-	<p th:text="${name}"></p>
-	<p th:text="${number}"></p>
-	<p th:text="${password}"></p>
-	<p th:text="${email}"></p>
+		<table>
+			<tr>
+				<th>名前</th>
+				<td th:text="${name}"></td>
+			</tr>
+			<tr>
+				<th>学籍番号</th>
+				<td th:text="${number}"></td>
+			</tr>
+			<tr>
+				<th>パスワード</th>
+				<td th:text="${password}"></td>
+			</tr>
+			<tr>
+				<th>メールアドレス</th>
+				<td th:text="${email}"></td>
+			</tr>
+		</table>
+		
 	<p>画像</p>
+		
 
 	<input type="hidden" name="name" th:value="${name}">
 	<input type="hidden" name="number" th:value="${number}">
@@ -26,5 +42,6 @@
 	<input type="hidden" name="email" th:value="${email}">
 
 	<button>申請する</button>
+	</form>
 </body>
 </html>
