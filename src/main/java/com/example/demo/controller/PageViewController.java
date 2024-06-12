@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.Bookmark;
-import com.example.demo.entity.Student;
 import com.example.demo.entity.SaleList;
 import com.example.demo.entity.Student;
 import com.example.demo.model.AccountAndCart;
@@ -21,7 +20,6 @@ import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BookmarkRepository;
 import com.example.demo.repository.SaleListRepository;
 import com.example.demo.repository.StudentRepository;
-import jakarta.servlet.http.HttpSession;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -91,7 +89,7 @@ public class PageViewController {
 		
 		List<Bookinfo> books = new ArrayList<>();
 		for(SaleList sale : saleList) {
-			Bookinfo info = bookinfoRepository.findById(sale.getBookInfo()).get();
+			Bookinfo info = bookinfoRepository.findById(sale.getBookInfoId()).get();
 			books.add(info);
 		}
 		
@@ -102,7 +100,7 @@ public class PageViewController {
 	//ブックマーク追加処理
 	@PostMapping("/bookmark/add")
 	public String bookMarkAdd(@RequestParam("id") Integer id) {
-		List<SaleList> item = saleListRepository.findByBookInfo(id);
+		List<SaleList> item = saleListRepository.findByBookInfoId(id);
 		Integer itemId = item.get(0).getId();
 		
 		List<Bookmark> bookmark = bookmarkRepository.findAll();

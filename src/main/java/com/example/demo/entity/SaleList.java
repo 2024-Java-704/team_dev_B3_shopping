@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -25,7 +27,11 @@ public class SaleList {
 	private Integer studentId;
 
 	@Column(name = "bookinfo_id")
-	private Integer bookInfo;
+	private Integer bookInfoId;
+	
+	@ManyToOne
+    @JoinColumn(name = "bookinfo_id", insertable = false, updatable = false)
+	private Bookinfo bookInfo;
 
 	@Column(name = "sale_day")
 	private LocalDate saleDay;
@@ -111,12 +117,12 @@ public class SaleList {
 		this.studentId = studentId;
 	}
 
-	public Integer getBookInfo() {
-		return bookInfo;
+	public Integer getBookInfoId() {
+		return bookInfoId;
 	}
 
-	public void setBookInfo(Integer bookInfo) {
-		this.bookInfo = bookInfo;
+	public void setBookInfoId(Integer bookInfoId) {
+		this.bookInfoId = bookInfoId;
 	}
 
 	public LocalDate getSaleDay() {
@@ -174,5 +180,13 @@ public class SaleList {
 	public void setDelivery(Integer delivery) {
 		this.delivery = delivery;
 	}
+	
+	public Bookinfo getBookInfo() {
+        return bookInfo;
+    }
+
+    public void setBookInfo(Bookinfo bookInfo) {
+        this.bookInfo = bookInfo;
+    }
 
 }

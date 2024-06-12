@@ -41,7 +41,7 @@ public class ProceedsController {
 			sales.removeAll(saleListRepository.findByStudentIdIsNot(AccountAndCart.getId()));
 			
 		for(SaleList sale : sales) {
-			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get(); 
+			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get(); 
 				sale.setTitle(bookinfo.getTitle());
 				sale.setPrice(bookinfo.getPrice());
 		}
@@ -72,7 +72,7 @@ public class ProceedsController {
 			sales.removeAll(saleListRepository.findByStudentIdIsNot(AccountAndCart.getId()));
 			
 		for(SaleList sale : sales) {
-			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get(); 
+			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get(); 
 				sale.setTitle(bookinfo.getTitle());
 				sale.setPrice(bookinfo.getPrice());
 		}
