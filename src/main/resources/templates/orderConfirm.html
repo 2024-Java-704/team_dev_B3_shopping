@@ -9,14 +9,40 @@
 
 <body>
 	<h1>出品情報確認</h1>
-	<p th:text="'タイトル' + ${title}"></p>
-	<p th:text="'著者' + ${author}"></p>
-	<p th:text="'ISBN' + ${isbn}"></p>
-	<p th:text="'カテゴリ' + ${category_id}"></p>
-	<p th:text="'利用した学年' + ${grade}"></p>
-	<p th:text="'使用した講義' + ${lecture}"></p>
-	<p th:text="'出版社' + ${publisher}"></p>
-	<p th:text="'本の状態' + ${condition}"></p>
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<td th:text="${title}"></td>
+		</tr>
+		<tr>
+			<th>著者</th>
+			<td th:text="${author}"></td>
+		</tr>
+		<tr>
+			<th>ISBNコード</th>
+			<td th:text="${isbn}"></td>
+		</tr>
+		<tr>
+			<th>カテゴリ</th>
+			<td th:text="${category_id}"></td>
+		</tr>
+		<tr>
+			<th>利用学年</th>
+			<td th:text="${grade}"></td> 
+		</tr>
+		<tr>
+			<th>使用講義</th>
+			<td th:text="${lecture}"></td>
+		</tr>
+		<tr>
+			<th>出版社</th>
+			<td th:text="${publisher}"></td>
+		</tr>
+		<tr>
+			<th>本の状態</th>
+			<td th:text="${condition}"></td>
+		</tr>
+	</table>
 	
 	<form action="/order/success" method="post">
 		<input type="hidden" name="title" th:value="${title}">
