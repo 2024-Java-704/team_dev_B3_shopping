@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.Bookmark;
+import com.example.demo.entity.Student;
 import com.example.demo.entity.SaleList;
+import com.example.demo.entity.Student;
 import com.example.demo.model.AccountAndCart;
 import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BookmarkRepository;
 import com.example.demo.repository.SaleListRepository;
+import com.example.demo.repository.StudentRepository;
+import jakarta.servlet.http.HttpSession;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -39,9 +43,15 @@ public class PageViewController {
 	@Autowired
 	BookmarkRepository bookmarkRepository;
 	
+	@Autowired
+	StudentRepository studentRepository;
+	
 	//商品一覧画面表示
 	@GetMapping("/items")
 	public String index(Model model) {
+		if(accountAndCart.getId() == null) {
+			return "redirect:/login";
+		}
 		List<SaleList> saleList = saleListRepository.findByItemStatus(1);
 		List<Bookinfo> books = new ArrayList<>();
 		for(SaleList item: saleList) {
@@ -49,6 +59,14 @@ public class PageViewController {
 			books.add(sale);
 		}
 		model.addAttribute("books", books);
+		
+		if(accountAndCart.getId() != null) {
+		Student student = studentRepository.findById(accountAndCart.getId()).get();
+		
+			if(student.getStatus() == 5) {
+				model.addAttribute("deniedMessage", "申請が却下されました");
+			}
+		}
 		return "index";
 	}
 	
@@ -63,7 +81,20 @@ public class PageViewController {
 	//ブックマーク画面表示
 	@GetMapping("/bookmark")
 	public String bookMark(Model model) {
-		List<Bookmark> books = bookmarkRepository.findAll();
+		List<Bookmark> bookmark = bookmarkRepository.findByStudentId(accountAndCart.getId());
+		
+		List<SaleList> saleList = new ArrayList<>();
+		for(Bookmark book: bookmark) {
+			SaleList sale = saleListRepository.findById(book.getSalelistId()).get();
+			saleList.add(sale);
+		}
+		
+		List<Bookinfo> books = new ArrayList<>();
+		for(SaleList sale : saleList) {
+			Bookinfo info = bookinfoRepository.findById(sale.getBookInfo()).get();
+			books.add(info);
+		}
+		
 		model.addAttribute("books", books);
 		return "bookmark";
 	}
@@ -71,16 +102,28 @@ public class PageViewController {
 	//ブックマーク追加処理
 	@PostMapping("/bookmark/add")
 	public String bookMarkAdd(@RequestParam("id") Integer id) {
-		SaleList item = saleListRepository.findById(id).get();
+		List<SaleList> item = saleListRepository.findByBookInfo(id);
+		Integer itemId = item.get(0).getId();
+		
+		List<Bookmark> bookmark = bookmarkRepository.findAll();
+		for(Bookmark book : bookmark) {
+			if(itemId == book.getSalelistId()) {
+				return "redirect:/bookmark";
+			}
+		}
+		
 		Integer accountId = accountAndCart.getId();
-		Bookmark book = new Bookmark(accountId, item.getId());
+		Bookmark book = new Bookmark(accountId, item.get(0).getId());
 		bookmarkRepository.save(book);
-		return "bookmark";
+		return "redirect:/bookmark";
 	}
 	
 	//マイページ画面表示
 	@GetMapping("/mypage")
-	public String mypage() {
+	public String mypage(Model model) {
+		Integer accountId = accountAndCart.getId();
+		Student student = studentRepository.findById(accountId).get();
+		model.addAttribute("student", student);
 		return "mypage";
 	}
 

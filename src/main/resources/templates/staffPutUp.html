@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>出品申請一覧</title>
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>出品申請一覧</h1>
+	
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<th>出品ステータス</th>
+			<th></th>
+		</tr>
+		<tr th:each="sale:${saleList}">
+			<td th:text="${sale.title}"></td>
+			<td th:text="${sale.itemStatus}"></td>
+			<td>
+				<form action="/itemrequest/detail" method="get">
+					<input type="hidden" th:value="${sale.id}" name="id">
+					<button>詳細</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+</body>
+
+</html>

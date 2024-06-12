@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>出品申請詳細</title>
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>出品申請詳細</h1>
+	
+	<div th:each="message:${errorMessage}">
+		<span th:text="${message}" style="color:red"></span>
+	</div>
+	
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<td th:text="${sale.title}"></td>
+		</tr>
+		<tr>
+			<th>著者</th>
+			<td th:text="${sale.author}"></td>
+		</tr>
+		<tr>
+			<th>ISBN</th>
+			<td th:text="${sale.isbn}"></td>
+		</tr>
+		<tr>
+			<th>ステータス</th>
+			<td>申請許可待ち</td>
+		</tr>
+	</table>
+	
+	<form action="/itemrequest/approval" method="get">
+		<table>
+			<tr>
+				<th>状態</th>
+				<td>
+					<input type="text" name="condition">
+				</td>
+			</tr>
+			<tr>
+				<th>金額</th>
+				<td>
+					<input type="number" name="price">
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" th:value="${sale.id}" name="id">
+		<button>出品する</button>
+	</form>
+	
+	<form action="/itemrequest/reject" method="get">
+		<input type="hidden" th:value="${sale.id}" name="id">
+		<button>却下する</button>
+	</form>
+</body>
+
+</html>

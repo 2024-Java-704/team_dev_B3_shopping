@@ -3,8 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>受け取り申請確認</h1>
 	<p>受取金額</p>
 	<th:block th:text="${wantsPrice} + '円'"></th:block>

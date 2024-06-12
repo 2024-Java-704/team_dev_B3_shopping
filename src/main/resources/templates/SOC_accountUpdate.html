@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+<body>
+<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<form th:action="@{/account/{accountId}/update/confirm(accountId=${student.id})}" method="get">
+	<table border="2">
+		<tr>
+			<th>アカウントID</th>
+			<td th:text="${student.id}"></td>
+		</tr>
+		<tr>
+			<th>学籍番号</th>
+			<td><input type="text" name="number" class="textbox" th:value="${student.number}" required></td>
+		</tr>
+		<tr>
+			<th>氏名</th>
+			<td><input type="text" name="name" class="textbox" th:value="${student.name}" required></td>
+		</tr>
+		<tr>
+			<th>メールアドレス</th>
+			<td><input type="text" name="email" class="textbox" th:value="${student.email}" required></td>
+		</tr>
+		<tr>
+			<th>パスワード</th>
+			<td><input type="text" name="pass" class="textbox" th:value="${student.pass}" required></td>
+		</tr>
+		<tr>
+			<th>生年月日</th>
+			<td><input type="date" name="birth" class="textbox" th:value="${student.birth}" required></td>
+		</tr>
+		<tr>
+			<th>住所</th>
+			<td><input type="text" name="address" class="textbox" th:value="${student.address}" required></td>
+		</tr>
+		<tr>
+			<th>口座情報</th>
+			<td><input type="text" name="bankAccount" class="textbox" th:value="${student.bankAccount}"></td>
+		</tr>
+	</table>
+	<button>確認</button>
+	</form>
+</body>
+</html>

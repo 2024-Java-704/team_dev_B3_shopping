@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,9 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
+import com.example.demo.entity.BoughtCertificate;
+import com.example.demo.entity.BoughtHistory;
+import com.example.demo.entity.SaleList;
+import com.example.demo.entity.Student;
 import com.example.demo.model.AccountAndCart;
 import com.example.demo.model.CartItems;
 import com.example.demo.repository.BookinfoRepository;
+import com.example.demo.repository.BoughtCertificateRepository;
+import com.example.demo.repository.BoughtHistoryRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -19,7 +27,16 @@ public class PurchaseController {
 
 	@Autowired
 	HttpSession session;
-	
+
+	@Autowired
+	Student student;
+
+	@Autowired
+	SaleList saleList;
+
+	@Autowired
+	BoughtHistory boughtHistory;
+
 	@Autowired
 	CartItems cartItems;
 
@@ -27,7 +44,16 @@ public class PurchaseController {
 	AccountAndCart accountAndCart;
 
 	@Autowired
+	BoughtCertificate boughtCertificate;
+
+	@Autowired
 	BookinfoRepository bookinfoRepository;
+
+	@Autowired
+	BoughtHistoryRepository boughtHistoryRepository;
+
+	@Autowired
+	BoughtCertificateRepository boughtCertificateRepository;
 
 	//カートを表示する
 	@GetMapping("/cart")
@@ -37,29 +63,94 @@ public class PurchaseController {
 
 	//指定した商品をカートに追加する
 	@PostMapping("/cart/add")
-	public String cartAdd(@RequestParam("bookinfoId") Integer bookinfoId) {
+	public String cartAdd(@RequestParam("bookinfoId") Integer bookinfoId, Model model) {
 
 		Bookinfo bookinfo = bookinfoRepository.findById(bookinfoId).get();
-//		String name = bookinfo.getTitle();
-		CartItems cartItems = new CartItems(bookinfo.getId(), bookinfo.getTitle());
+		//		String name = bookinfo.getTitle();
+		CartItems cartItems = new CartItems(bookinfo.getId(), bookinfo.getTitle(), bookinfo.getPrice());
 		accountAndCart.add(cartItems);
+
+		Integer sum = 0;
+		for (CartItems cartItem : accountAndCart.getCartItems()) {
+			sum = sum + cartItem.getPrice();
+		}
+		model.addAttribute("sum", sum);
+
 		return "cart";
 	}
 
 	//　指定した商品をカートから削除
+
 	@PostMapping()
 	public String cartDelete(@RequestParam("bookinfoId") Integer bookinfoId) {
-//		CartItems cartItems = bookinfoRepository.findById(bookinfoId).get();
-//		cartItems.delete(bookinfoId);
+		//		CartItems cartItems = bookinfoRepository.findById(bookinfoId).get();
+		//		cartItems.delete(bookinfoId);
 		return "redirect:/cart";
 	}
 
+	//	@PostMapping()
+	//	public String cartDelete(@RequestParam("bookinfoId") Integer bookinfoId) {
+	////		CartItems cartItems = bookinfoRepository.findById(bookinfoId).get();
+	////		cartItems.delete(bookinfoId);
+	//		return "redirect:/cart";
+	//	}
 
 	@GetMapping("/purchase/order")
 	public String purchaseAccess(Model model) {
-		
-		return "perchaseCheck";
-	}
-//	↑購入画面の表示
 
+		return "purchaseAccess";
+	}
+	//	↑購入画面の表示
+
+	@GetMapping("/book")
+	public String purchaseConfirm(@RequestParam(name = "name", defaultValue = "") String name,
+			@RequestParam(name = "recieve", defaultValue = "") Integer recieve,
+			@RequestParam(name = "address", defaultValue = "") String address,
+			@RequestParam(name = "telephone", defaultValue = "") String telephone,
+			@RequestParam(name = "payment", defaultValue = "") Integer payment,
+			Model model) {
+
+		String receiveString;
+		if (recieve == 1) {
+			receiveString = "郵便";
+		} else {
+			receiveString = "窓口受け取り";
+		}
+
+		String paymentString;
+		if (payment == 1) {
+			paymentString = "クレジットカード";
+		} else {
+			paymentString = "窓口支払い";
+		}
+
+		boughtHistory = new BoughtHistory(payment, recieve);
+
+		model.addAttribute("name", name);
+		model.addAttribute("recieve", receiveString);
+		model.addAttribute("address", address);
+		model.addAttribute("telephone", telephone);
+		model.addAttribute("payment", paymentString);
+
+		return "purchase";
+
+	}
+	//	↑購入確認画面の表示
+
+	@PostMapping("/book/complete")
+	private String purchaseComplete(Model model) {
+		for (CartItems cartItems : accountAndCart.getCartItems()) {
+			boughtHistory.setStudentId(accountAndCart.getId());
+			boughtHistory.setSalelistId(cartItems.getId());
+			boughtHistoryRepository.save(boughtHistory);
+		}
+		boughtCertificate = new BoughtCertificate(boughtHistory.getSalelistId(), LocalDateTime.now());
+		boughtCertificateRepository.save(boughtCertificate);
+
+		String number = accountAndCart.getId().toString() + "0001";
+		model.addAttribute("number", number);
+
+		return "purchaseComplete";
+
+	}
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>注文書籍一覧</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>注文書籍一覧</h1>
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<th>受渡方法</th>
+			<th>受渡ステータス</th>
+			<th></th>
+		</tr>
+		<tr th:each="sale:${saleList}">
+			<td th:text="${sale.title}"></td>
+			<td>
+				<th:block th:if="${sale.accept eq 1}">
+					郵送
+				</th:block>
+				<th:block th:if="${sale.accept eq 2}">
+					窓口受取
+				</th:block>
+			</td>
+			<td>
+				<th:block th:if="${sale.delivery eq 1}">
+					受渡準備完了
+				</th:block>
+				<th:block th:if="${sale.delivery eq 2}">
+					受渡完了
+				</th:block>
+				<th:block th:if="${sale.delivery eq 3}">
+					発送完了
+				</th:block>
+			</td>
+			
+			<td>
+				<form action="/purchased/detail" method="get">
+					<input type="hidden" th:value="${sale.id}" name="id">
+					<button>詳細</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+</body>
+
+</html>

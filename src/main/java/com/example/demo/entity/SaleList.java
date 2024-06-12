@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
+@Component
 @Entity
 @Table(name = "sale_list")
 public class SaleList {
@@ -37,7 +40,22 @@ public class SaleList {
 	private String title;
 
 	@Transient
+	private String Author;
+	
+	@Transient
+	private String isbn;
+
+	@Transient
 	private Integer price;
+
+	@Transient
+	private Integer accept;
+
+	@Transient
+	private Integer delivery;
+	
+	@Transient
+	private String name;
 
 	//デフォルトコンストラクタ
 	public SaleList() {
@@ -52,6 +70,29 @@ public class SaleList {
 		this.saleDay = sale_day;
 		this.itemStatus = item_status;
 		this.saleMethod = sale_method;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAuthor() {
+		return Author;
+	}
+
+	public void setAuthor(String author) {
+		Author = author;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public Integer getId() {
@@ -116,6 +157,22 @@ public class SaleList {
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	public Integer getAccept() {
+		return accept;
+	}
+
+	public void setAccept(Integer accept) {
+		this.accept = accept;
+	}
+
+	public Integer getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Integer delivery) {
+		this.delivery = delivery;
 	}
 
 }

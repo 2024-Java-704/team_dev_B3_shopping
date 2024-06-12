@@ -4,10 +4,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>出品履歴</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>出品履歴</h1>
+
 	<table border="1">
 		<tr>
 			<th>タイトル</th>
@@ -22,6 +29,7 @@
 			<td th:if="${list.itemStatus}==5">出品申請中</td>
 		</tr>
 	</table>
+  
 </body>
 
 </html>

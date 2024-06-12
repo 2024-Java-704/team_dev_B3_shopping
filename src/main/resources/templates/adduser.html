@@ -4,18 +4,19 @@
 <head>
 	<meta charset="UTF-8">
 	<title>新規登録申請</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
 	<h1>新規登録申請</h1>
 	<span th:text="${errorList}" style="color: rgb(255, 0, 0)"></span><br>
 	<form action="/new/users" method="post">
-		<input type="text" name="name" placeholder="名前"><br>
-		<input type="text" name="number" placeholder="学籍番号"><br>
-		<input type="text" name="address" placeholder="住所"><br>
-		<input type="date" name="birth" placeholder="生年月日" value="2018-01-11"><br>
-		<input type="text" name="password" placeholder="パスワード"><br>
-		<input type="text" name="email" placeholder="メールアドレス"><br>
+		<input type="text" name="name" class="textbox" placeholder="名前" required><br>
+		<input type="text" maxlength="255" class="textbox" name="number" placeholder="学籍番号" required><br>
+		<input type="text" name="address" class="textbox" placeholder="住所" required><br>
+		<input type="date" name="birth"  placeholder="生年月日" value="2001-01-01" required><br>
+		<input type="email" name="email" class="textbox" placeholder="メールアドレス" required><br>
+		<input type="password" minlength="6" class="textbox" maxlength="255" name="password" placeholder="パスワード" required><br>
 		<p>画像</p>
 
 		<button>確認画面へ</button>

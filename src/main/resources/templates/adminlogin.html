@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>管理者ログイン</title>
-</head>
-<body>
-<h1>ログイン画面</h1>
 
-<p >ID</p>
-<input type="text" name="id" placeholder="入力欄"><br>
-<p>パスワード</p>
-<input type="text" name="password" placeholder="入力欄"><br>
-<button >ログイン</button>
+<head>
+	<meta charset="UTF-8">
+	<title>管理者ログイン</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+
+<body>
+	<h1>管理者ログイン画面</h1>
+	<span th:text="${errorList}" style="color: rgb(255, 0, 0)"></span><br>
+	<p th:text="${message}" style="color: rgb(255, 0, 0)"></p>
+	<form action="/admin" method="post">
+		<table>
+			<tr>
+				<th>名前</th>
+				<td><input type="password" name="adminName" class="textbox" placeholder="名前" required></td>
+			</tr>
+			<tr>
+				<th>パスワード</th>
+				<td><input type="password" name="adminPass" class="textbox" placeholder="パスワード" required></td>
+			</tr>
+
+		</table>
+		<br>
+		<button>ログイン</button>
+	</form>
 </body>
+
 </html>
