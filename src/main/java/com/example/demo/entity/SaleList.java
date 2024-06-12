@@ -17,31 +17,41 @@ public class SaleList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "student_id")
 	private Integer studentId;
-	
+
 	@Column(name = "bookinfo_id")
 	private Integer bookInfo;
-	
+
 	@Column(name = "sale_day")
 	private LocalDate saleDay;
-	
+
 	@Column(name = "item_status")
 	private Integer itemStatus;
-	
+
 	@Column(name = "sale_method")
 	private Integer saleMethod;
-	
+
 	@Transient
 	private String title;
-	
+
 	@Transient
 	private Integer price;
-	
+
 	//デフォルトコンストラクタ
 	public SaleList() {
-		
+
+	}
+
+	public SaleList(Integer id, Integer student_id, Integer bookinfo_id, LocalDate sale_day, Integer item_status,
+			Integer sale_method) {
+		this.id = id;
+		this.studentId = student_id;
+		this.bookInfo = bookinfo_id;
+		this.saleDay = sale_day;
+		this.itemStatus = item_status;
+		this.saleMethod = sale_method;
 	}
 
 	public Integer getId() {
@@ -108,6 +118,4 @@ public class SaleList {
 		this.price = price;
 	}
 
-	
-	
 }
