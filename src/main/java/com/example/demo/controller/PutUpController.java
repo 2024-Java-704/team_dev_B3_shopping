@@ -98,7 +98,7 @@ public class PutUpController {
 		Integer accountId = accountAndCart.getId();
 		List<SaleList> salelist = saleListRepository.findByStudentId(accountId);//idと一致するものを取得
 		for (SaleList list : salelist) {
-			bookinfo = bookinfoRepository.findById(list.getBookInfo()).get();
+			bookinfo = bookinfoRepository.findById(list.getBookInfoId()).get();
 			list.setTitle(bookinfo.getTitle());//title取得
 		}
 

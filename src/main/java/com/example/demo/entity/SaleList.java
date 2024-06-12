@@ -72,10 +72,11 @@ public class SaleList {
 			Integer sale_method) {
 		this.id = id;
 		this.studentId = student_id;
-		this.bookInfo = bookinfo_id;
+		this.bookInfoId = bookinfo_id;
 		this.saleDay = sale_day;
 		this.itemStatus = item_status;
 		this.saleMethod = sale_method;
+	}
 
 	public String getName() {
 		return name;

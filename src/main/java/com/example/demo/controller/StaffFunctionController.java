@@ -121,7 +121,7 @@ public class StaffFunctionController {
 		String name = student.getName();
 		sale.setName(name);
 		
-		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 		Integer price = bookinfo.getPrice();
 		sale.setPrice(price);
 		
