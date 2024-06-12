@@ -38,6 +38,12 @@ public class SaleList {
 
 	@Transient
 	private String title;
+	
+	@Transient
+	private String Author;
+	
+	@Transient
+	private String isbn;
 
 	@Transient
 	private Integer price;
@@ -62,6 +68,22 @@ public class SaleList {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getAuthor() {
+		return Author;
+	}
+
+	public void setAuthor(String author) {
+		Author = author;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public Integer getId() {
