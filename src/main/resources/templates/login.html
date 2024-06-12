@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン</title>
+<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 <body>
 <h1>ログイン画面</h1>
@@ -10,14 +11,14 @@
 <p th:text="${message}" style="color: rgb(255, 0, 0)"></p>
 <form action="/login" method="post">
 <p >メールアドレス又は学籍番号</p>
-<input type="email" name="email" placeholder="メールアドレス" ><br>
-<input type="text" name="number" placeholder="学籍番号" ><br>
+<input type="email" name="email" class="textbox" placeholder="メールアドレス" ><br>
+<input type="text" name="number"class="textbox" placeholder="学籍番号" ><br>
 <p>パスワード</p>
-<input type="password" name="password" placeholder="パスワード" required><br>
+<input type="password" name="password" class="textbox" placeholder="パスワード" required><br>
 
-<a href="/new/users">会員登録申請</a>
 <br>
 <button >ログイン</button>
 </form>
+<div style="text-align: center;"><a href="/new/users">会員登録申請</a></div>
 </body>
 </html>

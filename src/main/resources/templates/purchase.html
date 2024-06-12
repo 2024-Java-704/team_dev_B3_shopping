@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>購入確認</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
@@ -13,7 +14,10 @@
 	<br>
 	<br>
 	<h1>購入確認</h1>
-	カート内アイテム一覧
+	<div style="text-align: center;">カート内アイテム一覧</div>
+	
+	<br>
+	
 	<table border="1">
 		<tr>
 			<th>本の名前</th>
@@ -24,7 +28,9 @@
 			<td th:text="${book.price}"></td>
 		</tr>
 	</table>
-
+	
+	<br>
+	
 	<form action="/book/complete" method="post">
 		<table border="1">
 			<tr>

@@ -283,7 +283,7 @@ public class AccountController {
 			accountandcart.setName(admin.getAdminName());
 		}
 
-		return "redirect:/items";
+		return "adminMyPage";
 	}
 
 	//退会確認画面の表示
