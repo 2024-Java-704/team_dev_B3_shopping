@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Component
 @Entity
@@ -35,6 +36,9 @@ public class Bookinfo {
 	private String condition;
 
 	private Integer price;
+	
+	@Transient
+	private Integer itemStatus;
 
 	//デフォルトコンストラクタ
 	public Bookinfo() {
@@ -131,6 +135,14 @@ public class Bookinfo {
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	public Integer getItemStatus() {
+		return itemStatus;
+	}
+
+	public void setItemStatus(Integer itemStatus) {
+		this.itemStatus = itemStatus;
 	}
 
 }
