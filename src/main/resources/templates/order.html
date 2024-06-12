@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>出品申請</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+<header>
+
+</header>
+
+<body>
+	<h1>出品申請</h1>
+	<form action="/order" method="post">
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<td><input type="text" name="title" class="textbox"></td>
+		</tr>
+		<tr>
+			<th>著者</th>
+			<td><input type="text" name="author" class="textbox"></td>
+		</tr>
+		<tr>
+			<th>ISBNコード</th>
+			<td><input type="text" name="isbn" class="textbox"></td>
+		</tr>
+		<tr>
+			<th>カテゴリ</th>
+			<td>
+				<select name="category_id">
+					<option value="1">現代文</option>
+					<option value="2">数学</option>
+					<option value="3">化学</option>
+				</select>
+				<!--セレクトの中のフォントを変える-->
+			</td>
+		</select>
+		</tr>
+		<tr>
+			<th>利用学年</th>
+			<td><input type="text" name="grade" class="textbox"></td>
+		</tr>
+		<tr>
+			<th>利用講義</th>
+			<td><input type="text" name="lecture" class="textbox"></td>
+		</tr>
+		<tr>
+			<th>出版社</th>
+			<td><input type="text" name="publisher" class="textbox"></td>
+		</tr>
+		<tr>
+			<th>本の状態</th>
+			<td><input type="text" name="condition" class="textbox"></td>
+		</tr>	
+	</table>
+	
+		<button>確認</button>
+	</form>
+</body>
+
+</html>

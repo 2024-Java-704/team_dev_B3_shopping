@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>出品情報確認</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+
+<body>
+	<h1>出品情報確認</h1>
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<td th:text="${title}"></td>
+		</tr>
+		<tr>
+			<th>著者</th>
+			<td th:text="${author}"></td>
+		</tr>
+		<tr>
+			<th>ISBNコード</th>
+			<td th:text="${isbn}"></td>
+		</tr>
+		<tr>
+			<th>カテゴリ</th>
+			<td th:text="${category_id}"></td>
+		</tr>
+		<tr>
+			<th>利用学年</th>
+			<td th:text="${grade}"></td> 
+		</tr>
+		<tr>
+			<th>使用講義</th>
+			<td th:text="${lecture}"></td>
+		</tr>
+		<tr>
+			<th>出版社</th>
+			<td th:text="${publisher}"></td>
+		</tr>
+		<tr>
+			<th>本の状態</th>
+			<td th:text="${condition}"></td>
+		</tr>
+	</table>
+	
+	<form action="/order/success" method="post">
+		<input type="hidden" name="title" th:value="${title}">
+		<input type="hidden" name="author" th:value="${author}">
+		<input type="hidden" name="isbn" th:value="${isbn}">
+		<input type="hidden" name="category_id" th:value="${category_id}">
+		<input type="hidden" name="grade" th:value="${grade}">
+		<input type="hidden" name="lecture" th:value="${lecture}">
+		<input type="hidden" name="publisher" th:value="${publisher}">
+		<input type="hidden" name="condition" th:value="${condition}">
+		<button>申請</button>
+	</form>
+</body>
+
+</html>

@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+@Component
 @Entity
 @Table(name = "students")
 public class Student {
@@ -62,6 +65,30 @@ public class Student {
 	}
 
 	//ゲッター セッター
+  
+	public Student(String name, String number, String address, Date birth, String pass, String email,Integer status) {
+		this.name=name;
+		this.number=number;
+		this.address=address;
+		this.birth=birth;
+		this.pass=pass;
+		this.email=email;
+		this.status=status;
+	
+	}
+	
+	public Student(Integer id, String name, String number, String address, Date birth, String pass, String email,Integer status) {
+		this.id = id;
+		this.name=name;
+		this.number=number;
+		this.address=address;
+		this.birth=birth;
+		this.pass=pass;
+		this.email=email;
+		this.status=status;
+	
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -133,4 +160,18 @@ public class Student {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+	public Student(Integer status) {
+		this.status = status;
+	}
+	public Date getBanDay() {
+		return banDay;
+	}
+
+
+	public void setBanDay(Date banDay) {
+		this.banDay = banDay;
+
+	}
+
 }

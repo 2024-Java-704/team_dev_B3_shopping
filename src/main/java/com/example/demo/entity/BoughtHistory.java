@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,11 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+@Component
 @Entity
 @Table(name = "bought_history")
 public class BoughtHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	@Column(name = "student_id")
 	private Integer studentId;
 	@Column(name = "salelist_id")
@@ -22,6 +26,19 @@ public class BoughtHistory {
 
 	public BoughtHistory() {
 
+	}
+
+	public BoughtHistory(Integer payment, Integer accept) {
+		this.payment = payment;
+		this.accept = accept;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getStudentId() {

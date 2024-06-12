@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>削除確認</h1>
+	
+	職員番号：
+	<th:block th:text="${staff.staffNumber}"></th:block>
+	<br>
+	職員名：
+	<th:block th:text="${staff.staffName}"></th:block>
+	<br>
+	
+	上記のアカウントを削除します
+	よろしければ下記のボタンをクリックしてください
+	<form th:action="@{/staffList/{staffId}/delete(staffId=${staff.id})}" method="post">
+		<button>削除承認</button>
+	</form>
+</body>
+</html>

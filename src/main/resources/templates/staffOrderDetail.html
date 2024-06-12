@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>注文詳細</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+
+<body>
+	<h1>注文詳細</h1>
+
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<td th:text="${bookinfo.title}"></td>
+		</tr>
+		<tr>
+			<th>著者</th>
+			<td th:text="${bookinfo.author}"></td>
+		</tr>
+		<tr>
+			<th>出版社</th>
+			<td th:text="${bookinfo.publisher}"></td>
+		</tr>
+		<tr>
+			<th>ISBN</th>
+			<td th:text="${bookinfo.isbn}"></td>
+		</tr>
+		<tr>
+			<th>使用した学年</th>
+			<td th:text="${bookinfo.grade}"></td>
+		</tr>
+		<tr>
+			<th>使用した講義</th>
+			<td th:text="${bookinfo.lecture}"></td>
+		</tr>
+		<tr>
+			<th>状態</th>
+			<td th:text="${bookinfo.condition}"></td>
+		</tr>
+		<th>金額</th>
+		<td th:text="${bookinfo.price}"></td>
+		<tr>
+			<th>受渡方法</th>
+			<td th:text="${bought.accept}"></td>
+		</tr>
+		<tr>
+			<th>受取ステータス</th>
+			<td th:text="${bought.delivery}"></td>
+		</tr>
+	</table>
+
+	<th:block th:if="${bought.accept eq 2}">
+		<form action="/purchased/change" method="post">
+			<input type="hidden" th:value="${bought.id}" name="id">
+			<input type="hidden" value="prepareHand" name="status">
+			<button>受渡準備完了</button>
+		</form>
+
+		<form action="/purchased/change" method="post">
+			<input type="hidden" th:value="${bought.id}" name="id">
+			<input type="hidden" value="completeHand" name="status">
+			<button>受渡完了</button>
+		</form>
+	</th:block>
+
+	<th:block th:if="${bought.accept eq 1}">
+		<form action="/purchased/change" method="post">
+			<input type="hidden" th:value="${bought.id}" name="id">
+			<input type="hidden" value="completeDelivery" name="status">
+			<button>発送完了</button>
+		</form>
+	</th:block>
+</body>
+
+</html>

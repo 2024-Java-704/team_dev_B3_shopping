@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>売上申請詳細</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+
+<body>
+	<h1>売上申請詳細</h1>
+	
+	<table>
+		<tr>
+			<th>申請者</th>
+			<td th:text="${sale.student.name}"></td>
+		</tr>
+		<tr>
+			<th>金額</th>
+			<td th:text="${sale.price}"></td>
+		</tr>
+	</table>
+	<form action="/salesreceipt/change" method="post">
+		<input type="hidden" th:value="${sale.id}" name="id">
+		<button>支払済みにする</button>
+	</form>
+</body>
+
+</html>

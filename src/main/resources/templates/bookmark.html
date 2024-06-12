@@ -4,19 +4,25 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ブックマーク</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>ブックマーク</h1>
 	
 	<table>
 		<tr>
 			<th>商品名</th>
-			<td></td>
-		</tr>
-		<tr>
 			<th>価格</th>
-			<td></td>
+		</tr>
+		<tr th:each="book:${books}">
+			<td th:text="${book.title}"></td>
+			<td th:text="${book.price}"></td>
 		</tr>
 	</table>
 </body>

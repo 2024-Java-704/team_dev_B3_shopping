@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>出品履歴</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+
+<body>
+	<h1>出品履歴</h1>
+	
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<td th:text="${title}"></td>
+		</tr>
+		<tr>
+			<th>著者</th>
+			<td th:text="${author}"></td>
+		</tr>
+		<tr>
+			<th>ISBNコード</th>
+			<td th:text="${isbn}"></td>
+		</tr>
+		<tr>
+			<th>カテゴリ</th>
+			<td th:text="${category_name}"></td>
+			<!--th:ifじゃない-->
+		</tr>
+		<tr>
+			<th>利用学年</th>
+			<td th:text="${grade}"></td>
+		</tr>
+		<tr>
+			<th>利用講義</th>
+			<td th:text="${lecture}"></td>
+		</tr>
+		<tr>
+			<th>出版社</th>
+			<td th:text="${publisher}"></td>
+		</tr>
+		<tr>
+			<th>状態</th>
+			<td th:text="${condition}"></td>
+		</tr>
+	</table>
+	
+</body>
+
+</html>
