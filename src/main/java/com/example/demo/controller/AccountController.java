@@ -167,12 +167,14 @@ public class AccountController {
 			Student student = emailStudent.get(0);
 			accountandcart.setId(student.getId());
 			accountandcart.setName(student.getName());
+			accountandcart.setAuthority(1);
 		}
 
 		if (numberStudent.size() > 0) {
 			Student student = numberStudent.get(0);
 			accountandcart.setId(student.getId());
 			accountandcart.setName(student.getName());
+			accountandcart.setAuthority(1);
 		}
 
 		return "redirect:/items";
@@ -225,15 +227,17 @@ public class AccountController {
 			Staff staff = emailStaff.get(0);
 			accountandcart.setId(staff.getId());
 			accountandcart.setName(staff.getStaffName());
+			accountandcart.setAuthority(2);
 		}
 
 		if (numberStaff.size() > 0) {
 			Staff staff = numberStaff.get(0);
 			accountandcart.setId(staff.getId());
 			accountandcart.setName(staff.getStaffName());
+			accountandcart.setAuthority(2);
 		}
 
-		return "redirect:/items";
+		return "staffMyPage";
 	}
 
 	//管理者用ログイン画面の表示
@@ -281,6 +285,7 @@ public class AccountController {
 			Admin admin = idAdmin.get(0);
 			accountandcart.setId(admin.getId());
 			accountandcart.setName(admin.getAdminName());
+			accountandcart.setAuthority(3);
 		}
 
 		return "adminMyPage";
