@@ -17,4 +17,6 @@ public interface SaleListRepository extends JpaRepository<SaleList, Integer> {
 	
 	List<SaleList> findByBookInfoId(Integer bookInfoId);
 	
+	SaleList findByIdAndItemStatus(Integer id, Integer itemStatus);
+	
 }

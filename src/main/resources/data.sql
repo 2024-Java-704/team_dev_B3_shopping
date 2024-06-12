@@ -33,12 +33,13 @@ INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) V
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('2','2','2001-02-02',1,2);
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','3','2001-02-02',1,2);
 
-
 INSERT INTO bookmark(student_id,salelist_id) VALUES(1,1);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(2,2);
 
---INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(1,1,1,1,1);
---INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(2,2,2,2,2);
+
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(1,1,1,1,1);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(2,2,2,2,2);
+
 
 INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(1,CURRENT_TIMESTAMP);
 INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(2,CURRENT_TIMESTAMP);
