@@ -47,10 +47,21 @@ public class SaleList {
 
 	@Transient
 	private Integer delivery;
+	
+	@Transient
+	private String name;
 
 	//デフォルトコンストラクタ
 	public SaleList() {
 
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Integer getId() {
