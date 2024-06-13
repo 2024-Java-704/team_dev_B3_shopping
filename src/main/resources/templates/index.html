@@ -23,7 +23,7 @@
 		</tr>
 		<tr th:each="book:${books}">
 			<td><a th:href="@{/items/detail(id=${book.id})}"  th:text="${book.title}"></a></td>
-			<td th:text="${book.price}"></td>
+			<td th:text="${book.price} + '円'"></td>
 		</tr>
 	</table>
 	
