@@ -30,12 +30,14 @@
 			</tr>
 
 		</table>
-	<form action="/purchase/order" method="get">
+	
 
     <br>
 		<div style="text-align: center;">合計金額：[[${sum}]]円</div>
-		<br>
-
+	<br>
+		
+	<div style="display: flex; justify-content: center;">
+	<form action="/purchase/order" method="get">
 		<button>購入ボタン</button>
 
 	</form>
@@ -47,6 +49,7 @@
 	<form action="/bookmark" method="get">
 	<button>ブックマーク一覧</button>
 	</form>
+	</div>
 </body>
 
 </html>

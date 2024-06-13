@@ -59,13 +59,16 @@
 			<td th:if="${student.banDay == null}" th:text="運用中"></td>
 		</tr>
 	</table>
+	<br>
 		
+		<div style="display: flex; justify-content: center;">
 		<form th:action="@{/account/{studentId}/update(studentId=${student.id})}" method="get">
 			<button>更新</button>
 		</form>
 		<form th:action="@{/account/{studentId}/freeze(studentId=${student.id})}" method="get">
 			<button>凍結</button>
 		</form>
+		</div>
 
 </body>
 </html>
