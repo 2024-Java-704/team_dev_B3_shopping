@@ -115,9 +115,13 @@ public class PageViewController {
 	public String bookMarkAdd(@RequestParam("id") Integer id) {
 		List<SaleList> item = saleListRepository.findByBookInfoId(id);
 		Integer itemId = item.get(0).getId();
+		System.out.println("itemIdは" + itemId);
 
-		List<Bookmark> bookmark = bookmarkRepository.findAll();
+		List<Bookmark> bookmark = bookmarkRepository.findByStudentId(accountAndCart.getId());
+//		List<Bookmark> bookmark = bookmarkRepository.findAll(); 上手くいかないコード
 		for (Bookmark book : bookmark) {
+			
+			System.out.println("セールリストIDは" + book.getSalelistId());
 			if (itemId == book.getSalelistId()) {
 				return "redirect:/bookmark";
 			}

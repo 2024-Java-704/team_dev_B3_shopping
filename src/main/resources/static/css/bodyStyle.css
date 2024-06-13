@@ -82,6 +82,8 @@ button:hover {
 	/*枠線*/
 	box-sizing: border-box;
 	/*横幅の解釈をpadding, borderまでとする*/
+	
+	font-family: "Yusei Magic", sans-serif;
 }
 
 /*カレンダーボックスのデザイン*/
