@@ -25,13 +25,18 @@ table {
 
 
 th {
+	font-size: x-large;
 	border: dotted rgb(192, 192, 192);
 	border-width: 1px 0 1px 0;
 }
 
 td {
+	font-size: x-large;
 	border: dotted rgb(192, 192, 192);
 	border-width: 0 1px 0 0;
+	height: 60px;
+	width: 450px;
+	text-align: center;
 }
 
 /*h1デザイン*/
@@ -49,7 +54,7 @@ button {
 	text-align: center;
 	text-decoration: none;
 	width: 90px;
-	height: 40px;
+	height: 45px;
 	margin: auto;
 	font-weight: bold;
 	border: 2px solid #27acd9;
@@ -135,3 +140,14 @@ a:visited {
 	text-decoration: none;
 	color: #5bb7ae;
 }
+
+/*既に出品終了している場合の縁取り文字*/
+.ended {
+	border-radius: 10px;
+	color: #000;
+	text-shadow: 1px 1px 0 #FFF, -1px -1px 0 #FFF,
+		-1px 1px 0 #FFF, 1px -1px 0 #FFF,
+		0px 1px 0 #FFF, 0-1px 0 #FFF,
+		-1px 0 0 #FFF, 1px 0 0 #FFF;
+}
+

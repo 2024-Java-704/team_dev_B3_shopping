@@ -24,11 +24,13 @@
 		<tr th:each="book:${books}">
 			<td th:text="${book.title}"></td>
 			<td th:text="${book.price}"></td>
-				<td th:if="${book.itemStatus == 1}">出品中</td>
-				<td th:if="${book.itemStatus == 2 or book.itemStatus == 3 or book.itemStatus == 4 or book.itemStatus == 5}">終了</td>
+				<td th:if="${book.itemStatus == 1}" class="listingStatus">出品中</td>
+				<td th:if="${book.itemStatus == 2 or book.itemStatus == 3 or book.itemStatus == 4 or book.itemStatus == 5}" class="listingStatus">終了</td>
 
 		</tr>
 	</table>
+	
+	<script src="/JS/auctionCheck.js"></script>
 </body>
 
 </html>
