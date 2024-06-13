@@ -28,7 +28,8 @@
 		</tr>
 		<tr>
 			<th>金額</th>
-			<td th:text="${book.price}"></td>
+			<td th:if="${#strings.isEmpty(book.price)}">未定</td>
+			<td th:if="${not #strings.isEmpty(book.price)}" th:text="${book.price}"></td>
 		</tr>
 		<tr>
 			<th>状態</th>
