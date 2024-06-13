@@ -21,7 +21,9 @@
 			<th>ステータス</th>
 		</tr>
 		<tr th:each="list:${salelist}">
-			<td><a th:href="@{/order/history/detail(id=${list.bookInfoId})}" th:text="${list.title}"></a></td>
+			<td>
+				<a th:href="@{/order/history/detail(id=${list.bookInfoId})}" th:text="${list.title}"></a>
+			</td>
 			<td th:if="${list.itemStatus}==1">出品中</td>
 			<td th:if="${list.itemStatus}==2">売買済み</td>
 			<td th:if="${list.itemStatus}==3">売上受取申請済み</td>
