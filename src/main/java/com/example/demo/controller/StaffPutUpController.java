@@ -94,10 +94,20 @@ public class StaffPutUpController {
 
 	//出品申請許可処理
 	@PostMapping("/itemrequest/approval")
-	public String putUp(@RequestParam("id") Integer id, Model model) {
+	public String putUp(
+			@RequestParam("id") Integer id,
+			@RequestParam("condition") String condition,
+			@RequestParam("price") Integer price,
+			Model model) {
 		SaleList sale = saleListRepository.findById(id).get();
 		sale.setItemStatus(1);
 		saleListRepository.save(sale);
+		
+		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
+		bookinfo.setCondition(condition);
+		bookinfo.setPrice(price);
+		bookinfoRepository.save(bookinfo);
+		
 		model.addAttribute("operation", 1);
 		return "staffPutUpComplete";
 	}
