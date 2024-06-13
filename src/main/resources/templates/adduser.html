@@ -11,12 +11,33 @@
 	<h1>新規登録申請</h1>
 	<span th:text="${errorList}" style="color: rgb(255, 0, 0)"></span><br>
 	<form action="/new/users" method="post">
-		<input type="text" name="name" class="textbox" placeholder="名前" required><br>
-		<input type="text" maxlength="255" class="textbox" name="number" placeholder="学籍番号" required><br>
-		<input type="text" name="address" class="textbox" placeholder="住所" required><br>
-		<input type="date" name="birth"  placeholder="生年月日" value="2001-01-01" required><br>
-		<input type="email" name="email" class="textbox" placeholder="メールアドレス" required><br>
-		<input type="password" minlength="6" class="textbox" maxlength="255" name="password" placeholder="パスワード" required><br>
+		<table>
+			<tr>
+				<th>名前</th>
+				<td><input type="text" name="name" class="textbox" placeholder="名前" required></td>
+			</tr>
+			<tr>
+				<th>学籍番号</th>
+				<td><input type="text" maxlength="10" class="textbox" name="number" placeholder="学籍番号（最大10桁）" required></td>
+			</tr>
+			<tr>
+				<th>住所</th>
+				<td><input type="text" name="address" class="textbox" placeholder="住所" required></td>
+			</tr>
+			<tr>
+				<th>生年月日</th>
+				<td><input type="date" name="birth"  placeholder="生年月日" value="2001-01-01" required></td>
+			</tr>
+			<tr>
+				<th>メールアドレス</th>
+				<td><input type="email" name="email" class="textbox" placeholder="メールアドレス" required><br></td>
+			</tr>
+			<tr>
+				<th>パスワード</th>
+				<td><input type="password" minlength="6" class="textbox" maxlength="20" name="password" placeholder="パスワード（最大20文字）" required></td>
+			</tr>
+		</table>
+
 		<p>画像</p>
 
 		<button>確認画面へ</button>

@@ -21,20 +21,20 @@
 	<table>
 		<tr>
 			<th>タイトル</th>
-			<td><input type="text" name="title" class="textbox"></td>
+			<td><input type="text" name="title" class="textbox" required></td>
 		</tr>
 		<tr>
 			<th>著者</th>
-			<td><input type="text" name="author" class="textbox"></td>
+			<td><input type="text" name="author" class="textbox" required></td>
 		</tr>
 		<tr>
 			<th>ISBNコード</th>
-			<td><input type="text" name="isbn" class="textbox"></td>
+			<td><input type="text" name="isbn" class="textbox" required maxlength="13"></td>
 		</tr>
 		<tr>
 			<th>カテゴリ</th>
 			<td>
-				<select name="category_id">
+				<select name="category_id" required>
 					<option value="1">現代文</option>
 					<option value="2">数学</option>
 					<option value="3">化学</option>
@@ -45,19 +45,25 @@
 		</tr>
 		<tr>
 			<th>利用学年</th>
-			<td><input type="text" name="grade" class="textbox"></td>
+			<td>
+				<select name="grade" class="textbox" required>
+					<option value="1">1年</option>
+					<option value="2">2年</option>
+					<option value="3">3年</option>
+					<option value="4">4年</option>
+			</td>
 		</tr>
 		<tr>
 			<th>利用講義</th>
-			<td><input type="text" name="lecture" class="textbox"></td>
+			<td><input type="text" name="lecture" class="textbox" required></td>
 		</tr>
 		<tr>
 			<th>出版社</th>
-			<td><input type="text" name="publisher" class="textbox"></td>
+			<td><input type="text" name="publisher" class="textbox" required></td>
 		</tr>
 		<tr>
 			<th>本の状態</th>
-			<td><input type="text" name="condition" class="textbox"></td>
+			<td><input type="text" name="condition" class="textbox" required placeholder="良"></td>
 		</tr>	
 	</table>
 	
