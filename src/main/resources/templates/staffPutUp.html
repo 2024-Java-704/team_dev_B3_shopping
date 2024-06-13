@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>出品申請一覧</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
@@ -22,7 +23,7 @@
 		</tr>
 		<tr th:each="sale:${saleList}">
 			<td th:text="${sale.title}"></td>
-			<td th:text="${sale.itemStatus}"></td>
+			<td>出品申請中</td>
 			<td>
 				<form action="/itemrequest/detail" method="get">
 					<input type="hidden" th:value="${sale.id}" name="id">

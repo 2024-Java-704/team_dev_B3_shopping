@@ -45,16 +45,32 @@ public class PageViewController {
 
 	//商品一覧画面表示
 	@GetMapping("/items")
-	public String index(Model model) {
+	public String index(
+			@RequestParam(name = "keyword", defaultValue = "") String keyword,
+			Model model) {
+
 		if (accountAndCart.getId() == null) {
 			return "redirect:/login";
 		}
+
 		List<SaleList> saleList = saleListRepository.findByItemStatus(1);
 		List<Bookinfo> books = new ArrayList<>();
-		for (SaleList item : saleList) {
-			Bookinfo sale = bookinfoRepository.findById(item.getId()).get();
-			books.add(sale);
+    
+		if (keyword.equals("")) { //キーワードが入力されなかった場合
+			for (SaleList sale : saleList) {
+				Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
+				books.add(bookinfo);
+			}
+		} else { //キーワードが入力された場合
+			for (SaleList sale : saleList) {
+				List<Bookinfo> bookinfos = bookinfoRepository.findByIdAndTitleContaining(sale.getBookInfoId(), keyword);
+				if (!bookinfos.isEmpty()) {
+					books.add(bookinfos.get(0));
+				}
+			}
+
 		}
+
 		model.addAttribute("books", books);
 
 		if (accountAndCart.getId() != null) {
@@ -79,6 +95,7 @@ public class PageViewController {
 	@GetMapping("/bookmark")
 	public String bookMark(Model model) {
 		List<Bookmark> bookmark = bookmarkRepository.findByStudentId(accountAndCart.getId());
+
 
 		List<Bookinfo> books = new ArrayList<>();
 
