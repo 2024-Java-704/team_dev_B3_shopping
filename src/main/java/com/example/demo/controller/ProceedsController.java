@@ -55,7 +55,8 @@ public class ProceedsController {
 	public String proceedsDetails(
 			@PathVariable("saleListId") Integer id,
 			Model model) {
-		Bookinfo book = bookinfoRepository.findById(id).get();
+		SaleList saleBook = saleListRepository.findById(id).get();
+		Bookinfo book = bookinfoRepository.findById(saleBook.getBookInfoId()).get();
 		model.addAttribute("book", book);
 		return "detail";
 	}
