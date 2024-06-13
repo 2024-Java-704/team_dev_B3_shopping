@@ -83,10 +83,15 @@ public class ProceedsController {
 	//申請確認
 	@PostMapping("/request")
 	public String paymentOrderConfirm(
-			@RequestParam(name = "wantsId", defaultValue = "") Integer wantsId,
-			@RequestParam(name = "wantsPrice", defaultValue = "") Integer wantsPrice,
+			@RequestParam(name = "wantsId", defaultValue = "0") Integer wantsId,
+			@RequestParam(name = "wantsPrice", defaultValue = "0") Integer wantsPrice,
 			Model model
 			) {
+		
+		if(wantsId.equals(0) || wantsPrice.equals(0)) {
+			model.addAttribute("nullMessage", "！選択してください");
+			return "paymentOrder";
+		}
 		
 		model.addAttribute("wantsId", wantsId);
 		model.addAttribute("wantsPrice", wantsPrice);

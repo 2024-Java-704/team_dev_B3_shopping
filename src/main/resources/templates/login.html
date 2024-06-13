@@ -2,24 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ログイン</title>
+<title>生徒用ログイン</title>
 <link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 <body>
 <h1>ログイン画面</h1>
 <span th:text="${errorList}" style="color: rgb(255, 0, 0)"></span><br>
 <p th:text="${message}" style="color: rgb(255, 0, 0)"></p>
-<form action="/login" method="post">
-<p >メールアドレス又は学籍番号</p>
-<input type="email" name="email" class="textbox" placeholder="メールアドレス" ><br>
-<input type="text" name="number"class="textbox" placeholder="学籍番号" ><br>
-<p>パスワード</p>
-<input type="password" name="password" class="textbox" placeholder="パスワード" required><br>
 
-<br>
+<form action="/login" method="post">
+	<table>
+		<tr>
+			<th>メールアドレス又は学籍番号</th>
+			<td><input type="email" name="email" class="textbox" placeholder="メールアドレス" ></td>
+			<td><input type="text" name="number"class="textbox" placeholder="学籍番号" ></td>
+		</tr>
+		<tr>
+			<th>パスワード</th>
+			<td><input type="password" name="password" class="textbox" placeholder="パスワード" required></td>
+		</tr>
+	</table>
+
+
 <button >ログイン</button>
 </form>
+
 <div style="text-align: center;">
+	<br>
   <a href="/new/users">会員登録申請</a><br>
   <a href="/staff">職員用ログインページはこちら</a>
  </div>

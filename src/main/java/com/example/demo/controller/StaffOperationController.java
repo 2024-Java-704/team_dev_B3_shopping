@@ -164,9 +164,21 @@ public class StaffOperationController {
 //			studentRepository.save(student);
 //		}
 //		
+		//ユニークチェック
+		try {
 		Student student = new Student(id, name, number, address, birth, pass, email, uniqueCheck.getStatus());
 		studentRepository.save(student);
 		return "redirect:/account";
+		} catch(Exception E) {
+			//エラーメッセージ
+			model.addAttribute("uniqueError", "！学籍番号やメールアドレスが既に存在しているものとかぶっています");
+			
+			//再度情報を入れる
+			Student student = studentRepository.findById(id).get();
+			model.addAttribute("student", student);
+			return "SOC_accountUpdate";
+			}
+
 	}
 
 

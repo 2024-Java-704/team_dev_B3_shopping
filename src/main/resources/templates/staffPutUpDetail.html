@@ -14,11 +14,11 @@
 	<br>
 	<br>
 	<h1>出品申請詳細</h1>
-	
+
 	<div th:each="message:${errorMessage}" style="text-align:center">
 		<span th:text="${message}" style="color:red"></span>
 	</div>
-	
+
 	<table>
 		<tr>
 			<th>タイトル</th>
@@ -37,26 +37,26 @@
 			<td>申請許可待ち</td>
 		</tr>
 	</table>
-	
+	<br>
 	<form action="/itemrequest/approval" method="get">
 		<table>
 			<tr>
 				<th>状態</th>
 				<td>
-					<input type="text" name="condition">
+					<input type="text" name="condition" class="textbox">
 				</td>
 			</tr>
 			<tr>
 				<th>金額</th>
 				<td>
-					<input type="number" name="price">
+					<input type="number" name="price" class="textbox">
 				</td>
 			</tr>
 		</table>
 		<input type="hidden" th:value="${sale.id}" name="id">
 		<button>出品する</button>
 	</form>
-	
+
 	<form action="/itemrequest/reject" method="get">
 		<input type="hidden" th:value="${sale.id}" name="id">
 		<button>却下する</button>

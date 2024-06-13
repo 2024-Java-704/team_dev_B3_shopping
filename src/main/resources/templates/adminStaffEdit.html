@@ -2,7 +2,7 @@
 <htmel xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>職員アカウント更新</title>
 <link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 <body>
@@ -11,6 +11,11 @@
 	<br>
 	<br>
 	<br>
+	<h1>職員アカウント更新</h1>
+	<div style="text-align: center;">
+		<span th:if="${uniqueError}" th:text="${uniqueError}" style="color: red;"></span>
+	</div>
+	
 	<form th:action="@{/staffList/{staffId}/update/confirm(staffId=${staff.id})}" method="get">
 	<table border="2">
 		<tr>

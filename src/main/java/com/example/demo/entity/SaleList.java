@@ -28,9 +28,9 @@ public class SaleList {
 
 	@Column(name = "bookinfo_id")
 	private Integer bookInfoId;
-	
+
 	@ManyToOne
-    @JoinColumn(name = "bookinfo_id", insertable = false, updatable = false)
+	@JoinColumn(name = "bookinfo_id", insertable = false, updatable = false)
 	private Bookinfo bookInfo;
 
 	@Column(name = "sale_day")
@@ -47,7 +47,7 @@ public class SaleList {
 
 	@Transient
 	private String Author;
-	
+
 	@Transient
 	private String isbn;
 
@@ -59,7 +59,7 @@ public class SaleList {
 
 	@Transient
 	private Integer delivery;
-	
+
 	@Transient
 	private String name;
 
@@ -68,13 +68,10 @@ public class SaleList {
 
 	}
 
-	public SaleList(Integer student_id, Integer bookinfo_id, LocalDate sale_day, Integer item_status,
-			Integer sale_method) {
-		this.studentId = student_id;
-		this.bookInfoId = bookinfo_id;
-		this.saleDay = sale_day;
-		this.itemStatus = item_status;
-		this.saleMethod = sale_method;
+	public SaleList(Integer studentId, Integer bookinfoId, LocalDate saleDay) {
+		this.studentId = studentId;
+		this.bookInfoId = bookinfoId;
+		this.saleDay = saleDay;
 	}
 	
 	public SaleList(Integer id, Integer student_id, Integer bookinfo_id, LocalDate sale_day, Integer item_status,
@@ -190,13 +187,13 @@ public class SaleList {
 	public void setDelivery(Integer delivery) {
 		this.delivery = delivery;
 	}
-	
-	public Bookinfo getBookInfo() {
-        return bookInfo;
-    }
 
-    public void setBookInfo(Bookinfo bookInfo) {
-        this.bookInfo = bookInfo;
-    }
+	public Bookinfo getBookInfo() {
+		return bookInfo;
+	}
+
+	public void setBookInfo(Bookinfo bookInfo) {
+		this.bookInfo = bookInfo;
+	}
 
 }

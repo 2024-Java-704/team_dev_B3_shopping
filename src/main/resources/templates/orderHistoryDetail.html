@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>出品詳細</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>出品詳細</h1>
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<td th:text="${book.title}"></td>
+		</tr>
+		<tr>
+			<th>著者</th>
+			<td th:text="${book.author}"></td>
+		</tr>
+		<tr>
+			<th>ISBN</th>
+			<td th:text="${book.isbn}"></td>
+		</tr>
+		<tr>
+			<th>出品ステータス</th>
+			<td th:text="${saleList.saleMethod}"></td>
+		</tr>
+		<tr>
+			<th>金額</th>
+			<td th:if="${#strings.isEmpty(book.price)}">未定</td>
+			<td th:if="${not #strings.isEmpty(book.price)}" th:text="${book.price} + '円'"></td>
+		</tr>
+		<tr>
+			<th>状態</th>
+			<td th:text="${saleList.itemStatus}"></td>
+		</tr>
+</body>
+
+</html>

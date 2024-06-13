@@ -2,7 +2,7 @@
 <htmel xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>職員アカウント新規登録</title>
 <link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 <body>
@@ -12,7 +12,11 @@
 	<br>
 	<br>
 	<h1>職員アカウント新規登録</h1>
-	<span th:text="${errorList}" style="color: rgb(255, 0, 0)"></span><br>
+	<div style="text-align: center;">
+		<span th:text="${errorList}" style="color: rgb(255, 0, 0)"></span><br>
+		<span th:text="${uniqueError}" style="color: rgb(255, 0, 0)"></span><br>
+	</div>
+	
 	<form action="/staffList/add/confirm" method="get">
 		<table>
 		<tr>

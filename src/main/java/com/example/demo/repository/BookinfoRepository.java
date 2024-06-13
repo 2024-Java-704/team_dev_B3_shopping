@@ -10,4 +10,6 @@ public interface BookinfoRepository extends JpaRepository<Bookinfo, Integer> {
 	
 	List<Bookinfo> findByIdAndTitleContaining(Integer id, String title);
 
+	Bookinfo findByIsbn(String isbn);
+
 }
