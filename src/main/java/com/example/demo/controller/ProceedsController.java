@@ -58,7 +58,7 @@ public class ProceedsController {
 		SaleList saleBook = saleListRepository.findById(id).get();
 		Bookinfo book = bookinfoRepository.findById(saleBook.getBookInfoId()).get();
 		model.addAttribute("book", book);
-		return "detail";
+		return "soldDetail";
 	}
 	
 	//売上受け取り申請
