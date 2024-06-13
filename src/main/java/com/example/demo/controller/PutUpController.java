@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,9 @@ public class PutUpController {
 			@RequestParam("author") String author,
 			@RequestParam("category_id") Integer category_id,
 			Model model) {
+
+		List<String> errorList = new ArrayList<>();
+
 		model.addAttribute("title", title);
 		model.addAttribute("publisher", publisher);
 		model.addAttribute("isbn", isbn);
@@ -61,6 +65,36 @@ public class PutUpController {
 		model.addAttribute("condition", condition);
 		model.addAttribute("category_id", category_id);
 		model.addAttribute("author", author);
+
+		//エラーチェック
+		if (title.length() == 0) {
+			errorList.add("タイトルを入力してください");
+		}
+		if (publisher.length() == 0) {
+			errorList.add("出版社を入力してください");
+		}
+		if (isbn.length() == 0) {
+			errorList.add("ISBNを入力してください");
+		}
+		if (condition.length() == 0) {
+			errorList.add("本の状態を入力してください");
+		}
+		if (grade.length() == 0) {
+			errorList.add("学年を入力してください");
+		}
+		if (lecture.length() == 0) {
+			errorList.add("使用した講義名を入力してください");
+		}
+		if (author.length() == 0) {
+			errorList.add("作者名を入力してください");
+		}
+
+		// エラー発生時は新規登録に戻す
+		if (errorList.size() > 0) {
+			model.addAttribute("errorList", errorList);
+			return "order";
+		}
+
 		return "orderConfirm";
 	}
 
@@ -76,17 +110,22 @@ public class PutUpController {
 			@RequestParam("author") String author,
 			@RequestParam("category_id") Integer category_id,
 
-			@RequestParam("id") Integer id,
-			@RequestParam("student_id") Integer student_id,
-			@RequestParam("bookinfo_id") Integer bookinfo_id,
-			@RequestParam("sale_day") LocalDate sale_day,
-			@RequestParam("item_status") Integer item_status,
-			@RequestParam("sale_method") Integer sale_method,
+			//			@RequestParam("id") Integer id,
+			//			@RequestParam("student_id") Integer student_id,
+			//			@RequestParam("bookinfo_id") Integer bookinfo_id,
+			//			@RequestParam("sale_day") LocalDate sale_day,
+			//			@RequestParam("item_status") Integer item_status,
+			//			@RequestParam("sale_method") Integer sale_method,
 			Model model) {
 		Bookinfo bookInfo = new Bookinfo(title, publisher, isbn, condition, grade, lecture, author, category_id);
 		bookinfoRepository.save(bookInfo);
 
-		SaleList saleList = new SaleList(id, student_id, bookinfo_id, sale_day, item_status, sale_method);
+		bookinfo = bookinfoRepository.findByIsbn(isbn);
+		SaleList saleList = new SaleList(accountAndCart.getId(), bookinfo.getId(), LocalDate.now());
+		saleList.setItemStatus(5);
+		saleList.setSaleMethod(1);
+		//		Integer itemStatus, Integer saleMethod
+
 		saleListRepository.save(saleList);
 		return "orderSuccess";
 	}
@@ -105,5 +144,17 @@ public class PutUpController {
 		//item_status - 1:出品中、2:売買済み、3:売上受取申請済み、4:売上受取済、5:出品申請中
 		model.addAttribute("salelist", salelist);
 		return "orderHistory";
+	}
+
+	@GetMapping("/order/history/detail")
+	public String orderDetail(
+			@RequestParam("id") Integer Id,
+			Model model) {
+		bookinfo = bookinfoRepository.findById(Id).get();
+		model.addAttribute("book", bookinfo);
+		SaleList saleList = saleListRepository.findByBookInfoId(bookinfo.getId()).get(0);
+		model.addAttribute("saleList", saleList);
+
+		return "orderHistoryDetail";
 	}
 }
