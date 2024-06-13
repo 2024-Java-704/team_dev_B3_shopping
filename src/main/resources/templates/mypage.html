@@ -15,9 +15,10 @@
 	<br>
 	<h1>マイページ</h1>
 
-	<th:block th:if="${student.status} eq 1 OR ${student.status} eq 3">
+	<th:block th:if="${student.status} != 2">
 		<div style="text-align: center;">
 			<span style="color: red;">!本会員ではないので表示できません</span>
+			<br>
 			<a href="/login">こちらからログイン</a>
 		</div>
 	</th:block>
