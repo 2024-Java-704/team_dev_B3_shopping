@@ -30,7 +30,7 @@ INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condi
 
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','1','2000-01-01',1,1);
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','2','2001-02-02',2,2);
-INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('2','3','2002-03-03',5,2);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('3','3','2002-03-03',2,2);
 
 INSERT INTO bookmark(student_id,salelist_id) VALUES(1,1);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(2,2);
