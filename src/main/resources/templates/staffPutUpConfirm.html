@@ -43,6 +43,8 @@
 
 		<form action="/itemrequest/approval" method="post">
 			<input type="hidden" th:value="${sale.id}" name="id">
+			<input type="hidden" th:value="${condition}" name="condition">
+			<input type="hidden" th:value="${price}" name="price">
 			<button>出品する</button>
 		</form>
 	</th:block>

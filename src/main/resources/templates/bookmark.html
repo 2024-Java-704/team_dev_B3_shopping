@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ｓ<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -14,7 +14,7 @@
 	<br>
 	<br>
 	<h1>ブックマーク</h1>
-	
+
 	<table>
 		<tr>
 			<th>商品名</th>
@@ -22,11 +22,10 @@
 			<th>出品状況</th>
 		</tr>
 		<tr th:each="book:${books}">
-			<td th:text="${book.title}"></td>
+			<td><a th:href="@{/items/detail(id=${book.id})}" th:text="${book.title}"></td>
 			<td th:text="${book.price}"></td>
-				<td th:if="${book.itemStatus == 1}" class="listingStatus">出品中</td>
-				<td th:if="${book.itemStatus == 2 or book.itemStatus == 3 or book.itemStatus == 4 or book.itemStatus == 5}" class="listingStatus">終了</td>
-
+			<td th:if="${book.itemStatus == 1}" class="listingStatus">出品中</td>
+			<td th:if="${book.itemStatus == 2 or book.itemStatus == 3 or book.itemStatus == 4 or book.itemStatus == 5}" class="listingStatus">終了</td>
 		</tr>
 	</table>
 	

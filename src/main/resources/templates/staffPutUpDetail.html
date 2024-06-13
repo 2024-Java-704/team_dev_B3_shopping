@@ -45,13 +45,13 @@
 			<tr>
 				<th>状態</th>
 				<td>
-					<input type="text" name="condition" class="textbox">
+					<input type="text" name="condition" th:value="${condition}" class="textbox">
 				</td>
 			</tr>
 			<tr>
 				<th>金額</th>
 				<td>
-					<input type="number" name="price" class="textbox">
+					<input type="number" name="price" th:value="${price}" class="textbox">
 				</td>
 			</tr>
 		</table>
