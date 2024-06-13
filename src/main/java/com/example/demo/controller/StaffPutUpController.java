@@ -59,21 +59,16 @@ public class StaffPutUpController {
 		
 		if(condition.equals("")) {
 			errorMessage.add("状態を入力してください");
-			model.addAttribute("condition", condition);
 		}
 		
 		if(price == null) {
 			errorMessage.add("金額を入力してください");
-			model.addAttribute("price", price);
-		}
-		
-		if(price <= 0) {
+		} else if(price <= 0) {
 			errorMessage.add("金額を正しく入力してください");
-			model.addAttribute("condition", condition);
-			model.addAttribute("price", price);
 		}
 		
 		if(errorMessage.size() > 0) {
+//			System.out.print("動いてるよ");
 			model.addAttribute("errorMessage", errorMessage);
 			
 			SaleList sale = saleListRepository.findById(id).get();
@@ -81,6 +76,8 @@ public class StaffPutUpController {
 			sale.setTitle(bookinfo.getTitle());
 			sale.setAuthor(bookinfo.getAuthor());
 			sale.setIsbn(bookinfo.getIsbn());
+			model.addAttribute("condition", condition);
+			model.addAttribute("price", price);
 			model.addAttribute("sale", sale);
 			return "staffPutUpDetail";
 		}
