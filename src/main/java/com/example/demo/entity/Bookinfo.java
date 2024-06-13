@@ -1,12 +1,16 @@
 package com.example.demo.entity;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
+@Component
 @Entity
 @Table(name = "bookinfo")
 public class Bookinfo {
@@ -32,6 +36,9 @@ public class Bookinfo {
 	private String condition;
 
 	private Integer price;
+	
+	@Transient
+	private Integer itemStatus;
 
 	//デフォルトコンストラクタ
 	public Bookinfo() {
@@ -128,6 +135,14 @@ public class Bookinfo {
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	public Integer getItemStatus() {
+		return itemStatus;
+	}
+
+	public void setItemStatus(Integer itemStatus) {
+		this.itemStatus = itemStatus;
 	}
 
 }

@@ -4,12 +4,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>出品申請詳細</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>出品申請詳細</h1>
 	
-	<div th:each="message:${errorMessage}">
+	<div th:each="message:${errorMessage}" style="text-align:center">
 		<span th:text="${message}" style="color:red"></span>
 	</div>
 	

@@ -45,13 +45,18 @@ public class StaffFunctionController {
 	public String order(Model model) {
 		List<SaleList> saleList = saleListRepository.findByItemStatus(2);
 		for (SaleList sale : saleList) {
-			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 			sale.setTitle(bookinfo.getTitle());
 			
 			BoughtHistory boughtHisory = boughtHistoryRepository.findById(sale.getId()).get();
 			sale.setAccept(boughtHisory.getAccept());
 			sale.setDelivery(boughtHisory.getDelivery());
 		}
+		
+		if(saleList.size() == 0) {
+			model.addAttribute("errorMessage", "注文がありません");
+		}
+		
 		model.addAttribute("saleList", saleList);
 		return "staffOrder";
 	}
@@ -60,7 +65,7 @@ public class StaffFunctionController {
 	@GetMapping("/purchased/detail")
 	public String orderDetail(@RequestParam("id") Integer id, Model model) {
 		SaleList sale = saleListRepository.findById(id).get();
-		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 		model.addAttribute("bookinfo", bookinfo);
 		
 		List<BoughtHistory> boughtHistory = boughtHistoryRepository.findBySalelistId(sale.getId());
@@ -107,6 +112,10 @@ public class StaffFunctionController {
 			Student student = studentRepository.findById(sale.getStudentId()).get();
 			String name = student.getName();
 			sale.setName(name);
+			
+			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
+			Integer price = bookinfo.getPrice();
+			sale.setPrice(price);
 		}
 		model.addAttribute("saleList", saleList);
 		return "staffProceeds";
@@ -121,7 +130,7 @@ public class StaffFunctionController {
 		String name = student.getName();
 		sale.setName(name);
 		
-		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 		Integer price = bookinfo.getPrice();
 		sale.setPrice(price);
 		

@@ -19,19 +19,19 @@
 		</tr>
 		<tr>
 			<th>職員番号</th>
-			<td><input type="text" name="number" th:value="${staff.staffNumber}"></td>
+			<td><input type="text" name="number" th:value="${staff.staffNumber}" required></td>
 		</tr>
 		<tr>
 			<th>職員名</th>
-			<td><input type="text" name="name" th:value="${staff.staffName}"></td>
+			<td><input type="text" name="name" th:value="${staff.staffName}" required></td>
 		</tr>
 		<tr>
 			<th>メールアドレス</th>
-			<td><input type="text" name="email" th:value="${staff.staffEmail}"></td>
+			<td><input type="text" name="email" th:value="${staff.staffEmail}" required></td>
 		</tr>
 		<tr>
 			<th>パスワード</th>
-			<td><input type="text" name="pass" th:value="${staff.staffPass}"></td>
+			<td><input type="text" name="pass" th:value="${staff.staffPass}" required></td>
 		</tr>
 	</table>
 	<button>確認</button>

@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Component
@@ -20,6 +22,11 @@ public class BoughtHistory {
 	private Integer studentId;
 	@Column(name = "salelist_id")
 	private Integer salelistId;
+	
+	@ManyToOne
+    @JoinColumn(name="salelist_id", insertable = false, updatable = false)
+    private SaleList saleList;
+	
 	private Integer payment;
 	private Integer accept;
 	private Integer delivery;
@@ -31,6 +38,14 @@ public class BoughtHistory {
 	public BoughtHistory(Integer payment, Integer accept) {
 		this.payment = payment;
 		this.accept = accept;
+	}
+	
+	public BoughtHistory(Integer studentId,Integer salelistId,Integer payment,Integer accept,Integer delivery) {
+		this.studentId = studentId;
+		this.salelistId = salelistId;
+		this.payment = payment;
+		this.accept = accept;
+		this.delivery = delivery;
 	}
 
 	public Integer getId() {
@@ -80,5 +95,13 @@ public class BoughtHistory {
 	public void setDelivery(Integer delivery) {
 		this.delivery = delivery;
 	}
+	
+	public SaleList getSaleList() {
+        return saleList;
+    }
+
+    public void setSaleList(SaleList saleList) {
+        this.saleList = saleList;
+    }
 
 }

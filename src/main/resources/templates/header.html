@@ -12,17 +12,24 @@
 	<body>
 		<header>
 			<h1 class="logo" onclick="clickToTop()">うりかいくん</h1>
-<!--			<img src="/img/head.png" id="head" onclick="clickToTop()">-->
+			<!--			<img src="/img/head.png" id="head" onclick="clickToTop()">-->
+
+			<form action="/items" method="get">
+				<input type="text" name="keyword">
+				<button>検索</button>
+			</form>
+
 			<div class="account">
 				<button type="button" class="hamburger">
 					<span></span>
 				</button>
 				<nav class="nav">
 					<th:block th:if="${@accountAndCart.name}">
-					<span style="color: deepskyblue;
+						<span style="color: deepskyblue;
 					text-shadow: 1px 1px 0 #FFF, -1px -1px 0 #FFF,-1px 1px 0 #FFF, 1px -1px 0
 					 #FFF,0px 1px 0 #FFF, 0-1px 0 #FFF,-1px 0 0 #FFF, 1px 0 0 #FFF;"
-						th:text="${@accountAndCart.name} + 'でログイン中'"></span></th:block>
+							th:text="${@accountAndCart.name} + 'でログイン中'"></span>
+					</th:block>
 					<ul class="nav__list">
 						<li class="nav__item"><a href="/login">ログイン</a></li>
 						<li class="nav__item"><a href="/logout">ログアウト</a></li>

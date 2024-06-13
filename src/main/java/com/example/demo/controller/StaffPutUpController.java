@@ -29,7 +29,7 @@ public class StaffPutUpController {
 	public String putUpAccess(Model model) {
 		List<SaleList> saleList = saleListRepository.findByItemStatus(5);
 		for(SaleList sale : saleList) {
-			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 			sale.setTitle(bookinfo.getTitle());
 		}
 		model.addAttribute("saleList", saleList);
@@ -40,7 +40,7 @@ public class StaffPutUpController {
 	@GetMapping("/itemrequest/detail")
 	public String putUpDetail(@RequestParam("id") Integer id, Model model) {
 		SaleList sale = saleListRepository.findById(id).get();
-		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 		sale.setTitle(bookinfo.getTitle());
 		sale.setAuthor(bookinfo.getAuthor());
 		sale.setIsbn(bookinfo.getIsbn());
@@ -59,17 +59,19 @@ public class StaffPutUpController {
 		
 		if(condition.equals("")) {
 			errorMessage.add("状態を入力してください");
+			model.addAttribute("condition", condition);
 		}
 		
 		if(price == null) {
 			errorMessage.add("金額を入力してください");
+			model.addAttribute("price", price);
 		}
 		
 		if(errorMessage.size() > 0) {
 			model.addAttribute("errorMessage", errorMessage);
 			
 			SaleList sale = saleListRepository.findById(id).get();
-			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 			sale.setTitle(bookinfo.getTitle());
 			sale.setAuthor(bookinfo.getAuthor());
 			sale.setIsbn(bookinfo.getIsbn());
@@ -78,7 +80,7 @@ public class StaffPutUpController {
 		}
 		
 		SaleList sale = saleListRepository.findById(id).get();
-		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 		sale.setTitle(bookinfo.getTitle());
 		sale.setAuthor(bookinfo.getAuthor());
 		sale.setIsbn(bookinfo.getIsbn());
@@ -104,7 +106,7 @@ public class StaffPutUpController {
 	@GetMapping("/itemrequest/reject")
 	public String putUpRejectConfirm(@RequestParam("id") Integer id, Model model) {
 		SaleList sale = saleListRepository.findById(id).get();
-		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
+		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 		sale.setTitle(bookinfo.getTitle());
 		sale.setAuthor(bookinfo.getAuthor());
 		sale.setIsbn(bookinfo.getIsbn());
@@ -117,10 +119,11 @@ public class StaffPutUpController {
 	@PostMapping("/itemrequest/reject")
 	public String putUpReject(@RequestParam("id") Integer id, Model model) {
 		SaleList sale = saleListRepository.findById(id).get();
-		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfo()).get();
-		
-		saleListRepository.delete(sale);
-		bookinfoRepository.delete(bookinfo);
+//		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
+		sale.setItemStatus(6);
+		saleListRepository.save(sale);
+//		saleListRepository.delete(sale);
+//		bookinfoRepository.delete(bookinfo);
 		
 		model.addAttribute("operation", 2);
 		return "staffPutUpComplete";

@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -25,7 +27,11 @@ public class SaleList {
 	private Integer studentId;
 
 	@Column(name = "bookinfo_id")
-	private Integer bookInfo;
+	private Integer bookInfoId;
+	
+	@ManyToOne
+    @JoinColumn(name = "bookinfo_id", insertable = false, updatable = false)
+	private Bookinfo bookInfo;
 
 	@Column(name = "sale_day")
 	private LocalDate saleDay;
@@ -38,7 +44,7 @@ public class SaleList {
 
 	@Transient
 	private String title;
-	
+
 	@Transient
 	private String Author;
 	
@@ -61,7 +67,26 @@ public class SaleList {
 	public SaleList() {
 
 	}
+
+	public SaleList(Integer student_id, Integer bookinfo_id, LocalDate sale_day, Integer item_status,
+			Integer sale_method) {
+		this.studentId = student_id;
+		this.bookInfoId = bookinfo_id;
+		this.saleDay = sale_day;
+		this.itemStatus = item_status;
+		this.saleMethod = sale_method;
+	}
 	
+	public SaleList(Integer id, Integer student_id, Integer bookinfo_id, LocalDate sale_day, Integer item_status,
+			Integer sale_method) {
+		this.id = id;
+		this.studentId = student_id;
+		this.bookInfoId = bookinfo_id;
+		this.saleDay = sale_day;
+		this.itemStatus = item_status;
+		this.saleMethod = sale_method;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -102,12 +127,12 @@ public class SaleList {
 		this.studentId = studentId;
 	}
 
-	public Integer getBookInfo() {
-		return bookInfo;
+	public Integer getBookInfoId() {
+		return bookInfoId;
 	}
 
-	public void setBookInfo(Integer bookInfo) {
-		this.bookInfo = bookInfo;
+	public void setBookInfoId(Integer bookInfoId) {
+		this.bookInfoId = bookInfoId;
 	}
 
 	public LocalDate getSaleDay() {
@@ -165,5 +190,13 @@ public class SaleList {
 	public void setDelivery(Integer delivery) {
 		this.delivery = delivery;
 	}
+	
+	public Bookinfo getBookInfo() {
+        return bookInfo;
+    }
+
+    public void setBookInfo(Bookinfo bookInfo) {
+        this.bookInfo = bookInfo;
+    }
 
 }

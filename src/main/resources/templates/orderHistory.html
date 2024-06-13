@@ -8,44 +8,28 @@
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>出品履歴</h1>
-	
-	<table>
+
+	<table border="1">
 		<tr>
 			<th>タイトル</th>
-			<td th:text="${title}"></td>
+			<th>ステータス</th>
 		</tr>
-		<tr>
-			<th>著者</th>
-			<td th:text="${author}"></td>
-		</tr>
-		<tr>
-			<th>ISBNコード</th>
-			<td th:text="${isbn}"></td>
-		</tr>
-		<tr>
-			<th>カテゴリ</th>
-			<td th:text="${category_name}"></td>
-			<!--th:ifじゃない-->
-		</tr>
-		<tr>
-			<th>利用学年</th>
-			<td th:text="${grade}"></td>
-		</tr>
-		<tr>
-			<th>利用講義</th>
-			<td th:text="${lecture}"></td>
-		</tr>
-		<tr>
-			<th>出版社</th>
-			<td th:text="${publisher}"></td>
-		</tr>
-		<tr>
-			<th>状態</th>
-			<td th:text="${condition}"></td>
+		<tr th:each="list:${salelist}">
+			<td><a th:href="@{/items/detail(id=${list.bookInfoId})}" th:text="${list.title}"></a></td>
+			<td th:if="${list.itemStatus}==1">出品中</td>
+			<td th:if="${list.itemStatus}==2">売買済み</td>
+			<td th:if="${list.itemStatus}==3">売上受取申請済み</td>
+			<td th:if="${list.itemStatus}==4">売上受取済</td>
+			<td th:if="${list.itemStatus}==5">出品申請中</td>
 		</tr>
 	</table>
-	
+
 </body>
 
 </html>

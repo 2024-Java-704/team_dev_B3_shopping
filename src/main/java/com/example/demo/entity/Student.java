@@ -52,9 +52,7 @@ public class Student {
 	public Student(Integer status) {
 		this.status = status;
 	}
-
-	//ゲッター セッター
-  
+	
 	public Student(String name, String number, String address, Date birth, String pass, String email,Integer status) {
 		this.name=name;
 		this.number=number;
@@ -77,6 +75,9 @@ public class Student {
 		this.status=status;
 	
 	}
+
+	//ゲッター セッター
+ 
 	
 	public Integer getId() {
 		return id;
@@ -150,7 +151,6 @@ public class Student {
 		this.status = status;
 	}
 
-	
 	public Date getBanDay() {
 		return banDay;
 	}

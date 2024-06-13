@@ -26,17 +26,27 @@ INSERT INTO categories(category_name) VALUES('その他');
 
 INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('1','aaa','a','c','1234-5678-9012',1,'A','a',1200);
 INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('2','bbb','b','c','0987-6543-2109',2,'B','b',1300);
-INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('3','ccc','c','c','1101-1100-1011',3,'B','c',1400);
+
+INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('3','ccc','c','c','0988-6543-2109',1,'C','c',1300);
 
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','1','2000-01-01',1,1);
+<<<<<<< HEAD
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','2','2001-02-02',2,2);
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('3','3','2002-03-03',2,2);
+=======
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('2','2','2001-02-02',1,2);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','3','2001-02-02',1,2);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','3','2001-02-02',3,2);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','3','2001-02-02',5,2);
+>>>>>>> 432e47ab25dbb54246df76a03270523dfc9119b5
 
 INSERT INTO bookmark(student_id,salelist_id) VALUES(1,1);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(2,2);
 
+
 INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(1,1,1,1,1);
 INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(2,2,2,2,2);
+
 
 INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(1,CURRENT_TIMESTAMP);
 INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(2,CURRENT_TIMESTAMP);
