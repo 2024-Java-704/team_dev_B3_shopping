@@ -72,7 +72,12 @@ public class PageViewController {
 		}
 
 		model.addAttribute("books", books);
+		for(Bookinfo book : books) {
+			System.out.println("タイトルは" + book.getTitle());
+		}
 
+
+		//仮登録チェック
 		if (accountAndCart.getId() != null) {
 			Student student = studentRepository.findById(accountAndCart.getId()).get();
 
