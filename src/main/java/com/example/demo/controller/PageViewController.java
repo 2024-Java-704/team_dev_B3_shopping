@@ -135,6 +135,14 @@ public class PageViewController {
 		bookmarkRepository.save(book);
 		return "redirect:/bookmark";
 	}
+	
+	//ブックマーク削除処理
+//	@PostMapping("/bookmark/delete")
+//	public String bookMarkDelete(@RequestParam("id") Integer id) {
+//		Bookmark bookmark = bookmarkRepository.findById(id).get();
+//		bookmarkRepository.deleteById(id);
+//		return "redirect:/bookmark";
+//	}
 
 	//マイページ画面表示
 	@GetMapping("/mypage")

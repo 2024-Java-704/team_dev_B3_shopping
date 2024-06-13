@@ -29,17 +29,17 @@
 			</form>
 		</tr>
 	</table>
-	
+
 	<br>
 	<div style="text-align: center;">合計金額：[[${sum}]]円</div>
 	<br>
-	
-	<th:block th:if="${student.status eq 2}">
+
+	<th:block th:if="${student.status eq 2 && sum != 0}">
 		<form action="/purchase/order" method="get">
-			<button>購入ボタン</button>
+			<button>購入</button>
 		</form>
 	</th:block>
-	
+
 	<th:block th:unless="${student.status eq 2}">
 		<form action="/login" method="get">
 			<button>購入するにはログイン</button>
@@ -51,9 +51,9 @@
 	<form action="/items" method="get">
 		<button>商品一覧</button>
 	</form>
-	
+
 	<br>
-	
+
 	<form action="/bookmark" method="get">
 		<button>ブックマーク一覧</button>
 	</form>

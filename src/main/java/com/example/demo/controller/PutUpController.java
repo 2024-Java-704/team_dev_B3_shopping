@@ -157,6 +157,12 @@ public class PutUpController {
 			Model model) {
 		Integer accountId = accountAndCart.getId();
 		List<SaleList> salelist = saleListRepository.findByStudentId(accountId);//idと一致するものを取得
+		
+		if(salelist.size() > 0) {
+			model.addAttribute("errorMessage", "出品履歴がありません");
+			return "orderHistory";
+		}
+		
 		for (SaleList list : salelist) {
 			bookinfo = bookinfoRepository.findById(list.getBookInfoId()).get();
 			list.setTitle(bookinfo.getTitle());//title取得

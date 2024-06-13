@@ -111,7 +111,7 @@ public class PurchaseController {
 	@GetMapping("/purchase/order")
 	public String purchaseAccess(Model model) {
 		if (accountAndCart.getCartItems().size() == 0) {
-			return "cart";
+			return "redirect:/cart";
 		}
 		return "purchaseAccess";
 	}
