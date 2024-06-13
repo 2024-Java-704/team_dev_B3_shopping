@@ -39,6 +39,11 @@ public class ProceedsController {
 		
 		List<SaleList> sales = saleListRepository.findByItemStatusIs(2);
 			sales.removeAll(saleListRepository.findByStudentIdIsNot(AccountAndCart.getId()));
+		
+		if(sales.size() == 0) {
+			model.addAttribute("errorMessage", "購入された商品はありません");
+			return "indexSold";
+		}
 			
 		for(SaleList sale : sales) {
 			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get(); 
