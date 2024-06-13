@@ -24,7 +24,14 @@
 		</tr>
 		<tr>
 			<th>出品ステータス</th>
-			<td th:text="${saleList.saleMethod}"></td>
+			<td>
+				<th:block th:if="${saleList.itemStatus eq 1}">出品中</th:block>
+				<th:block th:if="${saleList.itemStatus eq 2}">売買済み</th:block>
+				<th:block th:if="${saleList.itemStatus eq 3}">売買済み</th:block>
+				<th:block th:if="${saleList.itemStatus eq 4}">売買済み</th:block>
+				<th:block th:if="${saleList.itemStatus eq 5}">出品申請中</th:block>
+				<th:block th:if="${saleList.itemStatus eq 6}">出品申請却下</th:block>
+			</td>
 		</tr>
 		<tr>
 			<th>金額</th>
@@ -33,7 +40,7 @@
 		</tr>
 		<tr>
 			<th>状態</th>
-			<td th:text="${saleList.itemStatus}"></td>
+			<td th:text="${book.condition}"></td>
 		</tr>
 </body>
 

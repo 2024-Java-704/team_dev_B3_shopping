@@ -63,7 +63,7 @@ category_id INTEGER NOT NULL,
 title VARCHAR(255) NOT NULL,
 author VARCHAR(255) NOT NULL,
 publisher VARCHAR(255) NOT NULL,
-isbn VARCHAR(255) NOT NULL UNIQUE,
+isbn VARCHAR(255) NOT NULL,
 grade INTEGER NOT NULL,
 lecture VARCHAR(255) NOT NULL,
 condition VARCHAR(255) NOT NULL,
@@ -92,7 +92,7 @@ student_id INTEGER NOT NULL,
 bookinfo_id INTEGER NOT NULL,
 sale_day DATE NOT NULL,
 item_status INTEGER NOT NULL, -- 1:出品中 2:売買済み 3:売上受取申請済 4:売上受取済 5:出品申請中 6:出費申請却下
-sale_method INTEGER NOT NULL,
+sale_method INTEGER NOT NULL, -- 1:郵送 2:窓口受渡
 
 PRIMARY KEY(id),
 FOREIGN KEY(student_id) REFERENCES students(id),

@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
+import com.example.demo.entity.Categories;
 import com.example.demo.entity.SaleList;
 import com.example.demo.model.AccountAndCart;
 import com.example.demo.repository.BookinfoRepository;
+import com.example.demo.repository.CategoriesRepository;
 import com.example.demo.repository.SaleListRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -36,9 +38,18 @@ public class PutUpController {
 	@Autowired
 	HttpSession session;
 
+	@Autowired
+	CategoriesRepository categoriesRepository;
+
 	//出品申請画面の表示
 	@GetMapping("/order")
-	public String putUpAccess() {
+	public String putUpAccess(Model model) {
+		List<Categories> categories = categoriesRepository.findAll();
+		List<String> categoryName = new ArrayList<>();
+		for (Categories category : categories) {
+			categoryName.add(category.getCategoryName());
+		}
+		model.addAttribute("categoryName", categoryName);
 		return "order";
 	}
 
@@ -57,43 +68,53 @@ public class PutUpController {
 
 		List<String> errorList = new ArrayList<>();
 
+		//エラーチェック
+		if (title.length() == 0) {
+			errorList.add("タイトルを入力してください");
+		}
+		
+		if (publisher.length() == 0) {
+			errorList.add("出版社を入力してください");
+		}
+		
+		if (isbn.length() == 0) {
+			errorList.add("ISBNを入力してください");
+		}
+		
+		if (condition.length() == 0) {
+			errorList.add("本の状態を入力してください");
+		}
+		
+		if (grade.length() == 0) {
+			errorList.add("学年を入力してください");
+		}
+		
+		if (lecture.length() == 0) {
+			errorList.add("使用した講義名を入力してください");
+		}
+		
+		if (author.length() == 0) {
+			errorList.add("作者名を入力してください");
+		}
+
+		// エラー発生時は出品申請に戻す
+		if (errorList.size() > 0) {
+			model.addAttribute("errorList", errorList);
+			return "order";
+		}
+		
+		Categories categories = categoriesRepository.findById(category_id).get();
+		String category = categories.getCategoryName();
+		
 		model.addAttribute("title", title);
 		model.addAttribute("publisher", publisher);
 		model.addAttribute("isbn", isbn);
 		model.addAttribute("grade", grade);
 		model.addAttribute("lecture", lecture);
 		model.addAttribute("condition", condition);
+		model.addAttribute("category", category);
 		model.addAttribute("category_id", category_id);
 		model.addAttribute("author", author);
-
-		//エラーチェック
-		if (title.length() == 0) {
-			errorList.add("タイトルを入力してください");
-		}
-		if (publisher.length() == 0) {
-			errorList.add("出版社を入力してください");
-		}
-		if (isbn.length() == 0) {
-			errorList.add("ISBNを入力してください");
-		}
-		if (condition.length() == 0) {
-			errorList.add("本の状態を入力してください");
-		}
-		if (grade.length() == 0) {
-			errorList.add("学年を入力してください");
-		}
-		if (lecture.length() == 0) {
-			errorList.add("使用した講義名を入力してください");
-		}
-		if (author.length() == 0) {
-			errorList.add("作者名を入力してください");
-		}
-
-		// エラー発生時は新規登録に戻す
-		if (errorList.size() > 0) {
-			model.addAttribute("errorList", errorList);
-			return "order";
-		}
 
 		return "orderConfirm";
 	}
@@ -120,10 +141,10 @@ public class PutUpController {
 		Bookinfo bookInfo = new Bookinfo(title, publisher, isbn, condition, grade, lecture, author, category_id);
 		bookinfoRepository.save(bookInfo);
 
-		bookinfo = bookinfoRepository.findByIsbn(isbn);
+		bookinfo = bookinfoRepository.findById(bookInfo.getId()).get();
 		SaleList saleList = new SaleList(accountAndCart.getId(), bookinfo.getId(), LocalDate.now());
 		saleList.setItemStatus(5);
-		saleList.setSaleMethod(1);
+		saleList.setSaleMethod(1);//学生が窓口へ商品を受け渡す方法について、shema参照
 		//		Integer itemStatus, Integer saleMethod
 
 		saleListRepository.save(saleList);
@@ -146,6 +167,7 @@ public class PutUpController {
 		return "orderHistory";
 	}
 
+	//出品履歴詳細画面を表示する。
 	@GetMapping("/order/history/detail")
 	public String orderDetail(
 			@RequestParam("id") Integer Id,

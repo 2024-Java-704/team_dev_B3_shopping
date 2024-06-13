@@ -17,7 +17,7 @@
 	<br>
 	<br>
 	<h1>出品申請</h1>
-	<p th:text="${errorList}" style="color: rgb(255, 0, 0)"></p>
+	<p th:text="${errorList}" style="color: rgb(255, 0, 0); text-align:center"></p>
 	<form action="/order" method="post">
 	<table>
 		<tr>
@@ -30,18 +30,25 @@
 		</tr>
 		<tr>
 			<th>ISBNコード</th>
-			<td><input type="text" name="isbn" class="textbox" required maxlength="13"></td>
+			<td><input type="number" name="isbn" class="textbox" required maxlength="13"></td>
 		</tr>
 		<tr>
 			<th>カテゴリ</th>
 			<td>
-				<select name="category_id" required>
-					<option value="1">現代文</option>
-					<option value="2">数学</option>
-					<option value="3">化学</option>
-					<option value="4">情報</option>
+				<select name="category_id" class="textbox" required>
+					<option value="1">文学部</option>
+					<option value="2">教育学部</option>
+					<option value="3">法学部</option>
+					<option value="4">社会学部</option>
+					<option value="5">経済学部</option>
+					<option value="6">理学部</option>
+					<option value="7">医学部</option>
+					<option value="8">歯学部</option>
+					<option value="9">薬学部</option>
+					<option value="10">工学部</option>
+					<option value="11">農学部</option>
+					<option value="12">その他</option>
 				</select>
-				<!--セレクトの中のフォントを変える-->
 			</td>
 		</select>
 		</tr>
