@@ -97,6 +97,9 @@ public class PurchaseController {
 
 	@GetMapping("/purchase/order")
 	public String purchaseAccess(Model model) {
+		if (accountAndCart.getCartItems().size() == 0) {
+			return "cart";
+		}
 
 		return "purchaseAccess";
 	}
@@ -159,7 +162,8 @@ public class PurchaseController {
 
 		accountAndCart.clear(cartItems);
 
-		BoughtHistory boughtHistory2 = boughtHistoryRepository.findByStudentIdOrderByIdDesc(accountAndCart.getId()).get(0);
+		BoughtHistory boughtHistory2 = boughtHistoryRepository.findByStudentIdOrderByIdDesc(accountAndCart.getId())
+				.get(0);
 		String number = accountAndCart.getId().toString() + "000" + boughtHistory2.getId();
 		model.addAttribute("number", number);
 
