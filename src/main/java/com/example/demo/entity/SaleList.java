@@ -28,9 +28,9 @@ public class SaleList {
 
 	@Column(name = "bookinfo_id")
 	private Integer bookInfoId;
-	
+
 	@ManyToOne
-    @JoinColumn(name = "bookinfo_id", insertable = false, updatable = false)
+	@JoinColumn(name = "bookinfo_id", insertable = false, updatable = false)
 	private Bookinfo bookInfo;
 
 	@Column(name = "sale_day")
@@ -47,7 +47,7 @@ public class SaleList {
 
 	@Transient
 	private String Author;
-	
+
 	@Transient
 	private String isbn;
 
@@ -59,13 +59,19 @@ public class SaleList {
 
 	@Transient
 	private Integer delivery;
-	
+
 	@Transient
 	private String name;
 
 	//デフォルトコンストラクタ
 	public SaleList() {
 
+	}
+
+	public SaleList(Integer studentId, Integer bookinfoId, LocalDate saleDay) {
+		this.studentId = studentId;
+		this.bookInfoId = bookinfoId;
+		this.saleDay = saleDay;
 	}
 
 	public SaleList(Integer id, Integer student_id, Integer bookinfo_id, LocalDate sale_day, Integer item_status,
@@ -181,13 +187,13 @@ public class SaleList {
 	public void setDelivery(Integer delivery) {
 		this.delivery = delivery;
 	}
-	
-	public Bookinfo getBookInfo() {
-        return bookInfo;
-    }
 
-    public void setBookInfo(Bookinfo bookInfo) {
-        this.bookInfo = bookInfo;
-    }
+	public Bookinfo getBookInfo() {
+		return bookInfo;
+	}
+
+	public void setBookInfo(Bookinfo bookInfo) {
+		this.bookInfo = bookInfo;
+	}
 
 }

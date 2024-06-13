@@ -6,4 +6,6 @@ import com.example.demo.entity.Bookinfo;
 
 public interface BookinfoRepository extends JpaRepository<Bookinfo, Integer> {
 
+	Bookinfo findByIsbn(String isbn);
+
 }
