@@ -48,13 +48,14 @@ public class PageViewController {
 	public String index(
 			@RequestParam(name = "keyword", defaultValue = "") String keyword,
 			Model model) {
+
 		if (accountAndCart.getId() == null) {
 			return "redirect:/login";
 		}
 
 		List<SaleList> saleList = saleListRepository.findByItemStatus(1);
 		List<Bookinfo> books = new ArrayList<>();
-
+    
 		if (keyword.equals("")) { //キーワードが入力されなかった場合
 			for (SaleList sale : saleList) {
 				Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
@@ -67,6 +68,7 @@ public class PageViewController {
 					books.add(bookinfos.get(0));
 				}
 			}
+
 		}
 
 		model.addAttribute("books", books);
@@ -94,15 +96,13 @@ public class PageViewController {
 	public String bookMark(Model model) {
 		List<Bookmark> bookmark = bookmarkRepository.findByStudentId(accountAndCart.getId());
 
-		List<SaleList> saleList = new ArrayList<>();
-		for (Bookmark book : bookmark) {
-			SaleList sale = saleListRepository.findById(book.getSalelistId()).get();
-			saleList.add(sale);
-		}
 
 		List<Bookinfo> books = new ArrayList<>();
-		for (SaleList sale : saleList) {
+
+		for (Bookmark book : bookmark) {
+			SaleList sale = saleListRepository.findById(book.getSalelistId()).get();
 			Bookinfo info = bookinfoRepository.findById(sale.getBookInfoId()).get();
+			info.setItemStatus(sale.getItemStatus());
 			books.add(info);
 		}
 
