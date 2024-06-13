@@ -14,6 +14,9 @@
 	<br>
 	<br>
 	<h1>注文書籍一覧</h1>
+	<div style="text-align:center; color:red">
+		<span th:text="${errorMessage}"></span>
+	</div>
 	<table>
 		<tr>
 			<th>タイトル</th>
@@ -42,7 +45,7 @@
 					発送完了
 				</th:block>
 			</td>
-			
+
 			<td>
 				<form action="/purchased/detail" method="get">
 					<input type="hidden" th:value="${sale.id}" name="id">
