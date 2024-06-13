@@ -67,6 +67,12 @@ public class StaffPutUpController {
 			model.addAttribute("price", price);
 		}
 		
+		if(price <= 0) {
+			errorMessage.add("金額を正しく入力してください");
+			model.addAttribute("condition", condition);
+			model.addAttribute("price", price);
+		}
+		
 		if(errorMessage.size() > 0) {
 			model.addAttribute("errorMessage", errorMessage);
 			
@@ -99,6 +105,7 @@ public class StaffPutUpController {
 			@RequestParam("condition") String condition,
 			@RequestParam("price") Integer price,
 			Model model) {
+		
 		SaleList sale = saleListRepository.findById(id).get();
 		sale.setItemStatus(1);
 		saleListRepository.save(sale);
