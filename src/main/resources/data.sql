@@ -41,7 +41,7 @@ INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condi
 
 
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','1','2024-06-13',1,1);
-INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('2','2','2024-06-12',1,2);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('3','2','2024-06-12',2,2);
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('3','3','2024-06-11',3,1);
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('4','4','2024-06-10',4,2);
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('5','5','2024-06-09',5,1);

@@ -12,18 +12,27 @@
 	<br>
 	<br>
 	<h1>削除確認</h1>
+	<div style="text-align: center;">
+	<table>
+		<tr>
+			<th>職員番号</th>
+			<td th:text="${staff.staffNumber}"></td>
+		</tr>
+		<tr>
+			<th>職員名</th>
+			<td th:text="${staff.staffName}"></td>
+		</tr>
+	</table>
 	
-	職員番号：
-	<th:block th:text="${staff.staffNumber}"></th:block>
-	<br>
-	職員名：
-	<th:block th:text="${staff.staffName}"></th:block>
 	<br>
 	
-	上記のアカウントを削除します
-	よろしければ下記のボタンをクリックしてください
+	<p style="color: red;">
+		上記のアカウントを削除します
+		よろしければ下記のボタンをクリックしてください
+	</p>
 	<form th:action="@{/staffList/{staffId}/delete(staffId=${staff.id})}" method="post">
 		<button>削除</button>
 	</form>
+	</div>
 </body>
 </html>

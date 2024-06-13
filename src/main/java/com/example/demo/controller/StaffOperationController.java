@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -198,7 +200,13 @@ public class StaffOperationController {
 			Model model
 			) {
 		Student student = studentRepository.findById(id).get();
+		
+		java.util.Date utilDate = new java.util.Date();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = Date.valueOf(df.format(utilDate));
+		
 		student.setStatus(3);
+		student.setBanDay(date);
 		studentRepository.save(student);
 		return "redirect:/account";
 	}
