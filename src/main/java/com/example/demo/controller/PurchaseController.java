@@ -22,6 +22,7 @@ import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BoughtCertificateRepository;
 import com.example.demo.repository.BoughtHistoryRepository;
 import com.example.demo.repository.SaleListRepository;
+import com.example.demo.repository.StudentRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -60,10 +61,22 @@ public class PurchaseController {
 
 	@Autowired
 	SaleListRepository saleListRepository;
+	
+	@Autowired
+	StudentRepository studentRepository;
 
 	//カートを表示する
 	@GetMapping("/cart")
-	public String cartAccess(Model nodel) {
+	public String cartAccess(Model model) {
+		Student student = studentRepository.findById(accountAndCart.getId()).get();
+		model.addAttribute("student", student);
+		
+		Integer sum = 0;
+		for (CartItems cartItem : accountAndCart.getCartItems()) {
+			sum = sum + cartItem.getPrice();
+		}
+		model.addAttribute("sum", sum);
+		
 		return "cart";
 	}
 
@@ -83,7 +96,7 @@ public class PurchaseController {
 		}
 		model.addAttribute("sum", sum);
 
-		return "cart";
+		return "redirect:/cart";
 	}
 
 	//　指定した商品をカートから削除
@@ -97,7 +110,6 @@ public class PurchaseController {
 
 	@GetMapping("/purchase/order")
 	public String purchaseAccess(Model model) {
-
 		return "purchaseAccess";
 	}
 	//	↑購入画面の表示
