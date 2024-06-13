@@ -55,7 +55,7 @@ public class PageViewController {
 
 		List<SaleList> saleList = saleListRepository.findByItemStatus(1);
 		List<Bookinfo> books = new ArrayList<>();
-    
+
 		if (keyword.equals("")) { //キーワードが入力されなかった場合
 			for (SaleList sale : saleList) {
 				Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
@@ -72,10 +72,9 @@ public class PageViewController {
 		}
 
 		model.addAttribute("books", books);
-		for(Bookinfo book : books) {
+		for (Bookinfo book : books) {
 			System.out.println("タイトルは" + book.getTitle());
 		}
-
 
 		//仮登録チェック
 		if (accountAndCart.getId() != null) {
@@ -101,7 +100,6 @@ public class PageViewController {
 	public String bookMark(Model model) {
 		List<Bookmark> bookmark = bookmarkRepository.findByStudentId(accountAndCart.getId());
 
-
 		List<Bookinfo> books = new ArrayList<>();
 
 		for (Bookmark book : bookmark) {
@@ -123,9 +121,9 @@ public class PageViewController {
 		System.out.println("itemIdは" + itemId);
 
 		List<Bookmark> bookmark = bookmarkRepository.findByStudentId(accountAndCart.getId());
-//		List<Bookmark> bookmark = bookmarkRepository.findAll(); 上手くいかないコード
+		//		List<Bookmark> bookmark = bookmarkRepository.findAll(); 上手くいかないコード
 		for (Bookmark book : bookmark) {
-			
+
 			System.out.println("セールリストIDは" + book.getSalelistId());
 			if (itemId == book.getSalelistId()) {
 				return "redirect:/bookmark";
@@ -141,10 +139,16 @@ public class PageViewController {
 	//マイページ画面表示
 	@GetMapping("/mypage")
 	public String mypage(Model model) {
+		try {
 		Integer accountId = accountAndCart.getId();
 		Student student = studentRepository.findById(accountId).get();
+
 		model.addAttribute("student", student);
 		return "mypage";
+		} catch(Exception E) {
+			return "/login";
+		}
+
 	}
 
 }
