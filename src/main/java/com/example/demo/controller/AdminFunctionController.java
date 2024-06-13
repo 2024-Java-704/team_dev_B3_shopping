@@ -76,7 +76,6 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 			@RequestParam(name = "email", defaultValue = "")String email,
 			@RequestParam(name = "pass", defaultValue = "")String pass,
 			Model model) {
-		//NULLチェック処理を後で記述
 		
 		//更新前の情報
 		Staff lastInfo = staffRepository.findById(id).get();
@@ -128,9 +127,19 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 //			staffRepository.save(staff);
 //		}
 //		
+		try {
 		Staff staff = new Staff(id, name, email, pass, number);
 		staffRepository.save(staff);
 		return "redirect:/staffList";
+		} catch(Exception E) {
+			
+			//エラーメッセージ
+			model.addAttribute("uniqueError", "職員番号やメールアドレスが別のアカウントで既に存在しています");
+			
+			Staff staff = staffRepository.findById(id).get();
+			model.addAttribute("staff", staff);
+			return "adminStaffEdit";	
+		}
 	}
 	
 	
@@ -213,10 +222,17 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 			@RequestParam("email") String email,
 			Model model) {
 
+		try {
 			Staff staff = new Staff(name, number, password, email);
 			staffRepository.save(staff);
 
 			return "adminStaffAddComplete";
+			} catch(Exception E) {
+				//エラーメッセージ
+				model.addAttribute("uniqueError", "職員番号やメールアドレスが別のアカウントで既に存在しています");
+				
+				return "adminStaffAdd";
+			}
 		}
 
 }

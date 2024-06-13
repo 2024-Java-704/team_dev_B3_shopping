@@ -11,6 +11,11 @@
 	<br>
 	<br>
 	<br>
+	<br>
+	<div style="text-align: center;">
+		<span th:if="${nullMessage}" th:text="${nullMessage}" style="color: red;"></span>
+	</div>
+	<br>
 	<form action="/request" method="post">
 	<table border="2">
 		<tr>
@@ -19,13 +24,14 @@
 		</tr>
 		<tr th:each="soldList:${sales}">
 			<td>
-				<input type="radio" name="wantsPrice" class="textbox" th:value="${soldList.price}">
+				<input type="radio" name="wantsPrice" class="textbox" th:value="${soldList.price}" required>
 				<input type="hidden" name="wantsId" th:value="${soldList.id}">
 				<th:block th:text="${soldList.title}"></th:block>
 			</td>
 			<td th:text="${soldList.price}">円</td>
 		</tr>
 	</table>
+	<br>
 	<button>申請確認</button>
 	</form>
 </body>

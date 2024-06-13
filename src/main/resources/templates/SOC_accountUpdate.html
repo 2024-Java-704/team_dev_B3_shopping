@@ -11,6 +11,11 @@
 	<br>
 	<br>
 	<br>
+	<br>
+	<div style="text-align: center;">
+		<span th:if="${uniqueError}" th:text="${uniqueError}" style="color: red;"></span>
+	</div>
+	<br>
 	<form th:action="@{/account/{accountId}/update/confirm(accountId=${student.id})}" method="get">
 	<table border="2">
 		<tr>
