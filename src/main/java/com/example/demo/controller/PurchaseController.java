@@ -94,7 +94,7 @@ public class PurchaseController {
 		accountAndCart.del(id);
 		return "redirect:/cart";
 	}
-
+	
 	@GetMapping("/purchase/order")
 	public String purchaseAccess(Model model) {
 
