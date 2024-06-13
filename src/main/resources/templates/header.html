@@ -26,8 +26,9 @@
 					<ul class="nav__list">
 						<li class="nav__item"><a href="/login">ログイン</a></li>
 						<li class="nav__item"><a href="/logout">ログアウト</a></li>
-						<li class="nav__item"><a href="/todo/calendar">マイページ</a></li>
-						<li class="nav__item"><a href="/todo/account/delete">アカウント削除</a></li>
+						<li class="nav__item" th:if="${@accountAndCart.authority == 1}"><a href="/mypage">マイページ</a></li>
+						<li class="nav__item" th:if="${@accountAndCart.authority == 2}"><a href="/staffpage">マイページ</a></li>
+						<li class="nav__item" th:if="${@accountAndCart.authority == 3}"><a href="/adminpage">マイページ</a></li>
 					</ul>
 				</nav>
 			</div>
