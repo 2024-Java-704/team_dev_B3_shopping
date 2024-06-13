@@ -59,10 +59,12 @@ public class StaffPutUpController {
 		
 		if(condition.equals("")) {
 			errorMessage.add("状態を入力してください");
+			model.addAttribute("condition", condition);
 		}
 		
 		if(price == null) {
 			errorMessage.add("金額を入力してください");
+			model.addAttribute("price", price);
 		}
 		
 		if(errorMessage.size() > 0) {
@@ -117,10 +119,11 @@ public class StaffPutUpController {
 	@PostMapping("/itemrequest/reject")
 	public String putUpReject(@RequestParam("id") Integer id, Model model) {
 		SaleList sale = saleListRepository.findById(id).get();
-		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
-		
-		saleListRepository.delete(sale);
-		bookinfoRepository.delete(bookinfo);
+//		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
+		sale.setItemStatus(6);
+		saleListRepository.save(sale);
+//		saleListRepository.delete(sale);
+//		bookinfoRepository.delete(bookinfo);
 		
 		model.addAttribute("operation", 2);
 		return "staffPutUpComplete";

@@ -1,15 +1,21 @@
 INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status) 
-VALUES('aaa','2000-01-01','東京','a@a','himitu','a0001','1234',1);
+VALUES('佐藤','2000-01-01','東京','a@a','himitu','a000001','1234',1);
 INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status, ban_day) 
-VALUES('bbb','2000-02-02','東京','b@b','himitu','b0001','1234',3,CURRENT_TIMESTAMP);
+VALUES('鈴木','2000-02-02','神奈川','b@b','himitu','b000001','1234',3,CURRENT_TIMESTAMP);
 INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status) 
-VALUES('ccc','2000-03-03','東京','c@c','himitu','c0001','1234',2);
+VALUES('田中','2000-03-03','埼玉','c@c','himitu','c000001','1234',2);
+INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status) 
+VALUES('倉沢','2000-04-04','千葉','d@d','himitu','d000001','1234',4);
 INSERT INTO students(student_name,birthday, address,student_email,student_pass,student_number,bank_account,student_status) 
 VALUES('獄裏番之助','2000-01-02','東京','tuppari@gmail.com','himitu','s14550','4649',5);
 
-INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('aaa','b@b','himitu','b0001');
+
+INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('大澤','a@a','himitu','a002001');
+INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('中山','b@b','himitu','b002002');
+
 
 INSERT INTO admin(admin_name,admin_pass) VALUES('admin','himitu');
+
 
 INSERT INTO categories(category_name) VALUES('文学部');
 INSERT INTO categories(category_name) VALUES('教育学部');
@@ -24,24 +30,46 @@ INSERT INTO categories(category_name) VALUES('工学部');
 INSERT INTO categories(category_name) VALUES('農学部');
 INSERT INTO categories(category_name) VALUES('その他');
 
-INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('1','aaa','a','c','1234-5678-9012',1,'A','a',1200);
-INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('2','bbb','b','c','0987-6543-2109',2,'B','b',1300);
 
-INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('3','ccc','c','c','0988-6543-2109',1,'C','c',1300);
+INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('1','春はあけぼの','清少納言','岩波文庫','9784-0226-30575',1,'文学部概論','よきかな',1200);
+INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('2','心のノート','文部科学省','文部科学省','0987-6543-2109',2,'道徳','いととをかし',1300);
+INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('3','ポケット六法','佐伯','有斐閣','9784-64100-9240',3,'法学概論','あし',1400);
+INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('4','やさしい経済教室','加藤','小学館','1234-5678-91011',4,'経済学入門','いとあし',1500);
+INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('5','青チャート','福山','数研出版','0141-0584-1570',1,'高校数学','よきかな',1600);
+INSERT INTO bookinfo(category_id,title,author,publisher,isbn,grade,lecture,condition,price) VALUES('6','理学部とは','ガリレオ','ガリレオ出版','0123-4567-8910',1,'理学部へようこそ','あし',1800);
 
-INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','1','2000-01-01',1,1);
-INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','2','2001-02-02',2,2);
-INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','3','2001-02-02',1,2);
+
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('1','1','2024-06-13',1,1);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('2','2','2024-06-12',2,2);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('3','3','2024-06-11',3,1);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('4','4','2024-06-10',4,2);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('5','5','2024-06-09',5,1);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('5','6','2024-06-08',5,1);
 
 
 INSERT INTO bookmark(student_id,salelist_id) VALUES(1,1);
+INSERT INTO bookmark(student_id,salelist_id) VALUES(1,3);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(2,2);
+INSERT INTO bookmark(student_id,salelist_id) VALUES(2,4);
+INSERT INTO bookmark(student_id,salelist_id) VALUES(3,3);
+INSERT INTO bookmark(student_id,salelist_id) VALUES(3,5);
+INSERT INTO bookmark(student_id,salelist_id) VALUES(4,4);
+INSERT INTO bookmark(student_id,salelist_id) VALUES(4,5);
+INSERT INTO bookmark(student_id,salelist_id) VALUES(5,5);
+INSERT INTO bookmark(student_id,salelist_id) VALUES(5,1);
 
-INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(1,1,1,1,1);
-INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(2,2,2,2,2);
 
-INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(1,CURRENT_TIMESTAMP);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(1,2,1,1,1);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(2,3,2,2,2);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(3,4,1,1,3);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(4,4,2,2,4);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(5,5,1,1,5);
+
+
 INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(2,CURRENT_TIMESTAMP);
+INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(3,CURRENT_TIMESTAMP);
+INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(4,CURRENT_TIMESTAMP);
 
-INSERT INTO request(student_id,bookinfo_id) VALUES(1,1);
-INSERT INTO request(student_id,bookinfo_id) VALUES(2,2);
+
+INSERT INTO request(student_id,bookinfo_id) VALUES(1,5);
+INSERT INTO request(student_id,bookinfo_id) VALUES(2,6);

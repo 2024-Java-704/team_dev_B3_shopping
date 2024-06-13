@@ -73,7 +73,7 @@ public class SaleList {
 		this.bookInfoId = bookinfoId;
 		this.saleDay = saleDay;
 	}
-
+	
 	public SaleList(Integer id, Integer student_id, Integer bookinfo_id, LocalDate sale_day, Integer item_status,
 			Integer sale_method) {
 		this.id = id;

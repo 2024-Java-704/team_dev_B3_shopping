@@ -21,6 +21,7 @@ import com.example.demo.model.CartItems;
 import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BoughtCertificateRepository;
 import com.example.demo.repository.BoughtHistoryRepository;
+import com.example.demo.repository.SaleListRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -57,6 +58,9 @@ public class PurchaseController {
 	@Autowired
 	BoughtCertificateRepository boughtCertificateRepository;
 
+	@Autowired
+	SaleListRepository saleListRepository;
+
 	//カートを表示する
 	@GetMapping("/cart")
 	public String cartAccess(Model nodel) {
@@ -69,7 +73,7 @@ public class PurchaseController {
 
 		Bookinfo bookinfo = bookinfoRepository.findById(bookinfoId).get();
 		//		String name = bookinfo.getTitle();
-		
+
 		CartItems cartItems = new CartItems(bookinfo.getId(), bookinfo.getTitle(), bookinfo.getPrice());
 		accountAndCart.add(cartItems);
 
@@ -90,8 +94,6 @@ public class PurchaseController {
 		accountAndCart.del(id);
 		return "redirect:/cart";
 	}
-
-
 
 	@GetMapping("/purchase/order")
 	public String purchaseAccess(Model model) {
@@ -137,34 +139,49 @@ public class PurchaseController {
 
 	@PostMapping("/book/complete")
 	private String purchaseComplete(Model model) {
+
 		for (CartItems cartItems : accountAndCart.getCartItems()) {
-			boughtHistory.setStudentId(accountAndCart.getId());
-			boughtHistory.setSalelistId(cartItems.getId());
+			//boughtHistory.setStudentId(accountAndCart.getId());
+			//boughtHistory.setSalelistId(cartItems.getId());
+
+			boughtHistory = new BoughtHistory(accountAndCart.getId(), cartItems.getId(), boughtHistory.getPayment(),
+					boughtHistory.getAccept(), boughtHistory.getDelivery());
+
 			boughtHistoryRepository.save(boughtHistory);
+
+			SaleList updateSaleList = saleListRepository.findById(cartItems.getId()).get();
+			updateSaleList.setItemStatus(2);
+			saleListRepository.save(updateSaleList);
+
 		}
 		boughtCertificate = new BoughtCertificate(boughtHistory.getSalelistId(), LocalDateTime.now());
 		boughtCertificateRepository.save(boughtCertificate);
-		
+
 		accountAndCart.clear(cartItems);
 
-		BoughtHistory boughtHistory2 = boughtHistoryRepository.findByStudentIdOrderByIdDesc(accountAndCart.getId())
-				.get(0);
+		BoughtHistory boughtHistory2 = boughtHistoryRepository.findByStudentIdOrderByIdDesc(accountAndCart.getId()).get(0);
 		String number = accountAndCart.getId().toString() + "000" + boughtHistory2.getId();
 		model.addAttribute("number", number);
 
 		return "purchaseComplete";
 
 	}
-	
-	// ↑購入完了画面の表示
-	
-	
-//	↓購入履歴画面の表示
-		@GetMapping("/buy")
-			private String purchaseHistory(Model model) {
-			List<BoughtHistory> boughtHistory = boughtHistoryRepository.findByStudentId(accountAndCart.getId());
-			model.addAttribute("boughtHistories",boughtHistory);
-			return "purchaseHistory";
-		}
 
+	// ↑購入完了画面の表示
+
+	//	↓購入履歴画面の表示
+	@GetMapping("/buy")
+	private String purchaseHistory(Model model) {
+		List<BoughtHistory> boughtHistory = boughtHistoryRepository.findByStudentId(accountAndCart.getId());
+		model.addAttribute("boughtHistories", boughtHistory);
+		return "purchaseHistory";
+	}
+
+	//購入商品詳細画面表示
+	@GetMapping("/purchase/items/detail")
+	public String detail(@RequestParam("id") Integer id, Model model) {
+		Bookinfo book = bookinfoRepository.findById(id).get();
+		model.addAttribute("book", book);
+		return "purchaseHistoryDetail";
+	}
 }

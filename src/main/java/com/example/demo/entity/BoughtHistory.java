@@ -39,6 +39,14 @@ public class BoughtHistory {
 		this.payment = payment;
 		this.accept = accept;
 	}
+	
+	public BoughtHistory(Integer studentId,Integer salelistId,Integer payment,Integer accept,Integer delivery) {
+		this.studentId = studentId;
+		this.salelistId = salelistId;
+		this.payment = payment;
+		this.accept = accept;
+		this.delivery = delivery;
+	}
 
 	public Integer getId() {
 		return id;

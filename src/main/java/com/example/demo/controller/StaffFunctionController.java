@@ -52,6 +52,11 @@ public class StaffFunctionController {
 			sale.setAccept(boughtHisory.getAccept());
 			sale.setDelivery(boughtHisory.getDelivery());
 		}
+		
+		if(saleList.size() == 0) {
+			model.addAttribute("errorMessage", "注文がありません");
+		}
+		
 		model.addAttribute("saleList", saleList);
 		return "staffOrder";
 	}
@@ -107,6 +112,10 @@ public class StaffFunctionController {
 			Student student = studentRepository.findById(sale.getStudentId()).get();
 			String name = student.getName();
 			sale.setName(name);
+			
+			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
+			Integer price = bookinfo.getPrice();
+			sale.setPrice(price);
 		}
 		model.addAttribute("saleList", saleList);
 		return "staffProceeds";

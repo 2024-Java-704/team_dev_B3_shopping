@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>購入履歴</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
@@ -19,12 +20,16 @@
 			<th>商品名</th>
 		</tr>
 		<tr th:each="boughtHistory:${boughtHistories}">
-			<td><a th:href="@{/items/detail(id=${boughtHistory.salelistId})}"  th:text="${boughtHistory.saleList.bookInfo.title}"></a></td>
+			<td><a th:href="@{/purchase/items/detail(id=${boughtHistory.salelistId})}"  th:text="${boughtHistory.saleList.bookInfo.title}"></a></td>
 		</tr>
 	</table>
 	</th:block>
 	
+	<br>
+	
+	<div style="text-align: center;">
 	<a href="/mypage">マイページ</a>
+	</div>
 </body>
 </body>
 </html>
