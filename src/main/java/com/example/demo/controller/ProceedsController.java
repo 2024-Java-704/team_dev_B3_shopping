@@ -39,6 +39,11 @@ public class ProceedsController {
 		
 		List<SaleList> sales = saleListRepository.findByItemStatusIs(2);
 			sales.removeAll(saleListRepository.findByStudentIdIsNot(AccountAndCart.getId()));
+		
+		if(sales.size() == 0) {
+			model.addAttribute("errorMessage", "購入された商品はありません");
+			return "indexSold";
+		}
 			
 		for(SaleList sale : sales) {
 			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get(); 
@@ -58,7 +63,7 @@ public class ProceedsController {
 		SaleList saleBook = saleListRepository.findById(id).get();
 		Bookinfo book = bookinfoRepository.findById(saleBook.getBookInfoId()).get();
 		model.addAttribute("book", book);
-		return "detail";
+		return "soldDetail";
 	}
 	
 	//売上受け取り申請

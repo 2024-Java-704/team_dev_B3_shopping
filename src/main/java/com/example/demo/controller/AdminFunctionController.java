@@ -43,6 +43,12 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 	@GetMapping("/staffList")
 	public String staffAll(Model model) {
 		List<Staff> staffList = staffRepository.findAll();
+		
+		if(staffList.size() == 0) {
+			model.addAttribute("errorMessage", "職員が登録されていません");
+			return "adminStaffList";
+		}
+		
 		model.addAttribute("staffList", staffList);
 		return "adminStaffList";
 	}
