@@ -22,7 +22,7 @@
 		</tr>
 		<tr>
 			<th>金額</th>
-			<td th:text="${sale.price}"></td>
+			<td th:text="${sale.price} + '円'"></td>
 		</tr>
 	</table>
 	<form action="/salesreceipt/change" method="post">
