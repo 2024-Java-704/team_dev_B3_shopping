@@ -119,7 +119,7 @@ student_id INTEGER NOT NULL ,
 salelist_id INTEGER NOT NULL,
 payment INTEGER NOT NULL,
 accept INTEGER NOT NULL, -- 1:郵送 2:窓口受取
-delivery INTEGER, -- 1:受渡準備完了 2:受渡完了 3:発送完了
+delivery INTEGER, -- 1:受渡準備完了 2:受渡完了 3:発送完了 4:受渡し準備中
 
 PRIMARY KEY (id),
 FOREIGN KEY(student_id) REFERENCES students(id), 

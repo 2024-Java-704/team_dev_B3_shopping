@@ -44,9 +44,9 @@ INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) V
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('3','2','2024-06-12',2,2);
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('3','3','2024-06-11',3,1);
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('4','4','2024-06-10',4,2);
-INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('5','5','2024-06-09',5,1);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('5','5','2024-06-09',1,1);
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('5','6','2024-06-08',5,1);
-INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('3','7','2024-06-08',1,1);
+INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('3','7','2024-06-08',2,1);
 
 
 
@@ -63,10 +63,8 @@ INSERT INTO bookmark(student_id,salelist_id) VALUES(5,1);
 
 
 INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(1,2,1,1,1);
-INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(2,3,2,2,2);
-INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(3,4,1,1,3);
-INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(4,4,2,2,4);
-INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(5,5,1,1,5);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(3,7,2,2,2);
+
 
 
 INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(2,CURRENT_TIMESTAMP);
