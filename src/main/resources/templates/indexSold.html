@@ -24,9 +24,9 @@
 		</tr>
 		<tr th:each="soldList:${sales}">
 			<td>
-				<a th:href="@{/sold/{saleListId}/details(saleListId=${soldList.id})}"><th:block th:text="${soldList.title}"></th:block></a>
+				<a th:href="@{/sold/{saleListId}/details(saleListId=${soldList.id})}"><th:block th:text="${soldList.title} "></th:block></a>
 			</td>
-			<td th:text="${soldList.price}"></td>
+			<td th:text="${soldList.price} + '円'"></td>
 		</tr>
 	</table>
 	
