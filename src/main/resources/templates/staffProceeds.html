@@ -23,7 +23,7 @@
 		</tr>
 		<tr th:each="sale:${saleList}">
 			<td th:text="${sale.name}"></td>
-			<td th:text="${sale.price} + '円'"></td>
+			<td th:text="${sale.price + '円'}"></td>
 			<td>
 				<form action="/salesreceipt/detail" method="get">
 					<input type="hidden" th:value="${sale.id}" name="id">
