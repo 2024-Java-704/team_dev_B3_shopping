@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -135,25 +136,33 @@ public class PageViewController {
 		bookmarkRepository.save(book);
 		return "redirect:/bookmark";
 	}
-	
+
 	//ブックマーク削除処理
-//	@PostMapping("/bookmark/delete")
-//	public String bookMarkDelete(@RequestParam("id") Integer id) {
-//		Bookmark bookmark = bookmarkRepository.findById(id).get();
-//		bookmarkRepository.deleteById(id);
-//		return "redirect:/bookmark";
-//	}
+	@PostMapping("/bookmark/delete")
+	public String bookMarkDelete(
+			@PathVariable("id") Integer id,
+			Model model) {
+		Bookinfo bookinfo = bookinfoRepository.findById(id).get();
+		SaleList saleList = saleListRepository.findByBookinfoId(bookinfo.getId());
+		Bookmark bookmark = bookmarkRepository.findBySalelistId(saleList.getId());
+
+		System.out.println("----------");
+		System.out.println(bookmark.getId());
+		System.out.println("----------");
+		bookmarkRepository.deleteById(bookmark.getId());
+		return "redirect:/bookmark";
+	}
 
 	//マイページ画面表示
 	@GetMapping("/mypage")
 	public String mypage(Model model) {
 		try {
-		Integer accountId = accountAndCart.getId();
-		Student student = studentRepository.findById(accountId).get();
+			Integer accountId = accountAndCart.getId();
+			Student student = studentRepository.findById(accountId).get();
 
-		model.addAttribute("student", student);
-		return "mypage";
-		} catch(Exception E) {
+			model.addAttribute("student", student);
+			return "mypage";
+		} catch (Exception E) {
 			return "/login";
 		}
 

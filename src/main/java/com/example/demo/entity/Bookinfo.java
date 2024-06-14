@@ -36,7 +36,7 @@ public class Bookinfo {
 	private String condition;
 
 	private Integer price;
-	
+
 	@Transient
 	private Integer itemStatus;
 
