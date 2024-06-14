@@ -158,9 +158,12 @@ public class PurchaseController {
 		for (CartItems cartItems : accountAndCart.getCartItems()) {
 			//boughtHistory.setStudentId(accountAndCart.getId());
 			//boughtHistory.setSalelistId(cartItems.getId());
-
+			
+			
+			
 			boughtHistory = new BoughtHistory(accountAndCart.getId(), cartItems.getId(), boughtHistory.getPayment(),
-					boughtHistory.getAccept(), boughtHistory.getDelivery());
+					boughtHistory.getAccept());
+			boughtHistory.setDelivery(4);
 
 			boughtHistoryRepository.save(boughtHistory);
 

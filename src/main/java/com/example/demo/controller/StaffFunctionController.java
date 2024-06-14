@@ -44,11 +44,12 @@ public class StaffFunctionController {
 	@GetMapping("/purchased")
 	public String order(Model model) {
 		List<SaleList> saleList = saleListRepository.findByItemStatus(2);
+
 		for (SaleList sale : saleList) {
 			Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 			sale.setTitle(bookinfo.getTitle());
 			
-			BoughtHistory boughtHisory = boughtHistoryRepository.findById(sale.getId()).get();
+			BoughtHistory boughtHisory = boughtHistoryRepository.findBySaleListId(sale.getId());
 			sale.setAccept(boughtHisory.getAccept());
 			sale.setDelivery(boughtHisory.getDelivery());
 		}
