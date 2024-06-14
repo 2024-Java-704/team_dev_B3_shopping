@@ -13,33 +13,34 @@
 	<br>
 	<br>
 	<br>
-	<th:block th:if="${deniedMessage}">[[${deniedMessage}]]</th:block>
+	<th:block th:if="${deniedMessage}">[[${deniedMessage}]]</th:block><br>
+	<th:block th:if="${Message}">[[${Message}]]</th:block>
 	<h1>商品一覧</h1>
-	
+
 	<table>
 		<tr>
 			<th>商品名</th>
 			<th>価格</th>
 		</tr>
 		<tr th:each="book:${books}">
-			<td><a th:href="@{/items/detail(id=${book.id})}"  th:text="${book.title}"></a></td>
+			<td><a th:href="@{/items/detail(id=${book.id})}" th:text="${book.title}"></a></td>
 			<td th:text="${book.price} + '円'"></td>
 		</tr>
 	</table>
 	<br>
 	<br>
-	
+
 	<div style="text-align: center;">
 		<a href="/cart">カート一覧</a>
 	</div>
-	
+
 	<br>
 	<br>
-	
+
 	<div style="text-align: center;">
 		<a href="/bookmark">ブックマーク一覧</a><br>
 	</div>
-	
+
 
 </body>
 

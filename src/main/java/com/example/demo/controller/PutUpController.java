@@ -158,7 +158,7 @@ public class PutUpController {
 		Integer accountId = accountAndCart.getId();
 		List<SaleList> salelist = saleListRepository.findByStudentId(accountId);//idと一致するものを取得
 		
-		if(salelist.size() > 0) {
+		if(salelist.size() == 0) {
 			model.addAttribute("errorMessage", "出品履歴がありません");
 			return "orderHistory";
 		}
