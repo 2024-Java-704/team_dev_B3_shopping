@@ -82,6 +82,7 @@ public class PageViewController {
 
 			if (student.getStatus() == 5) {
 				model.addAttribute("deniedMessage", "申請が却下されました");
+				model.addAttribute("Message", "窓口へお問い合わせください");
 			}
 		}
 		return "index";
@@ -135,25 +136,25 @@ public class PageViewController {
 		bookmarkRepository.save(book);
 		return "redirect:/bookmark";
 	}
-	
+
 	//ブックマーク削除処理
-//	@PostMapping("/bookmark/delete")
-//	public String bookMarkDelete(@RequestParam("id") Integer id) {
-//		Bookmark bookmark = bookmarkRepository.findById(id).get();
-//		bookmarkRepository.deleteById(id);
-//		return "redirect:/bookmark";
-//	}
+	//	@PostMapping("/bookmark/delete")
+	//	public String bookMarkDelete(@RequestParam("id") Integer id) {
+	//		Bookmark bookmark = bookmarkRepository.findById(id).get();
+	//		bookmarkRepository.deleteById(id);
+	//		return "redirect:/bookmark";
+	//	}
 
 	//マイページ画面表示
 	@GetMapping("/mypage")
 	public String mypage(Model model) {
 		try {
-		Integer accountId = accountAndCart.getId();
-		Student student = studentRepository.findById(accountId).get();
+			Integer accountId = accountAndCart.getId();
+			Student student = studentRepository.findById(accountId).get();
 
-		model.addAttribute("student", student);
-		return "mypage";
-		} catch(Exception E) {
+			model.addAttribute("student", student);
+			return "mypage";
+		} catch (Exception E) {
 			return "/login";
 		}
 
