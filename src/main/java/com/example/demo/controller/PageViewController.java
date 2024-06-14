@@ -82,6 +82,7 @@ public class PageViewController {
 
 			if (student.getStatus() == 5) {
 				model.addAttribute("deniedMessage", "申請が却下されました");
+				model.addAttribute("Message", "窓口へお問い合わせください");
 			}
 		}
 		return "index";
