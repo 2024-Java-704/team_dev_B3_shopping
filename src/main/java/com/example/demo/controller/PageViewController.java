@@ -7,16 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.Bookmark;
+import com.example.demo.entity.Images;
 import com.example.demo.entity.SaleList;
 import com.example.demo.entity.Student;
 import com.example.demo.model.AccountAndCart;
 import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BookmarkRepository;
+import com.example.demo.repository.ImagesRepository;
 import com.example.demo.repository.SaleListRepository;
 import com.example.demo.repository.StudentRepository;
 
@@ -42,6 +45,9 @@ public class PageViewController {
 
 	@Autowired
 	StudentRepository studentRepository;
+	
+	@Autowired
+	ImagesRepository imagesRepository;
 
 	//商品一覧画面表示
 	@GetMapping("/items")
@@ -70,6 +76,15 @@ public class PageViewController {
 			}
 
 		}
+		//繰り返しfor文で画像名をセット
+		for(Bookinfo booksImg: books) {
+			
+			String bookString = booksImg.getImageId() + "";
+			Long bookLong = Long.parseLong(bookString);
+			Images image = imagesRepository.findById(bookLong).get();
+			booksImg.setImageName(image.getName());
+			bookinfoRepository.save(booksImg);
+		}
 
 		model.addAttribute("books", books);
 //		for (Bookinfo book : books) {
@@ -84,16 +99,38 @@ public class PageViewController {
 				model.addAttribute("deniedMessage", "申請が却下されました");
 			}
 		}
-		return "index";
+		return "indexStyleCard";
 	}
 
-	//商品詳細画面表示
+	//商品詳細画面表示(RequestParam)
 	@GetMapping("/items/detail")
 	public String detail(@RequestParam("id") Integer id, Model model) {
 		Bookinfo book = bookinfoRepository.findById(id).get();
+		
+		
+		String imageString = book.getImageId() + "";
+		Long imageLong = Long.parseLong(imageString);
+		Images image = imagesRepository.findById(imageLong).get();
+		book.setImageName(image.getName());
 		model.addAttribute("book", book);
 		return "detail";
 	}
+	
+		//商品詳細画面(PathVariable)
+		@GetMapping("/items/{id}/detail")
+		public String detailPathVariable(
+				@PathVariable("id") Integer id,
+				Model model) {
+			Bookinfo book = bookinfoRepository.findById(id).get();
+			
+			
+			String imageString = book.getImageId() + "";
+			Long imageLong = Long.parseLong(imageString);
+			Images image = imagesRepository.findById(imageLong).get();
+			book.setImageName(image.getName());
+			model.addAttribute("book", book);
+			return "detail";
+		}
 
 	//ブックマーク画面表示
 	@GetMapping("/bookmark")
@@ -157,6 +194,26 @@ public class PageViewController {
 			return "/login";
 		}
 
+	}
+	
+	//学生証の確認画面
+	@GetMapping("/studentCardUp")
+	public String cardPage(Model model) {
+		
+		try {
+		//セッションID→String変換→Long変換→検索→セット
+		Student student = studentRepository.findById(accountAndCart.getId()).get();
+		String imageString = student.getImageId() + "";
+		Long image = Long.parseLong(imageString);
+		Images imageName = imagesRepository.findById(image).get();
+		student.setImageName(imageName.getName());
+		studentRepository.save(student);
+		
+		model.addAttribute("student", student);
+		return "Upload-CardView";
+		}catch(Exception E) {
+			return "/login";
+		}
 	}
 
 }

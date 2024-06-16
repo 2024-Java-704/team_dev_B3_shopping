@@ -80,7 +80,7 @@ public class PurchaseController {
 		return "cart";
 	}
 
-	//指定した商品をカートに追加する
+	//指定した商品をカートに追加する(RequestParam)
 	@PostMapping("/cart/add")
 	public String cartAdd(@RequestParam("bookinfoId") Integer bookinfoId, Model model) {
 
@@ -98,6 +98,26 @@ public class PurchaseController {
 
 		return "redirect:/cart";
 	}
+		//指定した商品をカートに追加する(PathVariable)
+		@GetMapping("/cart/{id}/add")
+		public String cartAddPathVariable(
+				@PathVariable("id") Integer bookinfoId,
+				Model model) {
+			
+			Bookinfo bookinfo = bookinfoRepository.findById(bookinfoId).get();
+			//		String name = bookinfo.getTitle();
+			
+			CartItems cartItems = new CartItems(bookinfo.getId(), bookinfo.getTitle(), bookinfo.getPrice());
+			accountAndCart.add(cartItems);
+			
+			Integer sum = 0;
+			for (CartItems cartItem : accountAndCart.getCartItems()) {
+				sum = sum + cartItem.getPrice();
+			}
+			model.addAttribute("sum", sum);
+			
+			return "redirect:/cart";
+		}
 
 	//　指定した商品をカートから削除
 

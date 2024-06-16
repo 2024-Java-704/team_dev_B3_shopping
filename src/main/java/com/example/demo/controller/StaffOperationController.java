@@ -1,5 +1,10 @@
 package com.example.demo.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,8 +17,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.entity.Images;
 import com.example.demo.entity.Student;
+import com.example.demo.repository.ImagesRepository;
 import com.example.demo.repository.StudentRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +35,11 @@ public class StaffOperationController {
 	
 	@Autowired
 	StudentRepository studentRepository;
+	
+	@Autowired
+	ImagesRepository imagesRepository;
+	
+	private static final String UPLOAD_DIR = "src/main/resources/static/img"; // アップロード先のディレクトリ
 	
 	//学生アカウント一覧
 	@GetMapping("/account")
@@ -42,6 +56,14 @@ public class StaffOperationController {
 			Model model
 			) {
 		Student student = studentRepository.findById(id).get();
+		
+		//学生証画像の呼び出し＆セット
+		String imageString = student.getImageId() + "";
+		Long image = Long.parseLong(imageString);
+		Images imageName = imagesRepository.findById(image).get();
+		student.setImageName(imageName.getName());
+		studentRepository.save(student);
+		
 		model.addAttribute("student",student);
 		return "SOC_accountDetail";
 	}
@@ -61,6 +83,14 @@ public class StaffOperationController {
 			Model model
 			) {
 		Student student = studentRepository.findById(id).get();
+		
+		//学生証画像の呼び出し＆セット
+		String imageString = student.getImageId() + "";
+		Long image = Long.parseLong(imageString);
+		Images imageName = imagesRepository.findById(image).get();
+		student.setImageName(imageName.getName());
+		studentRepository.save(student);
+		
 		model.addAttribute("student",student);
 		return "SOC_accountRegisterDetail";
 	}
@@ -182,8 +212,64 @@ public class StaffOperationController {
 			}
 
 	}
+	
+//学生証の更新
+	
+	//学生証のアップロード画面の表示
+		@GetMapping("student/{id}/imgUp")
+		public String imgUp(
+				@PathVariable("id") Integer id,
+				Model model
+				) {
+			model.addAttribute("studentId", id);
+			return "Upload-ChangeStudentCard";
+		}
+		
+		//画像のアップロード完了後、登録申請の完了画面表示
+		@PostMapping("student/{id}/imgUp")
+		public String imgUploadSuccess(
+				@PathVariable("id") Integer id,
+				@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes
+			) {
+				
+				try {
+		            // アップロードディレクトリが存在しない場合、作成
+		            File uploadDir = new File(UPLOAD_DIR);
+		            if (!uploadDir.exists()) {
+		                uploadDir.mkdirs();
+		            }
 
+		            // 画像ファイルの保存先パス
+		            String filePath = UPLOAD_DIR + File.separator + file.getOriginalFilename();
 
+		            // 画像ファイルをディスクに保存
+		            Path destination = new File(filePath).toPath();
+		            Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
+
+		            // データベースにファイルメタデータを保存
+		            Images imageEntity = new Images();
+		            imageEntity.setName(file.getOriginalFilename());
+		            imageEntity.setFilePath(filePath);
+		            imagesRepository.save(imageEntity);
+		            
+		            //StudentEntityにimageIdを保存
+		            String imageIdString = String.valueOf(imageEntity.getId());
+		            Integer imageId = Integer.valueOf(imageIdString);
+		            
+		            Student student = studentRepository.findById(id).get();
+		            student.setImageId(imageId);
+		            studentRepository.save(student);
+
+		            redirectAttributes.addFlashAttribute("message", "File uploaded successfully!");
+		        } catch (IOException e) {
+		            redirectAttributes.addFlashAttribute("error", "Failed to upload file: " + e.getMessage());
+		        }
+
+				
+				return "redirect:/account/{id}/detail";
+			}
+
+//凍結
 	@GetMapping("/account/{id}/freeze")
 	public String accountBanConfirm(
 			@PathVariable("id") Integer id,
@@ -210,4 +296,5 @@ public class StaffOperationController {
 		studentRepository.save(student);
 		return "redirect:/account";
 	}
+	
 }

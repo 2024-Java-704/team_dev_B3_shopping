@@ -1,5 +1,10 @@
 package com.example.demo.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Admin;
+import com.example.demo.entity.Images;
 import com.example.demo.entity.Staff;
 import com.example.demo.entity.Student;
 import com.example.demo.model.AccountAndCart;
 import com.example.demo.repository.AdminRepository;
+import com.example.demo.repository.ImagesRepository;
 import com.example.demo.repository.StaffRepository;
 import com.example.demo.repository.StudentRepository;
 
@@ -33,6 +43,12 @@ public class AccountController {
 	StaffRepository staffRepository;
 	@Autowired
 	AdminRepository adminRepository;
+	
+	@Autowired
+	ImagesRepository imagesRepository;
+	
+	private static final String UPLOAD_DIR = "src/main/resources/static/img"; // アップロード先のディレクトリ
+
 
 	// 会員登録画面の表示
 	@GetMapping("/new/users")
@@ -116,9 +132,65 @@ public class AccountController {
 
 		Student student = new Student(name, number, address, birth, password, email, 1);
 		studentRepository.save(student);
+		
+		model.addAttribute("studentId", student.getId());
 
-		return "adduserconfirmcomplete";
+		return "Upload-ToUploadCard";
 	}
+	
+	//学生証のアップロード画面の表示
+	@GetMapping("new/users/{id}/imgUp")
+	public String imgUp(
+			@PathVariable("id") Integer id,
+			Model model
+			) {
+		model.addAttribute("studentId", id);
+		return "Upload-StudentCard";
+	}
+	
+	//画像のアップロード完了後、登録申請の完了画面表示
+	@PostMapping("/new/users/{id}/imgUp")
+	public String imgUploadSuccess(
+			@PathVariable("id") Integer id,
+			@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes
+		) {
+			
+			try {
+	            // アップロードディレクトリが存在しない場合、作成
+	            File uploadDir = new File(UPLOAD_DIR);
+	            if (!uploadDir.exists()) {
+	                uploadDir.mkdirs();
+	            }
+
+	            // 画像ファイルの保存先パス
+	            String filePath = UPLOAD_DIR + File.separator + file.getOriginalFilename();
+
+	            // 画像ファイルをディスクに保存
+	            Path destination = new File(filePath).toPath();
+	            Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
+
+	            // データベースにファイルメタデータを保存
+	            Images imageEntity = new Images();
+	            imageEntity.setName(file.getOriginalFilename());
+	            imageEntity.setFilePath(filePath);
+	            imagesRepository.save(imageEntity);
+	            
+	            //StudentEntityにimageIdを保存
+	            String imageIdString = String.valueOf(imageEntity.getId());
+	            Integer imageId = Integer.valueOf(imageIdString);
+	            
+	            Student student = studentRepository.findById(id).get();
+	            student.setImageId(imageId);
+	            studentRepository.save(student);
+
+	            redirectAttributes.addFlashAttribute("message", "File uploaded successfully!");
+	        } catch (IOException e) {
+	            redirectAttributes.addFlashAttribute("error", "Failed to upload file: " + e.getMessage());
+	        }
+
+			
+			return "adduserconfirmcomplete";
+		}
 
 	//ログイン画面の表示
 	@GetMapping("/login")

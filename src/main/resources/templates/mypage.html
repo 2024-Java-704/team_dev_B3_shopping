@@ -18,6 +18,7 @@
 	<th:block th:if="${student.status} eq 1 OR ${student.status} eq 3">
 		<div style="text-align: center;">
 			<span style="color: red;">!本会員ではないので表示できません</span>
+			<br>
 			<a href="/login">こちらからログイン</a>
 		</div>
 	</th:block>
@@ -29,6 +30,7 @@
 		<a href="/buy">購入履歴</a><br>
 		<a href="/bookmark">ブックマーク一覧</a><br>
 		<a href="/sold">売上</a><br>
+		<a href="/studentCardUp">学生証</a><br>
 		<a href="/user/delete">退会</a>
 	</th:block>
 	</div>

@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
+import com.example.demo.entity.Images;
 import com.example.demo.entity.SaleList;
 import com.example.demo.repository.BookinfoRepository;
+import com.example.demo.repository.ImagesRepository;
 import com.example.demo.repository.SaleListRepository;
 
 @Controller
@@ -23,6 +26,9 @@ public class StaffPutUpController {
 	
 	@Autowired
 	BookinfoRepository bookinfoRepository;
+	
+	@Autowired
+	ImagesRepository imagesRepository;
 	
 	//出品申請一覧画面の表示
 	@GetMapping("/itemrequest")
@@ -37,13 +43,21 @@ public class StaffPutUpController {
 	}
 
 	//出品申請詳細画面の表示
-	@GetMapping("/itemrequest/detail")
-	public String putUpDetail(@RequestParam("id") Integer id, Model model) {
+	@GetMapping("/itemrequest/{id}/detail")
+	public String putUpDetail(
+			@PathVariable("id") Integer id,
+			Model model) {
 		SaleList sale = saleListRepository.findById(id).get();
 		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 		sale.setTitle(bookinfo.getTitle());
 		sale.setAuthor(bookinfo.getAuthor());
 		sale.setIsbn(bookinfo.getIsbn());
+		
+		//画像の差し込み
+		String imageString = bookinfo.getImageId() + "";
+		Long imageLong = Long.parseLong(imageString);
+		Images image = imagesRepository.findById(imageLong).get();
+		sale.setImageName(image.getName());
 		model.addAttribute("sale", sale);
 		return "staffPutUpDetail";
 	}
