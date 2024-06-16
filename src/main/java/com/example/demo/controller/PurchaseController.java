@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.BoughtCertificate;
 import com.example.demo.entity.BoughtHistory;
+import com.example.demo.entity.Images;
 import com.example.demo.entity.SaleList;
 import com.example.demo.entity.Student;
 import com.example.demo.model.AccountAndCart;
@@ -21,6 +22,7 @@ import com.example.demo.model.CartItems;
 import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BoughtCertificateRepository;
 import com.example.demo.repository.BoughtHistoryRepository;
+import com.example.demo.repository.ImagesRepository;
 import com.example.demo.repository.SaleListRepository;
 import com.example.demo.repository.StudentRepository;
 
@@ -64,6 +66,9 @@ public class PurchaseController {
 	
 	@Autowired
 	StudentRepository studentRepository;
+	
+	@Autowired
+	ImagesRepository imagesRepository;
 
 	//カートを表示する
 	@GetMapping("/cart")
@@ -220,7 +225,14 @@ public class PurchaseController {
 	@GetMapping("/purchase/items/detail")
 	public String detail(@RequestParam("id") Integer id, Model model) {
 		Bookinfo book = bookinfoRepository.findById(id).get();
+		
+		//画像
+		String imageString = book.getImageId() + "";
+		Long imageLong = Long.parseLong(imageString);
+		Images image = imagesRepository.findById(imageLong).get();
+		book.setImageName(image.getName());
 		model.addAttribute("book", book);
+		
 		return "purchaseHistoryDetail";
 	}
 }

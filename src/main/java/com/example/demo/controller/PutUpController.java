@@ -251,6 +251,15 @@ public class PutUpController {
 			@RequestParam("id") Integer Id,
 			Model model) {
 		bookinfo = bookinfoRepository.findById(Id).get();
+		
+		//画像
+		String imageString = bookinfo.getImageId() + "";
+		Long imageLong = Long.parseLong(imageString);
+		Images image = imagesRepository.findById(imageLong).get();
+		bookinfo.setImageName(image.getName());
+		model.addAttribute("book", bookinfo);
+		
+
 		model.addAttribute("book", bookinfo);
 		SaleList saleList = saleListRepository.findByBookInfoId(bookinfo.getId()).get(0);
 		model.addAttribute("saleList", saleList);
