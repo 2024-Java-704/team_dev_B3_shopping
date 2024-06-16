@@ -45,7 +45,7 @@
 			<td th:text="${bookinfo.condition}"></td>
 		</tr>
 		<th>金額</th>
-		<td th:text="${bookinfo.price}"></td>
+		<td th:text="${bookinfo.price} + '円'"></td>
 		<tr>
 			<th>受渡方法</th>
 			<td th:if="${bought.accept == 1}">郵送</td>

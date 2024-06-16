@@ -51,10 +51,14 @@
 		</tr>
 	</table>
 	
+	<br>
+	
 	<form action="/cart/add" method="post">
 		<input type="hidden" th:value="${book.id}" name="bookinfoId">
 		<button>カートに追加</button>
 	</form>
+	
+	<br>
 	
 	<form action="/bookmark/add" method="post">
 		<input type="hidden" th:value="${book.id}" name="id">

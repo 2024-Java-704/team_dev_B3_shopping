@@ -2,16 +2,17 @@
 <htmel xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>アカウント詳細</title>
+<title>凍結解除確認</title>
 <link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 <body>
-	<header th:replace="header"></header>
+<header th:replace="header"></header>
 	<br>
 	<br>
 	<br>
 	<br>
-	<table border="2">
+	<h1>凍結解除確認</h1>
+		<table border="2">
 		<tr>
 			<th>アカウントID</th>
 			<td th:text="${student.id}"></td>
@@ -56,34 +57,13 @@
 		<tr>
 			<th>凍結日</th>
 			<td th:if="${student.banDay != null}" th:text="${student.banDay}"></td>
-<!--			<td th:if="${student.banDay == null}" th:text=""></td>-->
-		</tr>
-		<tr>
-			<th>学生証</th>
-			<td th:if="${student.imageName != null}"><img th:src="'/img/' + ${student.imageName}" class="studentCard"></td>
-			<td th:if="${student.imageName == null}">なし</td>
+<!--			<td th:if="${student.banDay == null}" th:text="運用中"></td>-->
 		</tr>
 	</table>
-	<br>
 	
-		<div style="text-align: center;">
-		<a th:href="@{/student/{studentId}/imgUp(studentId=${student.id})}">学生証画像の更新</a>
-		</div>
-		
-	<br>
-		
-		<div style="display: flex; justify-content: center;">
-		<form th:action="@{/account/{studentId}/update(studentId=${student.id})}" method="get">
-			<button>更新</button>
-		</form>
-		<form th:if="${student.status == 2}" th:action="@{/account/{studentId}/freeze(studentId=${student.id})}" method="get">
-			<button>凍結</button>
-		</form>
-		<form th:if="${student.status == 3}" th:action="@{/account/{studentId}/banRemove(studentId=${student.id})}" method="get">
-			<button>凍結解除</button>
-		</form>
-		</div>
-
-	<script src="/JS/ReSizeCard.js"></script>
+	<form th:action="@{/account/{studentId}/banRemove(studentId=${student.id})}" method="post"
+	onsubmit="return confirm('最終確認：本当に解除しますか？')">
+		<button type="submit">凍結解除</button>
+	</form>
 </body>
 </html>
