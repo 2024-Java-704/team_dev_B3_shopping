@@ -23,7 +23,7 @@
 		</tr>
 		<tr th:each="book:${@accountAndCart.cartItems}">
 			<td><a th:href="@{/items/{id}/detail(id=${book.id})}" th:text="${book.title}"></td>
-			<td th:text="${book.price}"></td>
+			<td th:text="${book.price} + '円'"></td>
 			<form th:action="@{/purchase/{id}/delete(id=${book.id})}" method="get">
 				<td><button>削除</button></td>
 			</form>

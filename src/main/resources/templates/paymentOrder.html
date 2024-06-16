@@ -28,7 +28,7 @@
 				<input type="hidden" name="wantsId" th:value="${soldList.id}">
 				<th:block th:text="${soldList.title}"></th:block>
 			</td>
-			<td th:text="${soldList.price}">円</td>
+			<td th:text="${soldList.price} + '円'"></td>
 		</tr>
 	</table>
 	<br>
