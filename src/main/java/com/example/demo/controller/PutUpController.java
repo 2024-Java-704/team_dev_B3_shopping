@@ -50,10 +50,10 @@ public class PutUpController {
 
 	@Autowired
 	CategoriesRepository categoriesRepository;
-	
+
 	@Autowired
 	ImagesRepository imagesRepository;
-	
+
 	private static final String UPLOAD_DIR = "src/main/resources/static/img"; // アップロード先のディレクトリ
 
 	//出品申請画面の表示
@@ -87,27 +87,27 @@ public class PutUpController {
 		if (title.length() == 0) {
 			errorList.add("タイトルを入力してください");
 		}
-		
+
 		if (publisher.length() == 0) {
 			errorList.add("出版社を入力してください");
 		}
-		
+
 		if (isbn.length() == 0) {
 			errorList.add("ISBNを入力してください");
 		}
-		
+
 		if (condition.length() == 0) {
 			errorList.add("本の状態を入力してください");
 		}
-		
+
 		if (grade.length() == 0) {
 			errorList.add("学年を入力してください");
 		}
-		
+
 		if (lecture.length() == 0) {
 			errorList.add("使用した講義名を入力してください");
 		}
-		
+
 		if (author.length() == 0) {
 			errorList.add("作者名を入力してください");
 		}
@@ -117,10 +117,10 @@ public class PutUpController {
 			model.addAttribute("errorList", errorList);
 			return "order";
 		}
-		
+
 		Categories categories = categoriesRepository.findById(category_id).get();
 		String category = categories.getCategoryName();
-		
+
 		model.addAttribute("title", title);
 		model.addAttribute("publisher", publisher);
 		model.addAttribute("isbn", isbn);
@@ -163,65 +163,63 @@ public class PutUpController {
 		//		Integer itemStatus, Integer saleMethod
 
 		saleListRepository.save(saleList);
-		
-		model.addAttribute("bookId",bookInfo.getId());
+
+		model.addAttribute("bookId", bookInfo.getId());
 		return "orderSuccess";
 	}
-	
+
 	//商品画像のアップロード画面表示
-		@GetMapping("/order/{id}/imgUp")
-		public String imgUp(
-				@PathVariable("id") Integer id,
-				Model model
-				) {
-			model.addAttribute("bookId", id);
-			return "Upload-BookImg";
-		}
-		
-		//画像のアップロード完了後、登録申請の完了画面表示
-		@PostMapping("/order/{id}/imgUp")
-		public String imgUploadSuccess(
-				@PathVariable("id") Integer id,
-				@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
-				Model model
-			) {
-				
-				try {
-		            // アップロードディレクトリが存在しない場合、作成
-		            File uploadDir = new File(UPLOAD_DIR);
-		            if (!uploadDir.exists()) {
-		                uploadDir.mkdirs();
-		            }
+	@GetMapping("/order/{id}/imgUp")
+	public String imgUp(
+			@PathVariable("id") Integer id,
+			Model model) {
+		model.addAttribute("bookId", id);
+		return "Upload-BookImg";
+	}
 
-		            // 画像ファイルの保存先パス
-		            String filePath = UPLOAD_DIR + File.separator + file.getOriginalFilename();
+	//画像のアップロード完了後、登録申請の完了画面表示
+	@PostMapping("/order/{id}/imgUp")
+	public String imgUploadSuccess(
+			@PathVariable("id") Integer id,
+			@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
+			Model model) {
 
-		            // 画像ファイルをディスクに保存
-		            Path destination = new File(filePath).toPath();
-		            Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
-
-		            // データベースにファイルメタデータを保存
-		            Images imageEntity = new Images();
-		            imageEntity.setName(file.getOriginalFilename());
-		            imageEntity.setFilePath(filePath);
-		            imagesRepository.save(imageEntity);
-		            
-		            //StudentEntityにimageIdを保存
-		            String imageIdString = String.valueOf(imageEntity.getId());
-		            Integer imageId = Integer.valueOf(imageIdString);
-		            
-		            Bookinfo book = bookinfoRepository.findById(id).get();
-		            book.setImageId(imageId);
-		            bookinfoRepository.save(book);
-
-		            redirectAttributes.addFlashAttribute("message", "File uploaded successfully!");
-		        } catch (IOException e) {
-		            redirectAttributes.addFlashAttribute("error", "Failed to upload file: " + e.getMessage());
-		        }
-
-				model.addAttribute("bookId", id);
-				return "Upload-BookImgSuccess";
+		try {
+			// アップロードディレクトリが存在しない場合、作成
+			File uploadDir = new File(UPLOAD_DIR);
+			if (!uploadDir.exists()) {
+				uploadDir.mkdirs();
 			}
+
+			// 画像ファイルの保存先パス
+			String filePath = UPLOAD_DIR + File.separator + file.getOriginalFilename();
+
+			// 画像ファイルをディスクに保存
+			Path destination = new File(filePath).toPath();
+			Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
+
+			// データベースにファイルメタデータを保存
+			Images imageEntity = new Images();
+			imageEntity.setName(file.getOriginalFilename());
+			imageEntity.setFilePath(filePath);
+			imagesRepository.save(imageEntity);
+
+			//StudentEntityにimageIdを保存
+			String imageIdString = String.valueOf(imageEntity.getId());
+			Integer imageId = Integer.valueOf(imageIdString);
+
+			Bookinfo book = bookinfoRepository.findById(id).get();
+			book.setImageId(imageId);
+			bookinfoRepository.save(book);
+
+			redirectAttributes.addFlashAttribute("message", "File uploaded successfully!");
+		} catch (IOException e) {
+			redirectAttributes.addFlashAttribute("error", "Failed to upload file: " + e.getMessage());
+		}
+
+		model.addAttribute("bookId", id);
+		return "Upload-BookImgSuccess";
+	}
 
 	//出品履歴画面を表示する。
 	@GetMapping("/order/history")
@@ -229,12 +227,12 @@ public class PutUpController {
 			Model model) {
 		Integer accountId = accountAndCart.getId();
 		List<SaleList> salelist = saleListRepository.findByStudentId(accountId);//idと一致するものを取得
-		
-		if(salelist.size() == 0) {
+
+		if (salelist.size() == 0) {
 			model.addAttribute("errorMessage", "出品履歴がありません");
 			return "orderHistory";
 		}
-		
+
 		for (SaleList list : salelist) {
 			bookinfo = bookinfoRepository.findById(list.getBookInfoId()).get();
 			list.setTitle(bookinfo.getTitle());//title取得
@@ -251,19 +249,29 @@ public class PutUpController {
 			@RequestParam("id") Integer Id,
 			Model model) {
 		bookinfo = bookinfoRepository.findById(Id).get();
-		
+
 		//画像
 		String imageString = bookinfo.getImageId() + "";
 		Long imageLong = Long.parseLong(imageString);
 		Images image = imagesRepository.findById(imageLong).get();
 		bookinfo.setImageName(image.getName());
 		model.addAttribute("book", bookinfo);
-		
 
 		model.addAttribute("book", bookinfo);
 		SaleList saleList = saleListRepository.findByBookInfoId(bookinfo.getId()).get(0);
 		model.addAttribute("saleList", saleList);
 
 		return "orderHistoryDetail";
+	}
+
+	//出品履歴をキャンセルする。
+	@PostMapping("/order/history/{id}/delete")
+	public String delteHistory(
+			@PathVariable("id") Integer id,
+			Model model) {
+		SaleList deleteSale = saleListRepository.findById(id).get();
+		saleListRepository.delete(deleteSale);
+
+		return "redirect:/order/history";
 	}
 }
