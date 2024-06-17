@@ -36,6 +36,7 @@ credit_name VARCHAR(50) NOT NULL, --名義人名
 credit_number INTEGER NOT NULL, --カード番号
 credit_exp DATE NOT NULL,--有効期限
 credit_sec INTEGER NOT NULL,--セキュリティコード
+phone_number VARCHAR(11) NOT NULL,
 
 
 PRIMARY KEY (id),
