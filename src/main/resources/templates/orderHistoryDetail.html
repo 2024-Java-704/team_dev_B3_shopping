@@ -47,6 +47,11 @@
 			<th>状態</th>
 			<td th:text="${book.condition}"></td>
 		</tr>
+		<tr>
+			<th>商品画像</th>
+			<td th:if="${book.imageName != null}"><img th:src="'/img/' + ${book.imageName}" class="studentCard"></td>
+			<td th:if="${book.imageName == null}">なし</td>
+		</tr>
 </body>
 
 </html>

@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Component
 @Entity
@@ -44,6 +45,12 @@ public class Student {
 
 	@Column(name = "student_status")
 	private Integer status; //ステータス
+	
+	@Column(name = "image_id")
+	private Integer imageId;
+	
+	@Transient
+	private String imageName;
 
 	//デフォルトコンストラクタ
 	public Student() {
@@ -159,6 +166,22 @@ public class Student {
 	public void setBanDay(Date banDay) {
 		this.banDay = banDay;
 
+	}
+
+	public Integer getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(Integer imageId) {
+		this.imageId = imageId;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 
 }

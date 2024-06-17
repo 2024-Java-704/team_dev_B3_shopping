@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div style="text-align: center;;">
+	<p>入力された情報の登録が完了しました</p>
+	<p>下のリンクを押して学生証のアップロード画面へお進みください</p>
+	<br>
+	<br>
+	<a th:href="@{/new/users/{studentId}/imgUp(studentId=${studentId})}">学生証のアップロード</a>
+	</div>
+</body>
+</html>

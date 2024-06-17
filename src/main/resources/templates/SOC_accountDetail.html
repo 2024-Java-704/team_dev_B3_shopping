@@ -58,7 +58,18 @@
 			<td th:if="${student.banDay != null}" th:text="${student.banDay}"></td>
 <!--			<td th:if="${student.banDay == null}" th:text=""></td>-->
 		</tr>
+		<tr>
+			<th>学生証</th>
+			<td th:if="${student.imageName != null}"><img th:src="'/img/' + ${student.imageName}" class="studentCard"></td>
+			<td th:if="${student.imageName == null}">なし</td>
+		</tr>
 	</table>
+	<br>
+	
+		<div style="text-align: center;">
+		<a th:href="@{/student/{studentId}/imgUp(studentId=${student.id})}">学生証画像の更新</a>
+		</div>
+		
 	<br>
 		
 		<div style="display: flex; justify-content: center;">
@@ -73,5 +84,6 @@
 		</form>
 		</div>
 
+	<script src="/JS/ReSizeCard.js"></script>
 </body>
 </html>

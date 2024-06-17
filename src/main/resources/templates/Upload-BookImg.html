@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+    <h1>商品画像アップロード</h1>
+    <div style="text-align: center;">
+    <form th:action="@{/order/{bookId}/imgUp(bookId=${bookId})}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" class="inputButton">
+        <br>
+        <br>
+        <input type="submit" value="アップロード" class="inputButton">
+    </form>
+    </div>
+    
+    <div th:if="${message}" class="success">
+        <p th:text="${message}"></p>
+    </div>
+    
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
+</body>
+</html>
