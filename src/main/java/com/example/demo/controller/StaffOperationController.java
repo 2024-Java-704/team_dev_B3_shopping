@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,14 @@ public class StaffOperationController {
 
 	//学生アカウント一覧
 	@GetMapping("/account")
-	public String accountAccess(Model model) {
-		List<Student> studentList = studentRepository.findAll();
+	public String accountAccess(@RequestParam(name = "keyword", defaultValue = "") String keyword,Model model) {
+		List<Student> studentList = new ArrayList<>();
+		if(keyword.equals("")) {
+			studentList = studentRepository.findAll();
+		} else {
+			studentList = studentRepository.findByNameLike("%" + keyword + "%");
+			model.addAttribute("search", keyword);
+		}
 		model.addAttribute("studentList", studentList);
 		return "SOC_accountList";
 	}

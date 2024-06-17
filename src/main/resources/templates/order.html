@@ -22,15 +22,15 @@
 	<table>
 		<tr>
 			<th>タイトル</th>
-			<td><input type="text" name="title" class="textbox" required></td>
+			<td><input type="text" name="title" class="textbox" maxlength="50" required></td>
 		</tr>
 		<tr>
 			<th>著者</th>
-			<td><input type="text" name="author" class="textbox" required></td>
+			<td><input type="text" name="author" class="textbox" maxlength="50" required></td>
 		</tr>
 		<tr>
 			<th>ISBNコード</th>
-			<td><input type="text" name="isbn" class="textbox" pattern="\d*"  required minlength="10" maxlength="13" placeholder="10ケタもしくは13ケタの数字"></td>
+			<td><input type="number" name="isbn" class="textbox" pattern="\d*" required minlength="10" maxlength="13" placeholder="10ケタもしくは13ケタの数字"></td>
 		</tr>
 		<tr>
 			<th>カテゴリ</th>
@@ -65,16 +65,16 @@
 		</tr>
 		<tr>
 			<th>利用講義</th>
-			<td><input type="text" name="lecture" class="textbox" required></td>
+			<td><input type="text" name="lecture" class="textbox" maxlength="50" required></td>
 		</tr>
 		<tr>
 			<th>出版社</th>
-			<td><input type="text" name="publisher" class="textbox" required></td>
+			<td><input type="text" name="publisher" class="textbox" maxlength="50" required></td>
 		</tr>
 		<tr>
 			<th>本の状態</th>
-			<td><input type="text" name="condition" class="textbox" required placeholder="未使用　傷あり　書き込みあり"></td>
-		</tr>	
+			<td><input type="text" name="condition" class="textbox" maxlength="50" required placeholder="未使用　傷あり　書き込みあり"></td>
+		</tr>
 	</table>
 	
 	<br>

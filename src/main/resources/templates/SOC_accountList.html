@@ -1,33 +1,48 @@
 <!DOCTYPE html>
 <htmel xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>アカウント一覧</title>
-<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
-</head>
-<body>
-	<header th:replace="header"></header>
-	<br>
-	<br>
-	<br>
-	<br>
-	<table border="2">
-		<tr>
-			<th>学籍番号</th>
-			<th>氏名</th>
-			<th>ステータス</th>
-		</tr>
-		<tr th:each="student:${studentList}">
-			<td th:text="${student.number}"></td>
-			<td>
-				<a th:href="@{/account/{studentId}/detail(studentId=${student.id})}"><th:block th:text="${student.name}"></th:block></a>
-			</td>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>アカウント一覧</title>
+		<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+	</head>
+
+	<body>
+		<header th:replace="header"></header>
+		<br>
+		<br>
+		<br>
+		<br>
+		<h1>学生アカウント一覧</h1>
+		<div style="text-align:center;">
+			<form action="/account" method="get">
+				<input type="text" name="keyword" placeholder="名前" th:value="${search}">
+				<button>検索</button>
+			</form>
+		</div>
+		
+		<br>
+
+		<table border="2">
+			<tr>
+				<th>学籍番号</th>
+				<th>氏名</th>
+				<th>ステータス</th>
+			</tr>
+			<tr th:each="student:${studentList}">
+				<td th:text="${student.number}"></td>
+				<td>
+					<a th:href="@{/account/{studentId}/detail(studentId=${student.id})}">
+						<th:block th:text="${student.name}"></th:block>
+					</a>
+				</td>
 				<td th:if="${student.status == 1}" th:text="仮登録"></td>
 				<td th:if="${student.status == 2}" th:text="本会員"></td>
 				<td th:if="${student.status == 3}" th:text="凍結中"></td>
 				<td th:if="${student.status == 4}" th:text="退会済み"></td>
 				<td th:if="${student.status == 5}" th:text="申請却下"></td>
-		</tr>
-	</table>
-</body>
-</html>
+			</tr>
+		</table>
+	</body>
+
+	</html>
