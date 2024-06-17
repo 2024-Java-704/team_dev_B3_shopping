@@ -112,7 +112,6 @@ public class AccountController {
 		// エラー発生時は新規登録に戻す
 		if (errorList.size() > 0) {
 			model.addAttribute("errorList", errorList);
-
 			return "adduser";
 		}
 
@@ -228,7 +227,8 @@ public class AccountController {
 		List<Student> numberStudent = studentRepository.findByNumberAndPass(number, password);
 
 		if (numberStudent.isEmpty() && emailStudent.isEmpty()) {
-
+			model.addAttribute("email", email);
+			model.addAttribute("number", number);
 			// DBに存在しなかった場合
 			model.addAttribute("message", "メールアドレス又は学籍番号とパスワードが一致しませんでした");
 			return "login";

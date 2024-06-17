@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <htmel xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>職員一覧</title>
-<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
-</head>
-<body>
-	<header th:replace="header"></header>
-	<br>
-	<br>
-	<br>
-	<br>
-	<p th:text="${errorMessage}" style="color:red"></p>
-	<table border="2">
-		<tr>
-			<th>職員番号</th>
-			<th>職員名</th>
-		</tr>
-		<tr th:each="staffList:${staffList}">
-			<td th:text="${staffList.staffNumber}"></td>
-			<td>
-				<a th:href="@{/staffList/{staffListId}/detail(staffListId=${staffList.id})}"><th:block th:text="${staffList.staffName}"></th:block></a>
-			</td>
-		</tr>
-	</table>
-</body>
-</html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>職員一覧</title>
+		<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+	</head>
+
+	<body>
+		<header th:replace="header"></header>
+		<br>
+		<br>
+		<br>
+		<br>
+		<h1>職員アカウント一覧</h1>
+		<div style="text-align:center">
+			<form action="staffList" method="get">
+				<input type="text" name="keyword" th:value="${search}" placeholder="名前">
+				<button>検索</button>
+			</form>
+		</div>
+		<p th:text="${errorMessage}" style="color:red"></p>
+		<table border="2">
+			<tr>
+				<th>職員番号</th>
+				<th>職員名</th>
+			</tr>
+			<tr th:each="staffList:${staffList}">
+				<td th:text="${staffList.staffNumber}"></td>
+				<td>
+					<a th:href="@{/staffList/{staffListId}/detail(staffListId=${staffList.id})}">
+						<th:block th:text="${staffList.staffName}"></th:block>
+					</a>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+	</html>
