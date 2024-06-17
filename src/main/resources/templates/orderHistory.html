@@ -14,13 +14,14 @@
 	<br>
 	<br>
 	<h1>出品履歴</h1>
-	
+
 	<p th:text="${errorMessage}" style="color:red"></p>
 
 	<table border="1">
 		<tr>
 			<th>タイトル</th>
 			<th>ステータス</th>
+			<th>キャンセル</th>
 		</tr>
 		<tr th:each="list:${salelist}">
 			<td>
@@ -31,6 +32,11 @@
 			<td th:if="${list.itemStatus}==3">売上受取申請済み</td>
 			<td th:if="${list.itemStatus}==4">売上受取済</td>
 			<td th:if="${list.itemStatus}==5">出品申請中</td>
+			<td th:if="${list.itemStatus}==1 or ${list.itemStatus}==5">
+				<form th:action="'/order/history/' + ${list.id} + '/delete'" method="post">
+					<button>キャンセル</button>
+				</form>
+			</td>
 		</tr>
 	</table>
 
