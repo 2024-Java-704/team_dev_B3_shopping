@@ -41,12 +41,18 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 
 	//職員一覧画面の表示
 	@GetMapping("/staffList")
-	public String staffAll(Model model) {
-		List<Staff> staffList = staffRepository.findAll();
+	public String staffAll(@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model) {
+		List<Staff> staffList = new ArrayList<>();
 		
-		if(staffList.size() == 0) {
-			model.addAttribute("errorMessage", "職員が登録されていません");
-			return "adminStaffList";
+		if(keyword.equals("")) {
+			staffList = staffRepository.findAll();
+			if(staffList.size() == 0) {
+				model.addAttribute("errorMessage", "職員が登録されていません");
+				return "adminStaffList";
+			}
+		} else {
+			staffList = staffRepository.findByStaffNameLike("%" + keyword + "%");
+			model.addAttribute("search", keyword);
 		}
 		
 		model.addAttribute("staffList", staffList);

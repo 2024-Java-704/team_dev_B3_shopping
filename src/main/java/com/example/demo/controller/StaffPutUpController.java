@@ -156,4 +156,41 @@ public class StaffPutUpController {
 		model.addAttribute("operation", 2);
 		return "staffPutUpComplete";
 	}
+	
+	//リクエスト申請一覧画面を表示する
+	@GetMapping("/staff/hope")
+	public String hopeAccess() {
+		return "staffHopeList";
+	}
+	
+	//リクエスト申請詳細画面を表示する
+	@GetMapping("/staff/hope/{id}/detail")
+	public String hopeDetail() {
+		return "staffHopeDetail";
+	}
+	
+	//リクエスト申請許可確認画面を表示する
+	@GetMapping("/staff/hope/{id}/approval/confirm")
+	public String hopeApprovalConfirm() {
+		return "staffHopeApprovalConfirm";
+	}
+	
+	//リクエスト申請許可処理を行い、完了画面を表示する
+	@PostMapping("/staff/hope/approval")
+	public String hopeApproval() {
+		return "staffHopeApproval";
+	}
+	
+	//リクエスト申請却下確認画面を表示する
+	@GetMapping("/staff/hope/{id}/reject/confirm")
+	public String hopeRejectConfirm() {
+		return "staffHopeRejectConfirm";
+	}
+	
+	//リクエスト申請却下処理を行い、完了画面を表示する
+	@PostMapping("/staff/hope/reject")
+	public String hopeReject() {
+		return "staffHopeReject";
+	}
+
 }
