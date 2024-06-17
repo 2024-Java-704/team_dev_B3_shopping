@@ -188,6 +188,16 @@ public class PageViewController {
 		bookmarkRepository.deleteById(bookmark.getId());
 		return "redirect:/bookmark";
 	}
+	//ブックマーク削除処理(GETメソッド)
+	@GetMapping("/bookmark/{id}/delete")
+	public String bookMarkDeleteGet(
+			@PathVariable("id") Integer id,
+			Model model) {
+		SaleList saleList = saleListRepository.findByBookInfoId(id).get(0);
+		Bookmark bookmark = bookmarkRepository.findByStudentIdAndSalelistId(accountAndCart.getId(), saleList.getId());
+		bookmarkRepository.deleteById(bookmark.getId());
+		return "redirect:/items";
+	}
 
 	//ブックマーク追加処理（PathVariable/商品一覧用）
 	@GetMapping("/bookmark/{id}/add")
