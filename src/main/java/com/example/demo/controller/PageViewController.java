@@ -138,17 +138,12 @@ public class PageViewController {
 	}
 
 	//ブックマーク削除処理
-	@PostMapping("/bookmark/delete")
+	@PostMapping("/bookmark/{id}/delete")
 	public String bookMarkDelete(
 			@PathVariable("id") Integer id,
 			Model model) {
-		Bookinfo bookinfo = bookinfoRepository.findById(id).get();
-		SaleList saleList = saleListRepository.findByBookinfoId(bookinfo.getId());
-		Bookmark bookmark = bookmarkRepository.findBySalelistId(saleList.getId());
-
-		System.out.println("----------");
-		System.out.println(bookmark.getId());
-		System.out.println("----------");
+		SaleList saleList = saleListRepository.findByBookInfoId(id).get(0);
+		Bookmark bookmark = bookmarkRepository.findByStudentIdAndSalelistId(accountAndCart.getId(), saleList.getId());
 		bookmarkRepository.deleteById(bookmark.getId());
 		return "redirect:/bookmark";
 	}

@@ -27,8 +27,7 @@
 			<td th:if="${book.itemStatus == 1}" class="listingStatus">出品中</td>
 			<td th:if="${book.itemStatus == 2 or book.itemStatus == 3 or book.itemStatus == 4 or book.itemStatus == 5}" class="listingStatus">終了</td>
 			<td>
-				<form th:action="@{/bookmark/delete(id=${book.id})}" method="post">
-<!--				aaa-->
+				<form th:action="@{/bookmark/{id}/delete(id=${book.id})}" method="post">
 					<button>削除</button>
 				</form>
 			</td>
