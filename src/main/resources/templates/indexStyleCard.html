@@ -30,7 +30,7 @@
 						<th:block th:text="${book.price} + '円'"></th:block>
 					</div>
 					<a class="card__addCart" th:href="@{/cart/{id}/add(id=${book.id})}">
-						<img src="/img/addCart.png">
+						<img src="/img/addCart.png" class="ViewCard">
 					</a>
 				</div>
 			</div>
@@ -46,6 +46,7 @@
 		<a href="/bookmark">ブックマーク一覧</a>
 	</div>
 
+	<script src="/JS/ReSizeCard.js"></script>
 </body>
 
 </html>

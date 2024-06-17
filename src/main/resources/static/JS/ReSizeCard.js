@@ -1,10 +1,11 @@
 // HTMLから要素を取得
-const inputElements = document.getElementsByClassName("studentCard");
+const inputElements = document.getElementsByClassName("ViewCard");
 
 // 各要素にイベントリスナーを追加
 for (let i = 0; i < inputElements.length; i++){
 	const inputElement = inputElements[i];
 	inputElement.addEventListener("change", roadImg, false);
+	console.log("動いているよ");
 }
 
 // 画像の読み込み
@@ -15,7 +16,6 @@ function roadImg(e) {
     const imgData = reader.result;
     const resizedImgData = resizeImg(imgData);
     const image = document.getElementsByClassName("studentCard");
-        console.log("動いているよ");
     for (let i = 0; i < image.length; i++) {
 		const thisImage = image[i];
 		thisImage.src = resizedImgData;
