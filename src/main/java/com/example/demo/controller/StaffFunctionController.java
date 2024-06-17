@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.BoughtHistory;
+import com.example.demo.entity.Images;
 import com.example.demo.entity.SaleList;
 import com.example.demo.entity.Student;
 import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BoughtHistoryRepository;
+import com.example.demo.repository.ImagesRepository;
 import com.example.demo.repository.SaleListRepository;
 import com.example.demo.repository.StudentRepository;
 
@@ -33,6 +35,9 @@ public class StaffFunctionController {
 	
 	@Autowired
 	BookinfoRepository bookinfoRepository;
+	
+	@Autowired
+	ImagesRepository imagesRepository;
 
 	//職員マイページの表示。
 	@GetMapping("/staffpage")
@@ -67,6 +72,12 @@ public class StaffFunctionController {
 	public String orderDetail(@RequestParam("id") Integer id, Model model) {
 		SaleList sale = saleListRepository.findById(id).get();
 		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
+		
+		String imageString = bookinfo.getImageId() + "";
+		Long imageLong = Long.parseLong(imageString);
+		Images image = imagesRepository.findById(imageLong).get();
+		bookinfo.setImageName(image.getName());
+		
 		model.addAttribute("bookinfo", bookinfo);
 		
 		List<BoughtHistory> boughtHistory = boughtHistoryRepository.findBySalelistId(sale.getId());

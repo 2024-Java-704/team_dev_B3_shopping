@@ -22,7 +22,9 @@
 			<th></th>
 		</tr>
 		<tr th:each="sale:${saleList}">
-			<td th:text="${sale.name}"></td>
+			<td>
+				<a th:href="@{/account/{studentId}/detail(studentId=${sale.studentId})}">[[${sale.name}]]</a>
+			</td>
 			<td th:text="${sale.price + '円'}"></td>
 			<td>
 				<form action="/salesreceipt/detail" method="get">
