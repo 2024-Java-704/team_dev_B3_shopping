@@ -45,8 +45,9 @@
 .card-skin {
 	overflow: hidden;
 	border-radius: 8px;
+	border-top: solid 5px #ddd;
 	border-left: solid 1px #ddd;
-	border-right: solid 1px #ddd;
+	border-right: solid 5px #ddd;
 	border-bottom: solid 5px #888;
 }
 

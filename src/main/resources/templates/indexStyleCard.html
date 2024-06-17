@@ -18,8 +18,8 @@
 	<!--	<form action="/purchase/order" method="get">-->
 	<div class="card-container">
 		<th:block th:each="book:${books}">
-			<div class="card card-skin">
-				<a class="card__imgframe" th:href="@{/items/detail(id=${book.id})}">
+			<div class="card card-skin" >
+				<a class="card__imgframe" th:href="@{/items/detail(id=${book.id})}" style="text-align: center;">
 					<img th:src="'img/' + ${book.imageName}" class="bookCard" width="280px" height="280px">
 				</a>
 				<div class="card__textbox">
