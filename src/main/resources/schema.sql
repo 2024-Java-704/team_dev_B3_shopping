@@ -48,7 +48,7 @@ FOREIGN KEY (image_id) REFERENCES images(id)
 
 
 -- 教員アカウント
- CREATE TABLE staff
+CREATE TABLE staff
 (
 id SERIAL,
 staff_name VARCHAR(255) NOT NULL,
