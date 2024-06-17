@@ -6,4 +6,5 @@ import com.example.demo.entity.Categories;
 
 public interface CategoriesRepository extends JpaRepository<Categories, Integer>{
 
+	Categories findByCategoryName(String categoryName);
 }

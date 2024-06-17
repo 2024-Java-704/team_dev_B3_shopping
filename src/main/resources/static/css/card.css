@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .card {
-	width: 500px;
+	width: 400px;
 	height: auto;
 	display: flex;
 	flex-direction: column;
@@ -64,6 +64,7 @@
 	/* カードを横方向に均等に配置 */
 	padding: 20px;
 	/* 必要に応じて調整 */
+	width: 1000px;
 }
 
 .card1 {
