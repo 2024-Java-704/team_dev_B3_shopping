@@ -32,10 +32,11 @@ bank_account VARCHAR(255),
 student_status INTEGER NOT NULL, -- 1:仮登録 2:本登録 3:凍結中 4:退会済 5:申請却下
 ban_day TIMESTAMP,
 image_id INTEGER,
-credit_name VARCHAR(50) NOT NULL, --名義人名
-credit_number INTEGER NOT NULL, --カード番号
-credit_exp DATE NOT NULL,--有効期限
-credit_sec INTEGER NOT NULL,--セキュリティコード
+
+--credit_name VARCHAR(50) NOT NULL, --名義人名
+--credit_number INTEGER NOT NULL, --カード番号
+--credit_exp DATE NOT NULL,--有効期限
+--credit_sec INTEGER NOT NULL,--セキュリティコード
 
 
 PRIMARY KEY (id),
