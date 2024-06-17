@@ -43,12 +43,11 @@ public class AccountController {
 	StaffRepository staffRepository;
 	@Autowired
 	AdminRepository adminRepository;
-	
+
 	@Autowired
 	ImagesRepository imagesRepository;
-	
-	private static final String UPLOAD_DIR = "src/main/resources/static/img"; // アップロード先のディレクトリ
 
+	private static final String UPLOAD_DIR = "src/main/resources/static/img"; // アップロード先のディレクトリ
 
 	// 会員登録画面の表示
 	@GetMapping("/new/users")
@@ -63,6 +62,7 @@ public class AccountController {
 			@RequestParam("number") String number,
 			@RequestParam("address") String address,
 			@RequestParam("birth") Date birth,
+			//			@RequestParam("phone") String phone,
 			@RequestParam("password") String password,
 			@RequestParam("email") String email,
 			Model model) {
@@ -73,6 +73,7 @@ public class AccountController {
 		model.addAttribute("number", number);
 		model.addAttribute("address", address);
 		model.addAttribute("birth", birth);
+		//		model.addAttribute("phone", phone);
 		model.addAttribute("password", password);
 		model.addAttribute("email", email);
 
@@ -101,6 +102,10 @@ public class AccountController {
 			errorList.add("生年月日を入力してください");
 		}
 
+		//		if (phone.length() == 0) {
+		//			errorList.add("電話番号を入力してください");
+		//		}
+
 		if (email.length() == 0) {
 			errorList.add("メールアドレスを入力してください");
 		}
@@ -126,71 +131,69 @@ public class AccountController {
 			@RequestParam("number") String number,
 			@RequestParam("address") String address,
 			@RequestParam("birth") Date birth,
+			//			@RequestParam("phone") String phone,
 			@RequestParam("password") String password,
 			@RequestParam("email") String email,
 			Model model) {
 
-		Student student = new Student(name, number, address, birth, password, email, 1);
+		Student student = new Student(name, number, address, birth, /*phone,*/ password, email, 1);
 		studentRepository.save(student);
-		
+
 		model.addAttribute("studentId", student.getId());
 
 		return "Upload-ToUploadCard";
 	}
-	
+
 	//学生証のアップロード画面の表示
 	@GetMapping("new/users/{id}/imgUp")
 	public String imgUp(
 			@PathVariable("id") Integer id,
-			Model model
-			) {
+			Model model) {
 		model.addAttribute("studentId", id);
 		return "Upload-StudentCard";
 	}
-	
+
 	//画像のアップロード完了後、登録申請の完了画面表示
 	@PostMapping("/new/users/{id}/imgUp")
 	public String imgUploadSuccess(
 			@PathVariable("id") Integer id,
-			@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes
-		) {
-			
-			try {
-	            // アップロードディレクトリが存在しない場合、作成
-	            File uploadDir = new File(UPLOAD_DIR);
-	            if (!uploadDir.exists()) {
-	                uploadDir.mkdirs();
-	            }
+			@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 
-	            // 画像ファイルの保存先パス
-	            String filePath = UPLOAD_DIR + File.separator + file.getOriginalFilename();
+		try {
+			// アップロードディレクトリが存在しない場合、作成
+			File uploadDir = new File(UPLOAD_DIR);
+			if (!uploadDir.exists()) {
+				uploadDir.mkdirs();
+			}
 
-	            // 画像ファイルをディスクに保存
-	            Path destination = new File(filePath).toPath();
-	            Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
+			// 画像ファイルの保存先パス
+			String filePath = UPLOAD_DIR + File.separator + file.getOriginalFilename();
 
-	            // データベースにファイルメタデータを保存
-	            Images imageEntity = new Images();
-	            imageEntity.setName(file.getOriginalFilename());
-	            imageEntity.setFilePath(filePath);
-	            imagesRepository.save(imageEntity);
-	            
-	            //StudentEntityにimageIdを保存
-	            String imageIdString = String.valueOf(imageEntity.getId());
-	            Integer imageId = Integer.valueOf(imageIdString);
-	            
-	            Student student = studentRepository.findById(id).get();
-	            student.setImageId(imageId);
-	            studentRepository.save(student);
+			// 画像ファイルをディスクに保存
+			Path destination = new File(filePath).toPath();
+			Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
 
-	            redirectAttributes.addFlashAttribute("message", "File uploaded successfully!");
-	        } catch (IOException e) {
-	            redirectAttributes.addFlashAttribute("error", "Failed to upload file: " + e.getMessage());
-	        }
+			// データベースにファイルメタデータを保存
+			Images imageEntity = new Images();
+			imageEntity.setName(file.getOriginalFilename());
+			imageEntity.setFilePath(filePath);
+			imagesRepository.save(imageEntity);
 
-			
-			return "adduserconfirmcomplete";
+			//StudentEntityにimageIdを保存
+			String imageIdString = String.valueOf(imageEntity.getId());
+			Integer imageId = Integer.valueOf(imageIdString);
+
+			Student student = studentRepository.findById(id).get();
+			student.setImageId(imageId);
+			studentRepository.save(student);
+
+			redirectAttributes.addFlashAttribute("message", "File uploaded successfully!");
+		} catch (IOException e) {
+			redirectAttributes.addFlashAttribute("error", "Failed to upload file: " + e.getMessage());
 		}
+
+		return "adduserconfirmcomplete";
+	}
 
 	//ログイン画面の表示
 	@GetMapping("/login")
@@ -313,7 +316,7 @@ public class AccountController {
 	}
 
 	//管理者用ログイン画面の表示
-	@GetMapping( "/admin")
+	@GetMapping("/admin")
 	public String adminAccess() {
 		session.invalidate();
 		return "adminlogin";
