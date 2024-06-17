@@ -84,11 +84,16 @@ public class StaffOperationController {
 		Student student = studentRepository.findById(id).get();
 		
 		//学生証画像の呼び出し＆セット
+		try {
 		String imageString = student.getImageId() + "";
 		Long image = Long.parseLong(imageString);
 		Images imageName = imagesRepository.findById(image).get();
 		student.setImageName(imageName.getName());
 		studentRepository.save(student);
+		} catch(Exception E) { //学生証が無い場合
+			model.addAttribute("student",student);
+			return "SOC_accountRegisterDetail";
+		}
 		
 		model.addAttribute("student",student);
 
