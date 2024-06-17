@@ -62,6 +62,9 @@ public class SaleList {
 
 	@Transient
 	private String name;
+	
+	@Transient
+	private String imageName;
 
 	//デフォルトコンストラクタ
 	public SaleList() {
@@ -194,6 +197,14 @@ public class SaleList {
 
 	public void setBookInfo(Bookinfo bookInfo) {
 		this.bookInfo = bookInfo;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 
 }

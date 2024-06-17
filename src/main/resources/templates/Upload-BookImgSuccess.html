@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>商品画像のアップロード完了</h1>
+	<form action="/order/history" method="get">
+		<button>出品履歴へ</button>
+	</form>
+	
+	<br>
+	<th:block th:if="${@accountAndCart.authority == 2 || @accountAndCart.authority == 3}">
+		<form th:action="@{/itemrequest/{id}/detail(id=${bookId})}" method="get">
+			<button>詳細画面へ戻る</button>
+		</form>
+	</th:block>
+</body>
+</html>

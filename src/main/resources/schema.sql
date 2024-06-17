@@ -9,6 +9,15 @@ DROP TABLE IF EXISTS categories CASCADE;
 DROP TABLE IF EXISTS admin CASCADE;
 DROP TABLE IF EXISTS staff CASCADE;
 DROP TABLE IF EXISTS students CASCADE;
+DROP TABLE IF EXISTS images CASCADE;
+
+--画像
+CREATE TABLE images 
+(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  file_path VARCHAR(255) NOT NULL
+);
 
 -- 学生アカウント
 CREATE TABLE students(
@@ -22,8 +31,10 @@ student_number VARCHAR(255) NOT NULL UNIQUE,
 bank_account VARCHAR(255),
 student_status INTEGER NOT NULL, -- 1:仮登録 2:本登録 3:凍結中 4:退会済 5:申請却下
 ban_day TIMESTAMP,
+image_id INTEGER,
 
-PRIMARY KEY (id)
+PRIMARY KEY (id),
+FOREIGN KEY (image_id) REFERENCES images(id)
 );
 
 
@@ -68,9 +79,11 @@ grade INTEGER NOT NULL,
 lecture VARCHAR(255) NOT NULL,
 condition VARCHAR(255) NOT NULL,
 price INTEGER,
+image_id INTEGER,
 
 PRIMARY KEY(id),
-FOREIGN KEY (category_id) REFERENCES categories(id)
+FOREIGN KEY (category_id) REFERENCES categories(id),
+FOREIGN KEY (image_id) REFERENCES images(id)
 );
 
 --入荷予約

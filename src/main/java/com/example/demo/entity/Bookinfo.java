@@ -37,8 +37,14 @@ public class Bookinfo {
 
 	private Integer price;
 	
+	@Column(name = "image_id")
+	private Integer imageId;
+	
 	@Transient
 	private Integer itemStatus;
+	
+	@Transient
+	private String imageName;
 
 	//デフォルトコンストラクタ
 	public Bookinfo() {
@@ -143,6 +149,22 @@ public class Bookinfo {
 
 	public void setItemStatus(Integer itemStatus) {
 		this.itemStatus = itemStatus;
+	}
+
+	public Integer getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(Integer imageId) {
+		this.imageId = imageId;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 
 }

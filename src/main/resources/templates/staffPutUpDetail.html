@@ -36,7 +36,18 @@
 			<th>ステータス</th>
 			<td>申請許可待ち</td>
 		</tr>
+		<tr>
+			<th>商品画像</th>
+			<td th:if="${sale.imageName != null}"><img th:src="'/img/' + ${sale.imageName}" class="studentCard"></td>
+			<td th:if="${sale.imageName == null}">なし</td>
+		</tr>
 	</table>
+	
+	<br>
+	
+	<div style="text-align: center;">
+	<a  th:href="@{/order/{id}/imgUp(id=${sale.bookInfoId})}">商品画像の更新</a>
+	</div>
 	
 	<br>
 	
