@@ -45,7 +45,7 @@ public class PageViewController {
 
 	@Autowired
 	StudentRepository studentRepository;
-	
+
 	@Autowired
 	ImagesRepository imagesRepository;
 
@@ -65,31 +65,36 @@ public class PageViewController {
 		if (keyword.equals("")) { //キーワードが入力されなかった場合
 			for (SaleList sale : saleList) {
 				Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
+				List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(), accountAndCart.getId());
+				bookinfo.setBookmark(!bookmark.isEmpty());
 				books.add(bookinfo);
 			}
 		} else { //キーワードが入力された場合
 			for (SaleList sale : saleList) {
 				List<Bookinfo> bookinfos = bookinfoRepository.findByIdAndTitleContaining(sale.getBookInfoId(), keyword);
 				if (!bookinfos.isEmpty()) {
+					List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(), accountAndCart.getId());
+					bookinfos.get(0).setBookmark(!bookmark.isEmpty());
 					books.add(bookinfos.get(0));
 				}
 			}
 
 		}
 		//繰り返しfor文で画像名をセット
-		for(Bookinfo booksImg: books) {
-			
+		for (Bookinfo booksImg : books) {
+
 			String bookString = booksImg.getImageId() + "";
 			Long bookLong = Long.parseLong(bookString);
 			Images image = imagesRepository.findById(bookLong).get();
 			booksImg.setImageName(image.getName());
 			bookinfoRepository.save(booksImg);
+			System.out.println(booksImg.getTitle() + booksImg.isBookmark());
 		}
 
 		model.addAttribute("books", books);
-//		for (Bookinfo book : books) {
-//			System.out.println("タイトルは" + book.getTitle());
-//		}
+		//		for (Bookinfo book : books) {
+		//			System.out.println("タイトルは" + book.getTitle());
+		//		}
 
 		//仮登録チェック
 		if (accountAndCart.getId() != null) {
@@ -107,8 +112,7 @@ public class PageViewController {
 	@GetMapping("/items/detail")
 	public String detail(@RequestParam("id") Integer id, Model model) {
 		Bookinfo book = bookinfoRepository.findById(id).get();
-		
-		
+
 		String imageString = book.getImageId() + "";
 		Long imageLong = Long.parseLong(imageString);
 		Images image = imagesRepository.findById(imageLong).get();
@@ -116,22 +120,21 @@ public class PageViewController {
 		model.addAttribute("book", book);
 		return "detail";
 	}
-	
-		//商品詳細画面(PathVariable)
-		@GetMapping("/items/{id}/detail")
-		public String detailPathVariable(
-				@PathVariable("id") Integer id,
-				Model model) {
-			Bookinfo book = bookinfoRepository.findById(id).get();
-			
-			
-			String imageString = book.getImageId() + "";
-			Long imageLong = Long.parseLong(imageString);
-			Images image = imagesRepository.findById(imageLong).get();
-			book.setImageName(image.getName());
-			model.addAttribute("book", book);
-			return "detail";
-		}
+
+	//商品詳細画面(PathVariable)
+	@GetMapping("/items/{id}/detail")
+	public String detailPathVariable(
+			@PathVariable("id") Integer id,
+			Model model) {
+		Bookinfo book = bookinfoRepository.findById(id).get();
+
+		String imageString = book.getImageId() + "";
+		Long imageLong = Long.parseLong(imageString);
+		Images image = imagesRepository.findById(imageLong).get();
+		book.setImageName(image.getName());
+		model.addAttribute("book", book);
+		return "detail";
+	}
 
 	//ブックマーク画面表示
 	@GetMapping("/bookmark")
@@ -174,9 +177,34 @@ public class PageViewController {
 		return "redirect:/bookmark";
 	}
 
+	//ブックマーク追加処理（PathVariable/商品一覧用）
+	@GetMapping("/bookmark/{id}/add")
+	public String bookMarkAddPath(
+			@PathVariable("id") Integer id,
+			Model model) {
+		List<SaleList> item = saleListRepository.findByBookInfoId(id);
+		Integer itemId = item.get(0).getId();
+		System.out.println("itemIdは" + itemId);
+
+		List<Bookmark> bookmark = bookmarkRepository.findByStudentId(accountAndCart.getId());
+		//		List<Bookmark> bookmark = bookmarkRepository.findAll(); 上手くいかないコード
+		for (Bookmark book : bookmark) {
+
+			System.out.println("セールリストIDは" + book.getSalelistId());
+			if (itemId == book.getSalelistId()) {
+				return "redirect:/items";
+			}
+		}
+
+		Integer accountId = accountAndCart.getId();
+		Bookmark book = new Bookmark(accountId, item.get(0).getId());
+		bookmarkRepository.save(book);
+		return "redirect:/items";
+	}
+
 	//ブックマーク削除処理
 	@PostMapping("/bookmark/delete")
-	public String bookMarkDelete(
+	public String bookMarkDeletePath(
 			@RequestParam("bookId") Integer bookId,
 			Model model) {
 		Bookmark bookmark = bookmarkRepository.findById(bookId).get();
@@ -187,6 +215,21 @@ public class PageViewController {
 		System.out.println("--------------------------");
 		bookmarkRepository.deleteById(bookId);
 		return "redirect:/bookmark";
+	}
+
+	//ブックマーク削除処理(PathVariable/商品一覧用)
+	@GetMapping("/bookmark/{id}/delete")
+	public String bookMarkDelete(
+			@PathVariable("id") Integer bookId,
+			Model model) {
+		Bookmark bookmark = bookmarkRepository.findById(bookId).get();
+		System.out.println("--------------------------");
+		System.out.println(bookmark);
+		System.out.println("--------------------------");
+		System.out.println(bookId);
+		System.out.println("--------------------------");
+		bookmarkRepository.deleteById(bookId);
+		return "redirect:/items";
 	}
 
 	//マイページ画面表示
@@ -203,23 +246,23 @@ public class PageViewController {
 		}
 
 	}
-	
+
 	//学生証の確認画面
 	@GetMapping("/studentCardUp")
 	public String cardPage(Model model) {
-		
+
 		try {
-		//セッションID→String変換→Long変換→検索→セット
-		Student student = studentRepository.findById(accountAndCart.getId()).get();
-		String imageString = student.getImageId() + "";
-		Long image = Long.parseLong(imageString);
-		Images imageName = imagesRepository.findById(image).get();
-		student.setImageName(imageName.getName());
-		studentRepository.save(student);
-		
-		model.addAttribute("student", student);
-		return "Upload-CardView";
-		}catch(Exception E) {
+			//セッションID→String変換→Long変換→検索→セット
+			Student student = studentRepository.findById(accountAndCart.getId()).get();
+			String imageString = student.getImageId() + "";
+			Long image = Long.parseLong(imageString);
+			Images imageName = imagesRepository.findById(image).get();
+			student.setImageName(imageName.getName());
+			studentRepository.save(student);
+
+			model.addAttribute("student", student);
+			return "Upload-CardView";
+		} catch (Exception E) {
 			return "/login";
 		}
 	}
