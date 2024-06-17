@@ -171,3 +171,4 @@ PRIMARY KEY(id),
 FOREIGN KEY(student_id) REFERENCES students(id),
 FOREIGN KEY(bookinfo_id) REFERENCES bookinfo(id)
 );
+
