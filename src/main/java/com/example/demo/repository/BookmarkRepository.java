@@ -15,4 +15,6 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Integer> {
 	
 	List<Bookmark> findBySalelistIdAndStudentId(Integer salelistId, Integer studentId);
 
+	List<Bookmark> findBySalelistIdAndStudentId(Integer id, Integer id2);
+
 }
