@@ -15,7 +15,7 @@ function roadImg(e) {
   reader.onload = () => {
     const imgData = reader.result;
     const resizedImgData = resizeImg(imgData);
-    const image = document.getElementsByClassName("studentCard");
+    const image = document.getElementsByClassName("ViewCard");
     for (let i = 0; i < image.length; i++) {
 		const thisImage = image[i];
 		thisImage.src = resizedImgData;
