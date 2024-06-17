@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>カート一覧</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+	<link rel="stylesheet" type="text/css" href="/css/card.css">
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>カート一覧</h1>
+	<!--	<form action="/purchase/order" method="get">-->
+	<div class="card-container">
+		<th:block th:each="book:${books}">
+			<div class="card card-skin">
+				<a class="card__imgframe" th:href="@{/items/detail(id=${book.id})}">
+					<img th:src="'img/' + ${book.imageName}" class="bookCard" width="280px" height="280px">
+				</a>
+				<div class="card__textbox">
+					<div class="cardDescriptionContainer">
+						<div class="card1">
+							<div class="card__titletext">
+								<a th:href="@{/items/detail(id=${book.id})}" th:text="${book.title}"></a>
+							</div>
+							<div class="card__overviewtext">
+								<th:block th:text="${book.price} + '円'"></th:block>
+							</div>
+						</div>
+						<div class="card2">
+							<div>
+								<a class="card__addCart" th:href="@{/cart/{id}/add(id=${book.id})}">
+									<img src="/img/addCart.png" class="ViewCard">
+								</a>
+							</div>
+							<div th:if="${!book.isBookmark}">
+								<a class="card__addCart" th:href="@{/bookmark/{id}/add(id=${book.id})}">
+									<img src="/img/bookmark.png" class="ViewCard">
+								</a>
+							</div>
+							<div th:if="${book.isBookmark}">
+								<a class="card__addCart" th:href="@{/bookmark/{id}/delete(id=${book.id})}">
+									<img src="/img/bookmarkDone.png" class="ViewCard">
+								</a>
+							</div>
+						</div>
+					</div>
+					<!--						<a class="card__addCart" th:href="@{/bookmark/{id}/add(id=${book.id})}">-->
+					<!--							<img src="/img/bookmarkDone.png" class="ViewCard">-->
+					<!--						</a>-->
+				</div>
+			</div>
+		</th:block>
+	</div>
+	<br>
+	<br>
+
+	<div style="text-align: center;">
+		<a href="/cart">カート一覧</a>
+		<br>
+		<br>
+		<a href="/bookmark">ブックマーク一覧</a>
+	</div>
+
+	<script src="/JS/ReSizeCard.js"></script>
+</body>
+
+</html>

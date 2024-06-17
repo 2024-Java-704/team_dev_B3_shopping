@@ -25,7 +25,7 @@
 		</tr>
 		<tr th:each="book:${@accountAndCart.cartItems}">
 			<td th:text="${book.title}"></td>
-			<td th:text="${book.price}"></td>
+			<td th:text="${book.price + '円'}"></td>
 		</tr>
 	</table>
 	
@@ -55,6 +55,9 @@
 				<td th:text=${payment}></td>
 			</tr>
 		</table>
+		
+		<br>
+		
 		<button>注文確定</button>
 	</form>
 </body>

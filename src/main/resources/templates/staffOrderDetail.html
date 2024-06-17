@@ -45,14 +45,18 @@
 			<td th:text="${bookinfo.condition}"></td>
 		</tr>
 		<th>金額</th>
-		<td th:text="${bookinfo.price}"></td>
+		<td th:text="${bookinfo.price} + '円'"></td>
 		<tr>
 			<th>受渡方法</th>
-			<td th:text="${bought.accept}"></td>
+			<td th:if="${bought.accept == 1}">郵送</td>
+			<td th:if="${bought.accept == 2}">窓口受取</td>
 		</tr>
 		<tr>
 			<th>受取ステータス</th>
-			<td th:text="${bought.delivery}"></td>
+			<td th:if="${bought.delivery == 1}" th:text="受渡準備完了"></td>
+			<td th:if="${bought.delivery == 2}" th:text="受渡完了"></td>
+			<td th:if="${bought.delivery == 3}" th:text="発送完了"></td>
+			<td th:if="${bought.delivery == 4}" th:text="受渡準備中"></td>
 		</tr>
 	</table>
 

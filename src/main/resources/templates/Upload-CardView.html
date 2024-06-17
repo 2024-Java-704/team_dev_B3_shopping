@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<htmel xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>学生証</h1>
+	<table>
+		<tr>
+			<th>名前</th>
+			<td th:text="${student.name}"></td>
+		</tr>
+		<tr>
+			<th>学籍番号</th>
+			<td th:text="${student.number}"></td>
+		</tr>
+		<tr>
+			<th>学生証</th>
+			<td th:if="${student.imageName != null}"><img th:src="'/img/' + ${student.imageName}" class="studentCard"></td>
+			<td th:if="${student.imageName == null}">なし</td>
+		</tr>
+	</table>
+	<br>
+	<!--仮登録中なら更新が可能-->
+	<div style="text-align: center; font-size: large;">
+	<a th:if="${student.status == 1}" th:href="@{/new/users/{studentId}/imgUp(studentId=${@accountAndCart.id})}">再アップロード</a>
+	</div>
+	
+</body>
+</html>

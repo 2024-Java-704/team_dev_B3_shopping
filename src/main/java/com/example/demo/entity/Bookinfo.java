@@ -37,8 +37,27 @@ public class Bookinfo {
 
 	private Integer price;
 
+	//	private Integer bookmark;//1:ブックマークではない 2:ブックマーク済
+
+	@Column(name = "image_id")
+	private Integer imageId;
+
 	@Transient
 	private Integer itemStatus;
+
+	@Transient
+	private String imageName;
+
+	@Transient
+	private boolean isBookmark;
+
+	public boolean isBookmark() {
+		return isBookmark;
+	}
+
+	public void setBookmark(boolean isBookmark) {
+		this.isBookmark = isBookmark;
+	}
 
 	//デフォルトコンストラクタ
 	public Bookinfo() {
@@ -143,6 +162,22 @@ public class Bookinfo {
 
 	public void setItemStatus(Integer itemStatus) {
 		this.itemStatus = itemStatus;
+	}
+
+	public Integer getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(Integer imageId) {
+		this.imageId = imageId;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 
 }

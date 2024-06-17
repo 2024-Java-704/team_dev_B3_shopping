@@ -1,5 +1,10 @@
 package com.example.demo.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,15 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.Categories;
+import com.example.demo.entity.Images;
 import com.example.demo.entity.SaleList;
 import com.example.demo.model.AccountAndCart;
 import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.CategoriesRepository;
+import com.example.demo.repository.ImagesRepository;
 import com.example.demo.repository.SaleListRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -40,6 +50,11 @@ public class PutUpController {
 
 	@Autowired
 	CategoriesRepository categoriesRepository;
+	
+	@Autowired
+	ImagesRepository imagesRepository;
+	
+	private static final String UPLOAD_DIR = "src/main/resources/static/img"; // アップロード先のディレクトリ
 
 	//出品申請画面の表示
 	@GetMapping("/order")
@@ -148,8 +163,65 @@ public class PutUpController {
 		//		Integer itemStatus, Integer saleMethod
 
 		saleListRepository.save(saleList);
+		
+		model.addAttribute("bookId",bookInfo.getId());
 		return "orderSuccess";
 	}
+	
+	//商品画像のアップロード画面表示
+		@GetMapping("/order/{id}/imgUp")
+		public String imgUp(
+				@PathVariable("id") Integer id,
+				Model model
+				) {
+			model.addAttribute("bookId", id);
+			return "Upload-BookImg";
+		}
+		
+		//画像のアップロード完了後、登録申請の完了画面表示
+		@PostMapping("/order/{id}/imgUp")
+		public String imgUploadSuccess(
+				@PathVariable("id") Integer id,
+				@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
+				Model model
+			) {
+				
+				try {
+		            // アップロードディレクトリが存在しない場合、作成
+		            File uploadDir = new File(UPLOAD_DIR);
+		            if (!uploadDir.exists()) {
+		                uploadDir.mkdirs();
+		            }
+
+		            // 画像ファイルの保存先パス
+		            String filePath = UPLOAD_DIR + File.separator + file.getOriginalFilename();
+
+		            // 画像ファイルをディスクに保存
+		            Path destination = new File(filePath).toPath();
+		            Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
+
+		            // データベースにファイルメタデータを保存
+		            Images imageEntity = new Images();
+		            imageEntity.setName(file.getOriginalFilename());
+		            imageEntity.setFilePath(filePath);
+		            imagesRepository.save(imageEntity);
+		            
+		            //StudentEntityにimageIdを保存
+		            String imageIdString = String.valueOf(imageEntity.getId());
+		            Integer imageId = Integer.valueOf(imageIdString);
+		            
+		            Bookinfo book = bookinfoRepository.findById(id).get();
+		            book.setImageId(imageId);
+		            bookinfoRepository.save(book);
+
+		            redirectAttributes.addFlashAttribute("message", "File uploaded successfully!");
+		        } catch (IOException e) {
+		            redirectAttributes.addFlashAttribute("error", "Failed to upload file: " + e.getMessage());
+		        }
+
+				model.addAttribute("bookId", id);
+				return "Upload-BookImgSuccess";
+			}
 
 	//出品履歴画面を表示する。
 	@GetMapping("/order/history")
@@ -158,7 +230,7 @@ public class PutUpController {
 		Integer accountId = accountAndCart.getId();
 		List<SaleList> salelist = saleListRepository.findByStudentId(accountId);//idと一致するものを取得
 		
-		if(salelist.size() > 0) {
+		if(salelist.size() == 0) {
 			model.addAttribute("errorMessage", "出品履歴がありません");
 			return "orderHistory";
 		}
@@ -179,6 +251,15 @@ public class PutUpController {
 			@RequestParam("id") Integer Id,
 			Model model) {
 		bookinfo = bookinfoRepository.findById(Id).get();
+		
+		//画像
+		String imageString = bookinfo.getImageId() + "";
+		Long imageLong = Long.parseLong(imageString);
+		Images image = imagesRepository.findById(imageLong).get();
+		bookinfo.setImageName(image.getName());
+		model.addAttribute("book", bookinfo);
+		
+
 		model.addAttribute("book", bookinfo);
 		SaleList saleList = saleListRepository.findByBookInfoId(bookinfo.getId()).get(0);
 		model.addAttribute("saleList", saleList);

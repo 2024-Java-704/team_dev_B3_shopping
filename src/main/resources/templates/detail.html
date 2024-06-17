@@ -44,12 +44,21 @@
 			<th>金額</th>
 			<td th:text="${book.price + '円'}"></td>
 		</tr>
+		<tr>
+			<th>商品画像</th>
+			<td th:if="${book.imageName != null}"><img th:src="'/img/' + ${book.imageName}" class="studentCard"></td>
+			<td th:if="${book.imageName == null}">なし</td>
+		</tr>
 	</table>
+	
+	<br>
 	
 	<form action="/cart/add" method="post">
 		<input type="hidden" th:value="${book.id}" name="bookinfoId">
 		<button>カートに追加</button>
 	</form>
+	
+	<br>
 	
 	<form action="/bookmark/add" method="post">
 		<input type="hidden" th:value="${book.id}" name="id">

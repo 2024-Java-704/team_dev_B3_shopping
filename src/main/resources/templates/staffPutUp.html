@@ -25,8 +25,8 @@
 			<td th:text="${sale.title}"></td>
 			<td>出品申請中</td>
 			<td>
-				<form action="/itemrequest/detail" method="get">
-					<input type="hidden" th:value="${sale.id}" name="id">
+				<form th:action="@{/itemrequest/{id}/detail(id=${sale.id})}" method="get">
+					<input type="hidden">
 					<button>詳細</button>
 				</form>
 			</td>

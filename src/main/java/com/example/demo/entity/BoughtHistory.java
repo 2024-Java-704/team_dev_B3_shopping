@@ -48,6 +48,14 @@ public class BoughtHistory {
 		this.delivery = delivery;
 	}
 
+	public BoughtHistory(Integer studentId,Integer salelistId,Integer payment,Integer accept) {
+		this.studentId = studentId;
+		this.salelistId = salelistId;
+		this.payment = payment;
+		this.accept = accept;
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
 	public Integer getId() {
 		return id;
 	}
