@@ -65,22 +65,24 @@ public class PageViewController {
 		if (keyword.equals("")) { //キーワードが入力されなかった場合
 			for (SaleList sale : saleList) {
 				Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
-				
+
 				//ブックマークされているかを見る
-				List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(), accountAndCart.getId());
+				List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(),
+						accountAndCart.getId());
 				bookinfo.setBookmark(!bookmark.isEmpty());
-				
+
 				books.add(bookinfo);
 			}
 		} else { //キーワードが入力された場合
 			for (SaleList sale : saleList) {
 				List<Bookinfo> bookinfos = bookinfoRepository.findByIdAndTitleContaining(sale.getBookInfoId(), keyword);
 				if (!bookinfos.isEmpty()) {
-					
+
 					//ブックマークされているかを見る
-					List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(), accountAndCart.getId());
+					List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(),
+							accountAndCart.getId());
 					bookinfos.get(0).setBookmark(!bookmark.isEmpty());
-					
+
 					books.add(bookinfos.get(0));
 				}
 			}
@@ -183,7 +185,6 @@ public class PageViewController {
 		return "redirect:/bookmark";
 	}
 
-
 	//ブックマーク削除処理
 	@PostMapping("/bookmark/{id}/delete")
 	public String bookMarkDelete(
@@ -194,6 +195,7 @@ public class PageViewController {
 		bookmarkRepository.deleteById(bookmark.getId());
 		return "redirect:/bookmark";
 	}
+
 	//ブックマーク削除処理(GETメソッド)
 	@GetMapping("/bookmark/{id}/delete")
 	public String bookMarkDeleteGet(
@@ -229,7 +231,6 @@ public class PageViewController {
 		bookmarkRepository.save(book);
 		return "redirect:/items";
 	}
-
 
 	//マイページ画面表示
 	@GetMapping("/mypage")
