@@ -13,19 +13,18 @@ import jakarta.persistence.Table;
 public class Bookmark {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Integer id;
+
 	@Column(name = "student_id")
 	private Integer studentId;
 	@Column(name = "salelist_id")
 	private Integer salelistId;
-	
 
 	//コンストラクタ
 	public Bookmark() {
 
 	}
-	
+
 	public Bookmark(Integer studentId, Integer salelistId) {
 		this.studentId = studentId;
 		this.salelistId = salelistId;
@@ -55,5 +54,4 @@ public class Bookmark {
 		this.salelistId = salelistId;
 	}
 
-	
 }

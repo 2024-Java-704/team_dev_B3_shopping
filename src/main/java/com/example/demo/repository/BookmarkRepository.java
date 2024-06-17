@@ -9,6 +9,8 @@ import com.example.demo.entity.Bookmark;
 public interface BookmarkRepository extends JpaRepository<Bookmark, Integer> {
 	List<Bookmark> findByStudentId(Integer studentId);
 
-	List<Bookmark> findBySalelistIdAndStudentId(Integer salelistId, Integer studentId);
+	Bookmark findBySalelistId(Integer id);
+
+	Bookmark findByStudentIdAndSalelistId(Integer id, Integer id2);
 
 }

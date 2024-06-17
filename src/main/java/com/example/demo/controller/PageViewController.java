@@ -177,6 +177,18 @@ public class PageViewController {
 		return "redirect:/bookmark";
 	}
 
+
+	//ブックマーク削除処理
+	@PostMapping("/bookmark/{id}/delete")
+	public String bookMarkDelete(
+			@PathVariable("id") Integer id,
+			Model model) {
+		SaleList saleList = saleListRepository.findByBookInfoId(id).get(0);
+		Bookmark bookmark = bookmarkRepository.findByStudentIdAndSalelistId(accountAndCart.getId(), saleList.getId());
+		bookmarkRepository.deleteById(bookmark.getId());
+		return "redirect:/bookmark";
+	}
+
 	//ブックマーク追加処理（PathVariable/商品一覧用）
 	@GetMapping("/bookmark/{id}/add")
 	public String bookMarkAddPath(
@@ -202,35 +214,6 @@ public class PageViewController {
 		return "redirect:/items";
 	}
 
-	//ブックマーク削除処理
-	@PostMapping("/bookmark/delete")
-	public String bookMarkDeletePath(
-			@RequestParam("bookId") Integer bookId,
-			Model model) {
-		Bookmark bookmark = bookmarkRepository.findById(bookId).get();
-		System.out.println("--------------------------");
-		System.out.println(bookmark);
-		System.out.println("--------------------------");
-		System.out.println(bookId);
-		System.out.println("--------------------------");
-		bookmarkRepository.deleteById(bookId);
-		return "redirect:/bookmark";
-	}
-
-	//ブックマーク削除処理(PathVariable/商品一覧用)
-	@GetMapping("/bookmark/{id}/delete")
-	public String bookMarkDelete(
-			@PathVariable("id") Integer bookId,
-			Model model) {
-		Bookmark bookmark = bookmarkRepository.findById(bookId).get();
-		System.out.println("--------------------------");
-		System.out.println(bookmark);
-		System.out.println("--------------------------");
-		System.out.println(bookId);
-		System.out.println("--------------------------");
-		bookmarkRepository.deleteById(bookId);
-		return "redirect:/items";
-	}
 
 	//マイページ画面表示
 	@GetMapping("/mypage")
