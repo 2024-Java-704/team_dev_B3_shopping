@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS admin CASCADE;
 DROP TABLE IF EXISTS staff CASCADE;
 DROP TABLE IF EXISTS students CASCADE;
 DROP TABLE IF EXISTS images CASCADE;
-DROP TABLE IF EXISTS request CASCADE;
+DROP TABLE IF EXISTS hope CASCADE;
 
 --画像
 CREATE TABLE images 
@@ -160,12 +160,12 @@ FOREIGN KEY(salelist_id) REFERENCES sale_list(id)
 );
 
 --リクエスト
-CREATE TABLE request
+CREATE TABLE hope
 (
 id SERIAL,
 student_id INTEGER NOT NULL,
 bookinfo_id INTEGER NOT NULL,
-status INTEGER NOT NULL, --1:申請中 2:承認済 3:却下済
+status INTEGER NOT NULL, --1:申請中 2:承認済
 
 PRIMARY KEY(id),
 FOREIGN KEY(student_id) REFERENCES students(id),
