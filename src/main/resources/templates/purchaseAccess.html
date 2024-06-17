@@ -14,36 +14,86 @@
 	<br>
 	<br>
 	<form action="/book" method="get">
-	<table border="1">
-		<tr>
-			<th>受け取り方法</th>
-			<td><input type="radio" name= "recieve" value="1" required>郵便</td>
-			<td><input type="radio" name= "recieve" value="2" required>窓口受け取り</td>
-			<!--ラジオボタンのフォント変更-->
-		</tr>
-		<tr>
-			<th>名前</th>
-			<td><input type="text" name="name" class="textbox" required></td>
-		</tr>
-		<tr>
-			<th>住所</th>
-			<td><input type="text" name="address" class="textbox" required></td>
-		</tr>
-		<tr>
-			<th>電話番号</th>
-			<td><input type="text" name="telephone" class="textbox" required></td>
-		</tr>
-		<tr>
-			<th>支払い方法</th>
-			<td><input type="radio" name ="payment" value="1" required>クレジット</td>
-			<td><input type="radio" name ="payment" value="2" required>窓口支払い</td>
-		</tr>
-	</table>
-	
-	<br>
-	
-	<button>確認</button>
+		<table border="1">
+			<tr>
+				<th>受け取り方法</th>
+				<td><label><input type="radio" name="recieve" value="1" required>郵便</label></td>
+				<td><label><input type="radio" name="recieve" value="2" required>窓口受け取り</label></td>
+				<!--ラジオボタンのフォント変更-->
+			</tr>
+			<tr>
+				<th>名前</th>
+				<td><input type="text" name="name" class="textbox" required></td>
+			</tr>
+			<tr>
+				<th>住所</th>
+				<td><input type="text" name="address" class="textbox" required></td>
+			</tr>
+			<tr>
+				<th>電話番号</th>
+				<td><input type="text" name="telephone" class="textbox" required></td>
+			</tr>
+			<tr>
+				<th>支払い方法</th>
+
+				<td>
+					<label for="credit"><input id="credit" type="radio" name="payment" value="1"
+							onchange="onCheckCreditRadioButton()" required>
+						クレジット</label>
+				</td>
+
+
+				<td>
+					<label><input type="radio" name="payment" value="2" onchange="onCheckCreditRadioButton()" required>
+						窓口支払い
+					</label>
+				</td>
+
+			</tr>
+			<tr style="visibility: collapse;" id="creditCardContainer1">
+				<th>名義人</th>
+
+				<td>
+					<input type="text" required>
+				</td>
+
+			</tr>
+			<tr style="visibility: collapse;" id="creditCardContainer2">
+				<th>カード番号</th>
+				<td>
+					<input type="number" oninput="javascript: this.value = this.value.slice(0, 16);" required>
+				</td>
+			</tr>
+			<tr style="visibility: collapse;" id="creditCardContainer3">
+				<th>有効期限</th>
+				<td><input type="date" required></td>
+			</tr>
+			<tr style="visibility: collapse;" id="creditCardContainer4">
+				<th>セキュリティコード</th>
+				<td><input type="number" min="100" max="9999" oninput="javascript: this.value = this.value.slice(0, 4);"
+						required></td>
+			</tr>
+		</table>
+
+		<br>
+
+		<button>確認</button>
 	</form>
+	<script>
+		function onCheckCreditRadioButton() {
+			if (document.getElementById("credit").checked) {
+				document.getElementById("creditCardContainer1").style.visibility = "visible"
+				document.getElementById("creditCardContainer2").style.visibility = "visible"
+				document.getElementById("creditCardContainer3").style.visibility = "visible"
+				document.getElementById("creditCardContainer4").style.visibility = "visible"
+			} else {
+				document.getElementById("creditCardContainer1").style.visibility = "collapse"
+				document.getElementById("creditCardContainer2").style.visibility = "collapse"
+				document.getElementById("creditCardContainer3").style.visibility = "collapse"
+				document.getElementById("creditCardContainer4").style.visibility = "collapse"
+			}
+		}
+	</script>
 </body>
 
 </html>
