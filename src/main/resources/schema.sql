@@ -10,13 +10,16 @@ DROP TABLE IF EXISTS admin CASCADE;
 DROP TABLE IF EXISTS staff CASCADE;
 DROP TABLE IF EXISTS students CASCADE;
 DROP TABLE IF EXISTS images CASCADE;
+DROP TABLE IF EXISTS request CASCADE;
 
 --画像
 CREATE TABLE images 
 (
-  id SERIAL PRIMARY KEY,
+  id SERIAL,
   name VARCHAR(255) NOT NULL,
-  file_path VARCHAR(255) NOT NULL
+  file_path VARCHAR(255) NOT NULL,
+  
+  PRIMARY KEY(id)
 );
 
 -- 学生アカウント
@@ -32,6 +35,12 @@ bank_account VARCHAR(255),
 student_status INTEGER NOT NULL, -- 1:仮登録 2:本登録 3:凍結中 4:退会済 5:申請却下
 ban_day TIMESTAMP,
 image_id INTEGER,
+credit_name VARCHAR(50) NOT NULL, --名義人名
+credit_number INTEGER NOT NULL, --カード番号
+credit_exp DATE NOT NULL,--有効期限
+credit_sec INTEGER NOT NULL,--セキュリティコード
+phone_number VARCHAR(11) NOT NULL,--電話番号
+
 
 PRIMARY KEY (id),
 FOREIGN KEY (image_id) REFERENCES images(id)
@@ -148,4 +157,17 @@ bought_day TIMESTAMP NOT NULL,
 
 PRIMARY KEY (id),
 FOREIGN KEY(salelist_id) REFERENCES sale_list(id)
+);
+
+--リクエスト
+CREATE TABLE request
+(
+id SERIAL,
+student_id INTEGER NOT NULL,
+bookinfo_id INTEGER NOT NULL,
+status INTEGER NOT NULL, --1:申請中 2:承認済 3:却下済
+
+PRIMARY KEY(id),
+FOREIGN KEY(student_id) REFERENCES students(id),
+FOREIGN KEY(bookinfo_id) REFERENCES bookinfo(id)
 );

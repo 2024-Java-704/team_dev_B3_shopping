@@ -79,12 +79,14 @@ INSERT INTO bookmark(student_id,salelist_id) VALUES(1,1);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(1,3);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(2,2);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(2,4);
+INSERT INTO bookmark(student_id,salelist_id) VALUES(3,1);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(3,3);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(3,5);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(4,4);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(4,5);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(5,5);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(5,1);
+
 
 
 INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(1,2,1,1,1);

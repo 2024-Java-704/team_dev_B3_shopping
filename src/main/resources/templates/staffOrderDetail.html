@@ -58,6 +58,11 @@
 			<td th:if="${bought.delivery == 3}" th:text="発送完了"></td>
 			<td th:if="${bought.delivery == 4}" th:text="受渡準備中"></td>
 		</tr>
+		<tr>
+			<th>商品画像</th>
+			<td th:if="${bookinfo.imageName != null}"><img th:src="'/img/' + ${bookinfo.imageName}" class="studentCard"></td>
+			<td th:if="${bookinfo.imageName == null}">なし</td>
+		</tr>
 	</table>
 
 	<th:block th:if="${bought.accept eq 2}">
