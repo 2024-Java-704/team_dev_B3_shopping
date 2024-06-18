@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<title>購入履歴</title>
@@ -15,23 +16,32 @@
 	<th:block th:if="${deniedMessage}">[[${deniedMessage}]]</th:block>
 	<h1>購入履歴</h1>
 	<th:block th:if="${boughtHistories}">
-	<table>
-		<tr>
-			<th>商品名</th>
-		</tr>
-		<tr th:each="boughtHistory:${boughtHistories}">
-			<td><a th:href="@{/purchase/items/detail(id=${boughtHistory.salelistId})}"  th:text="${boughtHistory.saleList.bookInfo.title}"></a></td>
-		</tr>
-	</table>
+		<table>
+			<tr>
+				<th>商品名</th>
+				<th>価格</th>
+				<th>日付</th>
+			</tr>
+			<tr th:each="boughtHistory:${boughtHistories}">
+				<td><a th:href="@{/purchase/items/detail(id=${boughtHistory.salelistId})}"
+						th:text="${boughtHistory.saleList.bookInfo.title}"></a></td>
+				<td><a th:text="${boughtHistory.saleList.bookInfo.price}+'円'"></a></td>
+				<td><a th:text="${boughtHistory.boughtDay}"></a></td>
+
+			</tr>
+		</table>
 	</th:block>
+
 	<th:block th:if="${!boughtHistories}">
 		<p>購入したものはありません</p>
 	</th:block>
 	
 
 
+
 	<br>
 
 </body>
 </body>
+
 </html>
