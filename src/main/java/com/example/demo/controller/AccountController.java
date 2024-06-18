@@ -189,6 +189,7 @@ public class AccountController {
 			redirectAttributes.addFlashAttribute("message", "File uploaded successfully!");
 		} catch (IOException e) {
 			redirectAttributes.addFlashAttribute("error", "Failed to upload file: " + e.getMessage());
+			return "redirect:/new/users/{id}/imgUp";
 		}
 
 		return "adduserconfirmcomplete";

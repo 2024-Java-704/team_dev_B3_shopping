@@ -164,14 +164,16 @@ public class PageViewController {
 			for (String category : categories) {
 				Categories thisCategory = categoriesRepository.findByCategoryName(category);
 				try {
-					Bookinfo book = bookinfoRepository.findByCategoryId(thisCategory.getId());
-					SaleList s = saleListRepository.findByBookInfoId(book.getId()).get(0);
-					if (s.getItemStatus() == 1) {
-						//ブックマークされているかを見る
-						List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(s.getId(),
-								accountAndCart.getId());
-						book.setBookmark(!bookmark.isEmpty());
-						books.add(book);
+					List<Bookinfo> book = bookinfoRepository.findByCategoryId(thisCategory.getId());
+					for (Bookinfo b : book) {
+						SaleList s = saleListRepository.findByBookInfoId(b.getId()).get(0);
+						if (s.getItemStatus() == 1) {
+							//ブックマークされているかを見る
+							List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(s.getId(),
+									accountAndCart.getId());
+							b.setBookmark(!bookmark.isEmpty());
+							books.add(b);
+						}
 					}
 				} catch (Exception e) {
 					break;

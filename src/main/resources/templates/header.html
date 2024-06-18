@@ -13,10 +13,19 @@
 			<img src="/img/header.png" onclick="clickToTop()">
 			<!--			<img src="/img/head.png" id="head" onclick="clickToTop()">-->
 
-			<form action="/items" method="get" style="display: flex;">
-				<input type="text" name="keyword" class="textbox">
-				<button><img src="/img/search.png"></button>
-			</form>
+			<div style="display: flex; height: 43px;">
+				<form action="/items" method="get" style="display: flex;">
+					<input type="text" name="keyword" class="textbox">
+					<button><img src="/img/search.png"></button>
+				</form>
+				<a href="/cart">
+					<img src="/img/cart.png">
+				</a>
+				<a href="/bookmark">
+					<img src="/img/bookmarkHeader.png">
+				</a>
+			</div>
+
 
 			<div class="account">
 				<button type="button" class="hamburger">
@@ -29,6 +38,7 @@
 						 #FFF,0px 1px 0 #FFF, 0-1px 0 #FFF,-1px 0 0 #FFF, 1px 0 0 #FFF;"
 							th:text="${@accountAndCart.name} + 'でログイン中'"></span>
 					</th:block>
+
 					<ul class="nav__list">
 						<li class="nav__item"><a href="/login">ログイン</a></li>
 						<li class="nav__item"><a href="/logout">ログアウト</a></li>
