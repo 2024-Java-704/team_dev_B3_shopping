@@ -10,5 +10,4 @@ public interface HopeRepository extends JpaRepository<Hope, Integer> {
 	List<Hope>findByStatus(Integer Status);
 
 	List<Hope> findByStudentIdAndTitle(Integer id, String title);
-
 }

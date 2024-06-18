@@ -45,10 +45,10 @@ public class Student {
 
 	@Column(name = "student_status")
 	private Integer status; //ステータス
-	
+
 	@Column(name = "image_id")
 	private Integer imageId;
-	
+
 	@Transient
 	private String imageName;
 
@@ -59,33 +59,47 @@ public class Student {
 	public Student(Integer status) {
 		this.status = status;
 	}
-	
-	public Student(String name, String number, String address, Date birth, String pass, String email,Integer status) {
-		this.name=name;
-		this.number=number;
-		this.address=address;
-		this.birth=birth;
-		this.pass=pass;
-		this.email=email;
-		this.status=status;
-	
+
+	public Student(String name, String number, String address, Date birth, String pass, String email, Integer status) {
+		this.name = name;
+		this.number = number;
+		this.address = address;
+		this.birth = birth;
+		this.pass = pass;
+		this.email = email;
+		this.status = status;
+
 	}
-	
-	public Student(Integer id, String name, String number, String address, Date birth, String pass, String email,Integer status) {
+
+	public Student(Integer id, String name, String number, String address, Date birth, String pass, String email,
+			Integer status) {
 		this.id = id;
-		this.name=name;
-		this.number=number;
-		this.address=address;
-		this.birth=birth;
-		this.pass=pass;
-		this.email=email;
-		this.status=status;
-	
+		this.name = name;
+		this.number = number;
+		this.address = address;
+		this.birth = birth;
+		this.pass = pass;
+		this.email = email;
+		this.status = status;
+
+	}
+
+	public Student(Integer id, String name, String number, String address, Date birth, String pass, String email,
+			Integer status, Integer imageId) {
+		this.id = id;
+		this.name = name;
+		this.number = number;
+		this.address = address;
+		this.birth = birth;
+		this.pass = pass;
+		this.email = email;
+		this.status = status;
+		this.imageId = imageId;
+
 	}
 
 	//ゲッター セッター
- 
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -161,7 +175,6 @@ public class Student {
 	public Date getBanDay() {
 		return banDay;
 	}
-
 
 	public void setBanDay(Date banDay) {
 		this.banDay = banDay;

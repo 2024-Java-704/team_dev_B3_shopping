@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "hope")
@@ -18,6 +19,7 @@ public class Hope {
 	@Column(name = "student_id")
 	private Integer studentId;
 	
+
 //	@Column(name = "bookinfo_id")
 //	private Integer bookinfoId;
 	
@@ -44,6 +46,28 @@ public class Hope {
 		this.publisher = publisher;
 		this.status = status;
 	}
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+  public Integer getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
+	}
+
+  public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 
 	public String getAuthor() {
 		return author;
@@ -61,13 +85,14 @@ public class Hope {
 		this.publisher = publisher;
 	}
 
-	public String getTitle() {
-		return title;
-	}
+	
+// 	public Integer getBookinfoId() {
+// 		return bookinfoId;
+// 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+// 	public void setBookinfoId(Integer bookinfoId) {
+// 		this.bookinfoId = bookinfoId;
+// 	}
 
 	public Integer getStatus() {
 		return status;
@@ -77,29 +102,4 @@ public class Hope {
 		this.status = status;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(Integer studentId) {
-		this.studentId = studentId;
-	}
-
-//	public Integer getBookinfoId() {
-//		return bookinfoId;
-//	}
-//
-//	public void setBookinfoId(Integer bookinfoId) {
-//		this.bookinfoId = bookinfoId;
-//	}
-	
-	
 }
