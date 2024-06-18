@@ -124,16 +124,17 @@ public class HopeController {
 	}
 
 	//リクエスト申請処理を行い、完了画面を表示する
-	@PostMapping("/hope/putup/complete")
+	@PostMapping("")
 	public String hopePutUpComplete(@RequestParam("title") String title,
 			@RequestParam("author") String author,
 			@RequestParam("publisher") String publisher,
 			Model model) {
 		Hope hope=new Hope(accountAndCart.getId(), title , author , publisher , 1);
+		if(hopeRepository.existsByStudentIdAndTitle(accountAndCart.getId(), title)== false) {
 		hopeRepository.save(hope);
-			
+		return "hopePutUpComplete";}
 		
-		return "hopePutUpComplete";
+		return "hopeList";
 	}
 
 	//リクエスト削除確認画面を表示する

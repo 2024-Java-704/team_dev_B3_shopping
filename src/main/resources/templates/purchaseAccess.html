@@ -45,7 +45,7 @@
 
 
 				<td>
-					<label><input type="radio" name="payment" value="2" onchange="onCheckCreditRadioButton()" required>
+					<label for="pay"><input id="pay" type="radio" name="payment" value="2" onchange="onCheckCreditRadioButton()" required>
 						窓口支払い
 					</label>
 				</td>
@@ -55,24 +55,24 @@
 				<th>名義人</th>
 
 				<td>
-					<input type="text" required>
+					<input type="text" >
 				</td>
 
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer2">
 				<th>カード番号</th>
 				<td>
-					<input type="number" oninput="javascript: this.value = this.value.slice(0, 16);" required>
+					<input type="number" oninput="javascript: this.value = this.value.slice(0, 16);" >
 				</td>
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer3">
 				<th>有効期限</th>
-				<td><input type="date" required></td>
+				<td><input type="date" ></td>
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer4">
 				<th>セキュリティコード</th>
 				<td><input type="number" min="100" max="9999" oninput="javascript: this.value = this.value.slice(0, 4);"
-						required></td>
+						></td>
 			</tr>
 		</table>
 

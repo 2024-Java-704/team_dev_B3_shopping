@@ -4,10 +4,42 @@
 <head>
 	<meta charset="UTF-8">
 	<title>リクエスト申請</title>
+		<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>リクエスト申請</h1>
+	
+	<p th:text="${errorList}" style="color: rgb(255, 0, 0); text-align:center"></p>
+	<form action="/hope/putup/confirm" method="get">
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<td><input type="text" name="title" class="textbox" maxlength="50" required></td>
+		</tr>
+		<tr>
+			<th>著者</th>
+			<td><input type="text" name="author" class="textbox" maxlength="50" required></td>
+		</tr>
+		<tr>
+			<th>出版社</th>
+			<td><input type="text" name="publisher" class="textbox" maxlength="50" required></td>
+		</tr>
+		
+	</table>
+	
+	<br>
+	
+		<button>確認</button>
+	</form>
 </body>
+
+
+
 
 </html>
