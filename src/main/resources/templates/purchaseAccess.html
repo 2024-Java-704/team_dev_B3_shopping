@@ -13,6 +13,9 @@
 	<br>
 	<br>
 	<br>
+	<div th:each="error:${errorMessage}" style="color :red; text-align: center;">
+		<span th:text="${error}"></span>
+	</div>
 	<form action="/book" method="get">
 
 		<table border="1">
@@ -55,24 +58,25 @@
 				<th>名義人</th>
 
 				<td>
-					<input type="text" >
+					<input type="text" name="cardName" th:value="${cardName}">
 				</td>
 
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer2">
 				<th>カード番号</th>
 				<td>
-					<input type="number" oninput="javascript: this.value = this.value.slice(0, 16);" >
+					<input type="number" name="cardNumber" th:value="${cardNumber}" oninput="javascript: this.value = this.value.slice(0, 16);" >
 				</td>
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer3">
 				<th>有効期限</th>
-				<td><input type="date" ></td>
+				<td><input type="date" name="cardDate" th:value="${cardDate}"></td>
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer4">
 				<th>セキュリティコード</th>
-				<td><input type="number" min="100" max="9999" oninput="javascript: this.value = this.value.slice(0, 4);"
-						></td>
+				<td>
+					<input type="number" name="cardCode" th:value="${cardCode}" min="100" max="9999" oninput="javascript: this.value = this.value.slice(0, 4);">
+				</td>
 			</tr>
 		</table>
 
