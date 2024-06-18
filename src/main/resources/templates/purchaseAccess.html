@@ -56,19 +56,19 @@
 			<tr style="visibility: collapse;" id="creditCardContainer1">
 				<th>名義人</th>
 				<td>
-					<input type="text" name="cardName" th:value="${cardName}" class="textbox">
+					<input type="text" name="cardName" th:value="${cardName}" pattern="[A-Z]*" minlength="2" maxlength="50" class="textbox" placeholder="半角大文字アルファベット(2文字以上50文字以内)">
 				</td>
 
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer2">
 				<th>カード番号</th>
 				<td>
-					<input type="number" name="cardNumber" th:value="${cardNumber}" oninput="javascript: this.value = this.value.slice(0, 16);" class="textbox">
+					<input type="text" name="cardNumber" th:value="${cardNumber}" pattern="\d*" minlength="14" maxlength="16" class="textbox" placeholder="半角数字(14文字以上16文字以内)">
 				</td>
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer3">
 				<th>有効期限</th>
-				<td><input type="date" name="cardDate" th:value="${cardDate}" class="textbox">></td>
+				<td><input type="date" name="cardDate" th:value="${cardDate}" class="textbox"></td>
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer4">
 				<th>セキュリティコード</th>

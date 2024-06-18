@@ -19,7 +19,7 @@
 		</div>
 		<br>
 
-	<div style="text-align: center">
+	<div style="text-align: center; justify-content: space-evenly">
 		<th:block th:if="${methodNum eq 1}">
 			<a href="/hope/mylist">自身のリクエスト</a>
 		</th:block>
@@ -35,11 +35,12 @@
 	<table border="1">
 		<tr>
 			<th>タイトル</th>
+			<th>各種機能</th>
 		</tr>
 		<tr th:each="hope:${hope}">
-			<td th:text="${hope.title}"></td>
-			<td>
-				<div style="display: flex;" >
+			<td th:text="${hope.title}" style="width: 250px;"></td>
+			<td style="width: 250px;">
+				<div style="display: flex;justify-content: space-evenly;" >
 				<form th:action="@{/hope/{id}/detail(id=${hope.id})}" method="get">
 					<button>詳細</button>
 				</form>
