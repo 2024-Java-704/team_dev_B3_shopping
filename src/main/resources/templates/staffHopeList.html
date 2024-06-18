@@ -4,10 +4,30 @@
 <head>
 	<meta charset="UTF-8">
 	<title>リクエスト申請一覧</title>
+	<link rel="stylesheet" type="text/css" href="/css/headerStyle.css">
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>リクエスト申請一覧</h1>
+	
+	<p th:text="${errorMessage}" style="color:red"></p>
+	
+	<table>
+		<tr>
+			<th>タイトル</th>
+		</tr>
+		<tr th:each="hope:${hopeList}">
+			<td>
+				<a th:href="@{/staff/hope/{id}/detail(id=${hope.id})}" th:text="${hope.title}"></a>
+			</td>
+		</tr>
+	</table>
 </body>
 
 </html>

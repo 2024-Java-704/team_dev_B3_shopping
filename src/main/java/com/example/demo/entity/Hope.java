@@ -14,16 +14,16 @@ public class Hope {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "student_id")
 	private Integer studentId;
-	
-//	@Column(name = "bookinfo_id")
-//	private Integer bookinfoId;
-	
+
+	//	@Column(name = "bookinfo_id")
+	//	private Integer bookinfoId;
+
 	//@Transient
 	private String title;
-	
+
 	//@Transient
 	private String author;
 
@@ -32,8 +32,6 @@ public class Hope {
 
 	private Integer status;
 
-	
-	
 	public Hope() {
 	}
 
@@ -42,38 +40,6 @@ public class Hope {
 		this.title = title;
 		this.author = author;
 		this.publisher = publisher;
-		this.status = status;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getPublisher() {
-		return publisher;
-	}
-
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
@@ -93,13 +59,38 @@ public class Hope {
 		this.studentId = studentId;
 	}
 
-//	public Integer getBookinfoId() {
-//		return bookinfoId;
-//	}
-//
-//	public void setBookinfoId(Integer bookinfoId) {
-//		this.bookinfoId = bookinfoId;
-//	}
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	
-	
+
 }

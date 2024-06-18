@@ -224,6 +224,9 @@ public class PurchaseController {
 				boughtHistory.setBoughtDay(boughtCertificate.getBoughtDay());
 			}
 		}
+    if(boughtHistories.size() == 0) {
+			model.addAttribute("errorMessage", "購入履歴はありません");
+		}
 		model.addAttribute("boughtHistories", boughtHistories);
 		return "purchaseHistory";
 	}

@@ -4,10 +4,42 @@
 <head>
 	<meta charset="UTF-8">
 	<title>リクエスト申請詳細</title>
+	<link rel="stylesheet" type="text/css" href="/css/headerStyle.css">
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>リクエスト申請詳細</h1>
+
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<th>著者</th>
+			<th>出版社</th>
+		</tr>
+		<tr>
+			<td th:text="${hope.title}"></td>
+			<td th:text="${hope.author}"></td>
+			<td th:text="${hope.publisher}"></td>
+		</tr>
+	</table>
+	
+	<br>
+
+	<div style="display: flex; justify-content: center;">
+		<form th:action="@{/staff/hope/{id}/reject(id=${hope.id})}" method="post" onsubmit="return confirm('本当に却下しますか？')">
+			<button>却下</button>
+		</form>
+
+		<form th:action="@{/staff/hope/{id}/approval(id=${hope.id})}" method="post" onsubmit="return confirm('本当に承認しますか？')">
+			<button>承認</button>
+		</form>
+	</div>
 </body>
 
 </html>

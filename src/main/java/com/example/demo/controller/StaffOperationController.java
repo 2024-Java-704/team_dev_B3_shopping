@@ -181,6 +181,7 @@ public class StaffOperationController {
 		//Nullチェックをしないとエラーが出るので後ほど記述
 
 		Student uniqueCheck = studentRepository.findById(id).get();
+
 		//動きはするけど無駄コード
 		//		
 		//		//メールアドレスと学籍番号どちらも変わっていない場合
@@ -202,9 +203,11 @@ public class StaffOperationController {
 		//			studentRepository.save(student);
 		//		}
 		//		
+
 		//ユニークチェック
 		try {
-			Student student = new Student(id, name, number, address, birth, pass, email, uniqueCheck.getStatus());
+			Student student = new Student(id, name, number, address, birth, pass, email, uniqueCheck.getStatus(),
+					uniqueCheck.getImageId());
 			studentRepository.save(student);
 			return "redirect:/account";
 		} catch (Exception E) {

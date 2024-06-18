@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
+import com.example.demo.entity.Hope;
 import com.example.demo.entity.Images;
 import com.example.demo.entity.SaleList;
 import com.example.demo.repository.BookinfoRepository;
+import com.example.demo.repository.HopeRepository;
 import com.example.demo.repository.ImagesRepository;
 import com.example.demo.repository.SaleListRepository;
 
@@ -29,6 +31,9 @@ public class StaffPutUpController {
 	
 	@Autowired
 	ImagesRepository imagesRepository;
+	
+	@Autowired
+	HopeRepository hopeRepository;
 	
 	//出品申請一覧画面の表示
 	@GetMapping("/itemrequest")
@@ -159,37 +164,37 @@ public class StaffPutUpController {
 	
 	//リクエスト申請一覧画面を表示する
 	@GetMapping("/staff/hope")
-	public String hopeAccess() {
+	public String hopeAccess(Model model) {
+		List<Hope> hopeList = hopeRepository.findByStatus(1);
+		if(hopeList.size() == 0) {
+			model.addAttribute("errorMessage", "リクエスト申請はありません");
+		}
+		model.addAttribute("hopeList", hopeList);
 		return "staffHopeList";
 	}
 	
 	//リクエスト申請詳細画面を表示する
 	@GetMapping("/staff/hope/{id}/detail")
-	public String hopeDetail() {
+	public String hopeDetail(@PathVariable("id") Integer id, Model model) {
+		Hope hope = hopeRepository.findById(id).get();
+		model.addAttribute("hope", hope);
 		return "staffHopeDetail";
 	}
 	
-	//リクエスト申請許可確認画面を表示する
-	@GetMapping("/staff/hope/{id}/approval/confirm")
-	public String hopeApprovalConfirm() {
-		return "staffHopeApprovalConfirm";
-	}
-	
 	//リクエスト申請許可処理を行い、完了画面を表示する
-	@PostMapping("/staff/hope/approval")
-	public String hopeApproval() {
+	@PostMapping("/staff/hope/{id}/approval")
+	public String hopeApproval(@PathVariable("id") Integer id) {
+		Hope hope = hopeRepository.findById(id).get();
+		hope.setStatus(2);
+		hopeRepository.save(hope);
 		return "staffHopeApproval";
 	}
 	
-	//リクエスト申請却下確認画面を表示する
-	@GetMapping("/staff/hope/{id}/reject/confirm")
-	public String hopeRejectConfirm() {
-		return "staffHopeRejectConfirm";
-	}
-	
 	//リクエスト申請却下処理を行い、完了画面を表示する
-	@PostMapping("/staff/hope/reject")
-	public String hopeReject() {
+	@PostMapping("/staff/hope/{id}/reject")
+	public String hopeReject(@PathVariable("id") Integer id) {
+		Hope hope = hopeRepository.findById(id).get();
+		hopeRepository.delete(hope);
 		return "staffHopeReject";
 	}
 

@@ -14,10 +14,10 @@
 		<br>
 		<br>
 		<h1>職員アカウント一覧</h1>
-		<div style="text-align:center">
-			<form action="staffList" method="get">
-				<input type="text" name="keyword" th:value="${search}" placeholder="名前">
-				<button>検索</button>
+		<div>
+			<form action="staffList" method="get" style="display: flex; justify-content: center;">
+				<input type="text" name="keyword" th:value="${search}" placeholder="名前" class="textbox" style="width: 200px;">
+				<button style="margin: 0;">検索</button>
 			</form>
 		</div>
 		<p th:text="${errorMessage}" style="color:red"></p>

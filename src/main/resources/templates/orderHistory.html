@@ -17,21 +17,29 @@
 
 	<p th:text="${errorMessage}" style="color:red"></p>
 
-	<table border="1">
+	<table>
 		<tr>
+			<th>
+				<a href="/order/history/1" style="text-decoration:none; color: cadetblue;">∧</a>
+				出品日
+				<a href="/order/history/2" style="text-decoration:none; color: cadetblue;">∨</a>
+			</th>
 			<th>タイトル</th>
 			<th>ステータス</th>
-			<th>キャンセル</th>
+			<th>キャンセルボタン</th>
 		</tr>
 		<tr th:each="list:${salelist}">
-			<td>
+			<td th:text="${list.saleDay}" style="width: 250px;"></td>
+			<td  style="width: 250px;">
 				<a th:href="@{/order/history/detail(id=${list.bookInfoId})}" th:text="${list.title}"></a>
 			</td>
-			<td th:if="${list.itemStatus}==1">出品中</td>
-			<td th:if="${list.itemStatus}==2">売買済み</td>
-			<td th:if="${list.itemStatus}==3">売上受取申請済み</td>
-			<td th:if="${list.itemStatus}==4">売上受取済</td>
-			<td th:if="${list.itemStatus}==5">出品申請中</td>
+			<div>
+				<td th:if="${list.itemStatus}==1" style="width: 250px;">出品中</td>
+				<td th:if="${list.itemStatus}==2" style="width: 250px;">売買済み</td>
+				<td th:if="${list.itemStatus}==3" style="width: 250px;">売上受取申請済み</td>
+				<td th:if="${list.itemStatus}==4" style="width: 250px;">売上受取済</td>
+				<td th:if="${list.itemStatus}==5" style="width: 250px;">出品申請中</td>
+			</div>
 			<td th:if="${list.itemStatus}==1 or ${list.itemStatus}==5">
 				<form th:action="'/order/history/' + ${list.id} + '/delete'" method="post">
 					<button>キャンセル</button>
