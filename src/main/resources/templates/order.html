@@ -22,11 +22,13 @@
 	<table>
 		<tr>
 			<th>タイトル</th>
-			<td><input type="text" name="title" class="textbox" maxlength="50" required></td>
+			<td th:if="${title == null}"><input type="text" name="title" class="textbox" maxlength="50" required></td>
+			<td th:if="${title}"><input type="text" name="title" class="textbox" maxlength="50" required th:value="${title}"></td>
 		</tr>
 		<tr>
 			<th>著者</th>
-			<td><input type="text" name="author" class="textbox" maxlength="50" required></td>
+			<td th:if="${author == null}"><input type="text" name="author" class="textbox" maxlength="50" required></td>
+			<td th:if="${author}"><input type="text" name="author" class="textbox" maxlength="50" required th:value="${author}"></td>
 		</tr>
 		<tr>
 			<th>ISBNコード</th>
@@ -69,7 +71,8 @@
 		</tr>
 		<tr>
 			<th>出版社</th>
-			<td><input type="text" name="publisher" class="textbox" maxlength="50" required></td>
+			<td th:if="${publisher == null}"><input type="text" name="publisher" class="textbox" maxlength="50" required></td>
+			<td th:if="${publisher}"><input type="text" name="publisher" class="textbox" maxlength="50" required th:value="${publisher}"></td>
 		</tr>
 		<tr>
 			<th>本の状態</th>
