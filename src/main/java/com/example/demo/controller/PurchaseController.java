@@ -217,6 +217,9 @@ public class PurchaseController {
 	@GetMapping("/buy")
 	private String purchaseHistory(Model model) {
 		List<BoughtHistory> boughtHistory = boughtHistoryRepository.findByStudentId(accountAndCart.getId());
+		if(boughtHistory.size() == 0) {
+			model.addAttribute("errorMessage", "購入履歴はありません");
+		}
 		model.addAttribute("boughtHistories", boughtHistory);
 		return "purchaseHistory";
 	}

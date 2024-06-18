@@ -13,8 +13,8 @@
 	<br>
 	<br>
 	<th:block th:if="${deniedMessage}">[[${deniedMessage}]]</th:block>
+	<p th:text="${errorMessage}" style="color:red"></p>
 	<h1>購入履歴</h1>
-	<th:block th:if="${boughtHistories}">
 	<table>
 		<tr>
 			<th>商品名</th>
@@ -23,12 +23,6 @@
 			<td><a th:href="@{/purchase/items/detail(id=${boughtHistory.salelistId})}"  th:text="${boughtHistory.saleList.bookInfo.title}"></a></td>
 		</tr>
 	</table>
-	</th:block>
-	<th:block th:if="${!boughtHistories}">
-		<p>購入したものはありません</p>
-	</th:block>
-	
-
 
 	<br>
 
