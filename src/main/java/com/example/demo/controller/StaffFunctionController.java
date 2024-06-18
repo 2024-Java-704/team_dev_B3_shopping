@@ -35,7 +35,7 @@ public class StaffFunctionController {
 
 	@Autowired
 	BookinfoRepository bookinfoRepository;
-	
+
 	@Autowired
 	ImagesRepository imagesRepository;
 
@@ -57,6 +57,7 @@ public class StaffFunctionController {
 			BoughtHistory boughtHisory = boughtHistoryRepository.findBySaleListId(sale.getId());
 			sale.setAccept(boughtHisory.getAccept());
 			sale.setDelivery(boughtHisory.getDelivery());
+			saleListRepository.save(sale);
 		}
 
 		if (saleList.size() == 0) {
@@ -72,12 +73,12 @@ public class StaffFunctionController {
 	public String orderDetail(@RequestParam("id") Integer id, Model model) {
 		SaleList sale = saleListRepository.findById(id).get();
 		Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
-		
+
 		String imageString = bookinfo.getImageId() + "";
 		Long imageLong = Long.parseLong(imageString);
 		Images image = imagesRepository.findById(imageLong).get();
 		bookinfo.setImageName(image.getName());
-		
+
 		model.addAttribute("bookinfo", bookinfo);
 
 		List<BoughtHistory> boughtHistory = boughtHistoryRepository.findBySalelistId(sale.getId());
@@ -125,12 +126,12 @@ public class StaffFunctionController {
 			saleList = saleListRepository.findByItemStatus(3);
 		} else {
 			List<Student> studentList = studentRepository.findByNameContaining(keyword);
-			for(Student student: studentList) {
+			for (Student student : studentList) {
 				saleList = saleListRepository.findByItemStatusAndStudentId(3, student.getId());
 			}
 			model.addAttribute("search", keyword);
 		}
-		
+
 		for (SaleList sale : saleList) {
 			Student student = studentRepository.findById(sale.getStudentId()).get();
 			String name = student.getName();

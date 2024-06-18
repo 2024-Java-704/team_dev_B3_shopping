@@ -44,9 +44,9 @@ public class StaffOperationController {
 
 	//学生アカウント一覧
 	@GetMapping("/account")
-	public String accountAccess(@RequestParam(name = "keyword", defaultValue = "") String keyword,Model model) {
+	public String accountAccess(@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model) {
 		List<Student> studentList = new ArrayList<>();
-		if(keyword.equals("")) {
+		if (keyword.equals("")) {
 			studentList = studentRepository.findAll();
 		} else {
 			studentList = studentRepository.findByNameLike("%" + keyword + "%");
@@ -63,12 +63,16 @@ public class StaffOperationController {
 			Model model) {
 		Student student = studentRepository.findById(id).get();
 
-		//学生証画像の呼び出し＆セット
-		String imageString = student.getImageId() + "";
-		Long image = Long.parseLong(imageString);
-		Images imageName = imagesRepository.findById(image).get();
-		student.setImageName(imageName.getName());
-		studentRepository.save(student);
+		try {
+			//学生証画像の呼び出し＆セット
+			String imageString = student.getImageId() + "";
+			Long image = Long.parseLong(imageString);
+			Images imageName = imagesRepository.findById(image).get();
+			student.setImageName(imageName.getName());
+			studentRepository.save(student);
+		} catch (Exception E) {
+			//画像がなければスルー
+		}
 
 		model.addAttribute("student", student);
 		return "SOC_accountDetail";

@@ -16,14 +16,13 @@
 	<div th:each="error:${errorMessage}" style="color :red; text-align: center;">
 		<span th:text="${error}"></span>
 	</div>
-	<form action="/book" method="get">
+	<form action="/book" method="get" id="form">
 
 		<table border="1">
 			<tr>
 				<th>受け取り方法</th>
-				<td><label><input type="radio" name="recieve" value="1" required>郵便</label></td>
-				<td><label><input type="radio" name="recieve" value="2" required>窓口受け取り</label></td>
-				<!--ラジオボタンのフォント変更-->
+				<td><label><input type="radio" name="recieve" value="1" required> 郵便</label></td>
+				<td><label><input type="radio" name="recieve" value="2" required> 窓口受け取り</label></td>
 			</tr>
 			<tr>
 				<th>名前</th>
@@ -56,26 +55,25 @@
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer1">
 				<th>名義人</th>
-
 				<td>
-					<input type="text" name="cardName" th:value="${cardName}">
+					<input type="text" name="cardName" th:value="${cardName}" pattern="[A-Z]*" minlength="2" maxlength="50" class="textbox" placeholder="半角大文字アルファベット(2文字以上50文字以内)">
 				</td>
 
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer2">
 				<th>カード番号</th>
 				<td>
-					<input type="number" name="cardNumber" th:value="${cardNumber}" oninput="javascript: this.value = this.value.slice(0, 16);" >
+					<input type="text" name="cardNumber" th:value="${cardNumber}" pattern="\d*" minlength="14" maxlength="16" class="textbox" placeholder="半角数字(14文字以上16文字以内)">
 				</td>
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer3">
 				<th>有効期限</th>
-				<td><input type="date" name="cardDate" th:value="${cardDate}"></td>
+				<td><input type="date" name="cardDate" th:value="${cardDate}" class="textbox"></td>
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer4">
 				<th>セキュリティコード</th>
 				<td>
-					<input type="number" name="cardCode" th:value="${cardCode}" min="100" max="9999" oninput="javascript: this.value = this.value.slice(0, 4);">
+					<input type="number" name="cardCode" th:value="${cardCode}" min="100" max="9999" oninput="javascript: this.value = this.value.slice(0, 4);" class="textbox">
 				</td>
 			</tr>
 		</table>
@@ -85,21 +83,7 @@
 		<button>確認</button>
 
 	</form>
-	<script>
-		function onCheckCreditRadioButton() {
-			if (document.getElementById("credit").checked) {
-				document.getElementById("creditCardContainer1").style.visibility = "visible"
-				document.getElementById("creditCardContainer2").style.visibility = "visible"
-				document.getElementById("creditCardContainer3").style.visibility = "visible"
-				document.getElementById("creditCardContainer4").style.visibility = "visible"
-			} else {
-				document.getElementById("creditCardContainer1").style.visibility = "collapse"
-				document.getElementById("creditCardContainer2").style.visibility = "collapse"
-				document.getElementById("creditCardContainer3").style.visibility = "collapse"
-				document.getElementById("creditCardContainer4").style.visibility = "collapse"
-			}
-		}
-	</script>
+	<script src="/JS/creditOnCheck.js"></script>
 </body>
 
 </html>

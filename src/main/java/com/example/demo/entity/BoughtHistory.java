@@ -26,15 +26,15 @@ public class BoughtHistory {
 	private Integer studentId;
 	@Column(name = "salelist_id")
 	private Integer salelistId;
-	
+
 	@ManyToOne
-    @JoinColumn(name="salelist_id", insertable = false, updatable = false)
-    private SaleList saleList;
-	
+	@JoinColumn(name = "salelist_id", insertable = false, updatable = false)
+	private SaleList saleList;
+
 	private Integer payment;
 	private Integer accept;
 	private Integer delivery;
-	
+
 	@Transient
 	private LocalDateTime boughtDay;
 
@@ -58,8 +58,8 @@ public class BoughtHistory {
 		this.payment = payment;
 		this.accept = accept;
 	}
-	
-	public BoughtHistory(Integer studentId,Integer salelistId,Integer payment,Integer accept,Integer delivery) {
+
+	public BoughtHistory(Integer studentId, Integer salelistId, Integer payment, Integer accept, Integer delivery) {
 		this.studentId = studentId;
 		this.salelistId = salelistId;
 		this.payment = payment;
@@ -67,7 +67,7 @@ public class BoughtHistory {
 		this.delivery = delivery;
 	}
 
-	public BoughtHistory(Integer studentId,Integer salelistId,Integer payment,Integer accept) {
+	public BoughtHistory(Integer studentId, Integer salelistId, Integer payment, Integer accept) {
 		this.studentId = studentId;
 		this.salelistId = salelistId;
 		this.payment = payment;
@@ -122,13 +122,13 @@ public class BoughtHistory {
 	public void setDelivery(Integer delivery) {
 		this.delivery = delivery;
 	}
-	
-	public SaleList getSaleList() {
-        return saleList;
-    }
 
-    public void setSaleList(SaleList saleList) {
-        this.saleList = saleList;
-    }
+	public SaleList getSaleList() {
+		return saleList;
+	}
+
+	public void setSaleList(SaleList saleList) {
+		this.saleList = saleList;
+	}
 
 }
