@@ -4,10 +4,37 @@
 <head>
 	<meta charset="UTF-8">
 	<title>リクエスト削除確認</title>
+	<link rel="stylesheet" type="text/css" href="/css/headerStyle.css">
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>リクエスト削除確認</h1>
+	
+	<h3>以下のリクエストを削除しますか</h3>
+	
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<th>著者</th>
+			<th>出版社</th>
+		</tr>
+		<tr>
+			<td th:text="${hope.title}"></td>
+			<td th:text="${hope.author}"></td>
+			<td th:text="${hope.publisher}"></td>
+		</tr>
+	</table>
+	
+	<form action="/hope/delete/complete" action="post">
+		<input type="hidden" name="id" th:value="${hope.id}" onsubmit="return confirm('本当に削除しますか？')">
+		<button>削除</button>
+	</form>
 </body>
 
 </html>
