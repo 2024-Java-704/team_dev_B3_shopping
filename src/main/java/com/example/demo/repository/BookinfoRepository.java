@@ -17,4 +17,6 @@ public interface BookinfoRepository extends JpaRepository<Bookinfo, Integer> {
 	List<Bookinfo> findByGrade(Integer grade);
 
 	List<Bookinfo> findByLectureLike(String lecture);
+
+	List<Bookinfo> findByTitle(String title);
 }
