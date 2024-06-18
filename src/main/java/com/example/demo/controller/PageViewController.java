@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -155,7 +157,7 @@ public class PageViewController {
 			Model model) {
 
 		List<SaleList> saleList = saleListRepository.findByItemStatus(1);
-		List<Bookinfo> books = new ArrayList<>();
+		Set<Bookinfo> books = new HashSet<>();
 
 		//カテゴリ
 		if (categories != null) {
@@ -186,11 +188,15 @@ public class PageViewController {
 					List<Bookinfo> book = bookinfoRepository.findByGrade(grade);
 					for (Bookinfo thisBook : book) {
 						SaleList s = saleListRepository.findByBookInfoId(thisBook.getId()).get(0);
-						if ((bookinfoRepository.existsById(thisBook.getId()) == false) && (s.getItemStatus() == 1)) {
+
+						//bookに含まれている書籍情報がbooksに無い+ItemStatus=1の場合	
+						if (s.getItemStatus() == 1) {
+
 							//ブックマークされているかを見る
 							List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(s.getId(),
 									accountAndCart.getId());
 							thisBook.setBookmark(!bookmark.isEmpty());
+
 							books.add(thisBook);
 						}
 					}
@@ -198,14 +204,17 @@ public class PageViewController {
 					break;
 				}
 			}
+
 		}
 
 		//キーワード
-		if (!(keyword.equals(""))) {
+		if (!(keyword.equals("")))
+
+		{
 			List<Bookinfo> thisBooks = bookinfoRepository.findByLectureLike("%" + keyword + "%");
 			for (Bookinfo book : thisBooks) {
 				SaleList s = saleListRepository.findByBookInfoId(book.getId()).get(0);
-				if ((bookinfoRepository.existsById(book.getId()) == false) && (s.getItemStatus() == 1)) {
+				if (s.getItemStatus() == 1) {
 					//ブックマークされているかを見る
 					List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(s.getId(),
 							accountAndCart.getId());
@@ -214,10 +223,13 @@ public class PageViewController {
 				}
 
 			}
+
 		}
 
 		//キーワードが見つからなかった場合
-		if (books.size() == 0) {
+		if (books.size() == 0)
+
+		{
 			for (SaleList sale : saleList) {
 				Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
 
