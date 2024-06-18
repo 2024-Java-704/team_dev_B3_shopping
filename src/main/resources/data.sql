@@ -97,5 +97,5 @@ INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(3,CURRENT_TIMESTAM
 INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(4,CURRENT_TIMESTAMP);
 
 
-INSERT INTO request(student_id,bookinfo_id) VALUES(1,5);
-INSERT INTO request(student_id,bookinfo_id) VALUES(2,6);
+INSERT INTO hope(student_id,bookinfo_id,status) VALUES(1,5,1);
+INSERT INTO hope(student_id,bookinfo_id,status) VALUES(2,6,1);
