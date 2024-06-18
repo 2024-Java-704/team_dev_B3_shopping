@@ -14,25 +14,32 @@
 	<br>
 	<br>
 	<h1>カート一覧</h1>
-	<!--	<form action="/purchase/order" method="get">-->
-	<table border="1">
-		<tr>
-			<th>本の名前</th>
-			<th>値段</th>
-			<th>カートからの削除</th>
-		</tr>
-		<tr th:each="book:${@accountAndCart.cartItems}">
-			<td><a th:href="@{/items/{id}/detail(id=${book.id})}" th:text="${book.title}"></td>
-			<td th:text="${book.price} + '円'"></td>
-			<form th:action="@{/purchase/{id}/delete(id=${book.id})}" method="get">
-				<td><button>削除</button></td>
-			</form>
-		</tr>
-	</table>
-
-	<br>
-	<div style="text-align: center;">合計金額：[[${sum}]]円</div>
-	<br>
+	<!--		<table border="1" th:if="${@accountAndCart.cartItems != null}">-->
+	<th:block th:if="${sum != 0}">
+		<table border="1">
+			<tr>
+				<th>本の名前</th>
+				<th>値段</th>
+				<th>カートからの削除</th>
+			</tr>
+			<tr th:each="book:${@accountAndCart.cartItems}">
+				<td><a th:href="@{/items/{id}/detail(id=${book.id})}" th:text="${book.title}"></td>
+				<td th:text="${book.price} + '円'"></td>
+				<form th:action="@{/purchase/{id}/delete(id=${book.id})}" method="get">
+					<td><button>削除</button></td>
+				</form>
+			</tr>
+		</table>
+		<br>
+		<div style="text-align: center;">
+			<h2>合計金額：[[${sum}]]円</h2>
+		</div>
+		<br>
+	</th:block>
+	<!--	<th:block th:if="${@accountAndCart.cartItems == null}">-->
+	<th:block th:if="${sum == 0}">
+		<h2 style="text-align: center; color: red;">カートに何も追加されていません</h2>
+	</th:block>
 
 	<th:block th:if="${student.status eq 2 && sum != 0}">
 		<form action="/purchase/order" method="get">

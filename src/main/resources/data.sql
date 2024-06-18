@@ -35,6 +35,7 @@ VALUES('倉沢','2000-04-04','千葉','d@d','himitu','d000001','1234',4,4);
 INSERT INTO students(student_name,birthday, address,student_email,student_pass,student_number,bank_account,student_status, image_id) 
 VALUES('獄裏番之助','2000-01-02','東京','tuppari@gmail.com','himitu','s14550','4649',5,5);
 
+
 INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('大澤','a@a','himitu','a002001');
 INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('中山','b@b','himitu','b002002');
 
@@ -74,7 +75,6 @@ INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) V
 INSERT INTO sale_list(student_id,bookinfo_id,sale_day,item_status,sale_method) VALUES('3','7','2024-06-08',2,1);
 
 
-
 INSERT INTO bookmark(student_id,salelist_id) VALUES(1,1);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(1,3);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(2,2);
@@ -88,10 +88,8 @@ INSERT INTO bookmark(student_id,salelist_id) VALUES(5,5);
 INSERT INTO bookmark(student_id,salelist_id) VALUES(5,1);
 
 
-
 INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(1,2,1,1,1);
 INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(3,7,2,2,2);
-
 
 
 INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(2,CURRENT_TIMESTAMP);

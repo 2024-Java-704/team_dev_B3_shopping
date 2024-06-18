@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Bookinfo;
 import com.example.demo.entity.Bookmark;
+import com.example.demo.entity.Categories;
 import com.example.demo.entity.Images;
 import com.example.demo.entity.SaleList;
 import com.example.demo.entity.Student;
 import com.example.demo.model.AccountAndCart;
 import com.example.demo.repository.BookinfoRepository;
 import com.example.demo.repository.BookmarkRepository;
+import com.example.demo.repository.CategoriesRepository;
 import com.example.demo.repository.ImagesRepository;
 import com.example.demo.repository.SaleListRepository;
 import com.example.demo.repository.StudentRepository;
@@ -49,6 +51,9 @@ public class PageViewController {
 	@Autowired
 	ImagesRepository imagesRepository;
 
+	@Autowired
+	CategoriesRepository categoriesRepository;
+
 	//商品一覧画面表示
 	@GetMapping("/items")
 	public String index(
@@ -65,7 +70,10 @@ public class PageViewController {
 		if (keyword.equals("")) { //キーワードが入力されなかった場合
 			for (SaleList sale : saleList) {
 				Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
-				List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(), accountAndCart.getId());
+
+				//ブックマークされているかを見る
+				List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(),
+						accountAndCart.getId());
 				bookinfo.setBookmark(!bookmark.isEmpty());
 				books.add(bookinfo);
 			}
@@ -73,7 +81,10 @@ public class PageViewController {
 			for (SaleList sale : saleList) {
 				List<Bookinfo> bookinfos = bookinfoRepository.findByIdAndTitleContaining(sale.getBookInfoId(), keyword);
 				if (!bookinfos.isEmpty()) {
-					List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(), accountAndCart.getId());
+
+					//ブックマークされているかを見る
+					List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(),
+							accountAndCart.getId());
 					bookinfos.get(0).setBookmark(!bookmark.isEmpty());
 					books.add(bookinfos.get(0));
 				}
@@ -82,7 +93,6 @@ public class PageViewController {
 		}
 		//繰り返しfor文で画像名をセット
 		for (Bookinfo booksImg : books) {
-
 			String bookString = booksImg.getImageId() + "";
 			Long bookLong = Long.parseLong(bookString);
 			Images image = imagesRepository.findById(bookLong).get();
@@ -136,6 +146,117 @@ public class PageViewController {
 		return "detail";
 	}
 
+	//絞り込み機能
+	@GetMapping("/items/refine")
+	public String itemsRefine(
+			@RequestParam(name = "category", defaultValue = "") String[] categories,
+			@RequestParam(name = "grade", defaultValue = "0") Integer[] grades,
+			@RequestParam(name = "word", defaultValue = "") String keyword,
+			Model model) {
+
+		List<SaleList> saleList = saleListRepository.findByItemStatus(1);
+		List<Bookinfo> books = new ArrayList<>();
+
+		//カテゴリ
+		if (categories != null) {
+			for (String category : categories) {
+				Categories thisCategory = categoriesRepository.findByCategoryName(category);
+				try {
+					Bookinfo book = bookinfoRepository.findByCategoryId(thisCategory.getId());
+					SaleList s = saleListRepository.findByBookInfoId(book.getId()).get(0);
+					if (s.getItemStatus() == 1) {
+						//ブックマークされているかを見る
+						List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(s.getId(),
+								accountAndCart.getId());
+						book.setBookmark(!bookmark.isEmpty());
+						books.add(book);
+					}
+				} catch (Exception e) {
+					break;
+				}
+
+			}
+		}
+
+		//学年
+		if (grades.length != 0) {
+			for (Integer grade : grades) {
+
+				try {
+					List<Bookinfo> book = bookinfoRepository.findByGrade(grade);
+					for (Bookinfo thisBook : book) {
+						SaleList s = saleListRepository.findByBookInfoId(thisBook.getId()).get(0);
+						if ((bookinfoRepository.existsById(thisBook.getId()) == false) && (s.getItemStatus() == 1)) {
+							//ブックマークされているかを見る
+							List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(s.getId(),
+									accountAndCart.getId());
+							thisBook.setBookmark(!bookmark.isEmpty());
+							books.add(thisBook);
+						}
+					}
+				} catch (Exception e) {
+					break;
+				}
+			}
+		}
+
+		//キーワード
+		if (!(keyword.equals(""))) {
+			List<Bookinfo> thisBooks = bookinfoRepository.findByLectureLike("%" + keyword + "%");
+			for (Bookinfo book : thisBooks) {
+				SaleList s = saleListRepository.findByBookInfoId(book.getId()).get(0);
+				if ((bookinfoRepository.existsById(book.getId()) == false) && (s.getItemStatus() == 1)) {
+					//ブックマークされているかを見る
+					List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(s.getId(),
+							accountAndCart.getId());
+					book.setBookmark(!bookmark.isEmpty());
+					books.add(book);
+				}
+
+			}
+		}
+
+		//キーワードが見つからなかった場合
+		if (books.size() == 0) {
+			for (SaleList sale : saleList) {
+				Bookinfo bookinfo = bookinfoRepository.findById(sale.getBookInfoId()).get();
+
+				//ブックマークされているかを見る
+				List<Bookmark> bookmark = bookmarkRepository.findBySalelistIdAndStudentId(sale.getId(),
+						accountAndCart.getId());
+				bookinfo.setBookmark(!bookmark.isEmpty());
+
+				books.add(bookinfo);
+			}
+			for (Bookinfo booksImg : books) {
+				String bookString = booksImg.getImageId() + "";
+				Long bookLong = Long.parseLong(bookString);
+				Images image = imagesRepository.findById(bookLong).get();
+				booksImg.setImageName(image.getName());
+				bookinfoRepository.save(booksImg);
+				System.out.println(booksImg.getTitle() + booksImg.isBookmark());
+
+				model.addAttribute("nullMessage", "検索した条件に該当する商品は見つかりませんでした");
+				model.addAttribute("books", books);
+
+			}
+			return "indexStyleCard";
+		}
+
+		for (Bookinfo booksImg : books) {
+			String bookString = booksImg.getImageId() + "";
+			Long bookLong = Long.parseLong(bookString);
+			Images image = imagesRepository.findById(bookLong).get();
+			booksImg.setImageName(image.getName());
+			bookinfoRepository.save(booksImg);
+			System.out.println(booksImg.getTitle() + booksImg.isBookmark());
+		}
+
+		model.addAttribute("books", books);
+		return "indexStyleCard";
+
+	}
+
 	//ブックマーク画面表示
 	@GetMapping("/bookmark")
 	public String bookMark(Model model) {
@@ -177,7 +298,6 @@ public class PageViewController {
 		return "redirect:/bookmark";
 	}
 
-
 	//ブックマーク削除処理
 	@PostMapping("/bookmark/{id}/delete")
 	public String bookMarkDelete(
@@ -188,6 +308,7 @@ public class PageViewController {
 		bookmarkRepository.deleteById(bookmark.getId());
 		return "redirect:/bookmark";
 	}
+
 	//ブックマーク削除処理(GETメソッド)
 	@GetMapping("/bookmark/{id}/delete")
 	public String bookMarkDeleteGet(
@@ -224,7 +345,6 @@ public class PageViewController {
 		return "redirect:/items";
 	}
 
-
 	//マイページ画面表示
 	@GetMapping("/mypage")
 	public String mypage(Model model) {
@@ -256,7 +376,9 @@ public class PageViewController {
 			model.addAttribute("student", student);
 			return "Upload-CardView";
 		} catch (Exception E) {
-			return "/login";
+			Student student = studentRepository.findById(accountAndCart.getId()).get();
+			model.addAttribute("student", student);
+			return "Upload-CardView";
 		}
 	}
 

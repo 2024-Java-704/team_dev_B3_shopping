@@ -29,6 +29,12 @@
 			<th>生年月日</th>
 			<td th:text="${birth}"></td>
 		</tr>
+		
+<!--		<tr>-->
+<!--			<th>電話番号</th>-->
+<!--			<td th:text="${phone}"></td>-->
+<!--		</tr>-->
+		
 		<tr>
 			<th>メールアドレス</th>
 			<td th:text="${email}"></td>
@@ -38,7 +44,6 @@
 			<td th:text="${password}"></td>
 		</tr>
 	</table>
-	<p>画像</p>
 
 	<form action="/new/users/complete" method="post">
 		<input type="hidden" name="name" th:value="${name}">

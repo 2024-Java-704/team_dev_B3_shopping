@@ -1,4 +1,5 @@
-ｓ<!DOCTYPE html>
+ｓ
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -15,25 +16,29 @@
 	<br>
 	<h1>ブックマーク</h1>
 
-	<table>
-		<tr>
-			<th>商品名</th>
-			<th>価格</th>
-			<th>出品状況</th>
-		</tr>
-		<tr th:each="book:${books}">
-			<td><a th:href="@{/items/detail(id=${book.id})}" th:text="${book.title}"></td>
-			<td th:text="${book.price} + 円"></td>
-			<td th:if="${book.itemStatus == 1}" class="listingStatus">出品中</td>
-			<td th:if="${book.itemStatus == 2 or book.itemStatus == 3 or book.itemStatus == 4 or book.itemStatus == 5}" class="listingStatus">終了</td>
-			<td>
-				<form th:action="@{/bookmark/{id}/delete(id=${book.id})}" method="post">
-					<button>削除</button>
-				</form>
-			</td>
-		</tr>
-	</table>
-	
+	<th:block th:if="${books.size != 0}">
+		<table>
+			<tr>
+				<th>商品名</th>
+				<th>価格</th>
+				<th>出品状況</th>
+			</tr>
+			<tr th:each="book:${books}">
+				<td><a th:href="@{/items/detail(id=${book.id})}" th:text="${book.title}"></td>
+				<td th:text="${book.price} + 円"></td>
+				<td th:if="${book.itemStatus == 1}" class="listingStatus">出品中</td>
+				<td th:if="${book.itemStatus == 2 or book.itemStatus == 3 or book.itemStatus == 4 or book.itemStatus == 5}"
+					class="listingStatus">終了</td>
+				<td>
+					<form th:action="@{/bookmark/{id}/delete(id=${book.id})}" method="post">
+						<button>削除</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</th:block>
+	<h2 th:if="${books.size == 0}" style="text-align: center; color: red;">ブックマークに何も追加されていません</h2>
+
 	<script src="/JS/auctionCheck.js"></script>
 </body>
 

@@ -6,6 +6,7 @@
 	<title>カート一覧</title>
 	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 	<link rel="stylesheet" type="text/css" href="/css/card.css">
+	<link rel="stylesheet" type="text/css" href="/css/sideBar.css">
 </head>
 
 <body>
@@ -14,60 +15,130 @@
 	<br>
 	<br>
 	<br>
-	<h1>カート一覧</h1>
-	<!--	<form action="/purchase/order" method="get">-->
-	<div class="card-container">
-		<th:block th:each="book:${books}">
-			<div class="card card-skin" >
-				<a class="card__imgframe" th:href="@{/items/detail(id=${book.id})}" style="text-align: center;">
-					<img th:src="'img/' + ${book.imageName}" class="bookCard" width="280px" height="280px">
-				</a>
-				<div class="card__textbox">
-					<div class="cardDescriptionContainer">
-						<div class="card1">
-							<div class="card__titletext">
-								<a th:href="@{/items/detail(id=${book.id})}" th:text="${book.title}"></a>
+	<article>
+		<!--サイドバー-->
+		<div class="side">
+			<form action="/items/refine" method="get">
+				<h3 style="color: coral;">-カテゴリ-</h3>
+				<div class="check">
+					<div>
+						<input type="checkbox" name="category" value="文学部">
+						<label>文学部</label>
+						<input type="checkbox" name="category" value="教育学部">
+						<label>教育学部</label>
+					</div>
+					<div>
+						<input type="checkbox" name="category" value="法学部">
+						<label>法学部</label>
+						<input type="checkbox" name="category" value="社会学部">
+						<label>社会学部</label>
+					</div>
+					<div>
+						<input type="checkbox" name="category" value="経済学部">
+						<label>経済学部</label>
+						<input type="checkbox" name="category" value="医学部">
+						<label>医学部</label>
+					</div>
+					<div>
+						<input type="checkbox" name="category" value="理学部">
+						<label>理学部</label>
+						<input type="checkbox" name="category" value="歯学部">
+						<label>歯学部</label>
+					</div>
+					<div>
+						<input type="checkbox" name="category" value="薬学部">
+						<label>薬学部</label>
+						<input type="checkbox" name="category" value="工学部">
+						<label>工学部</label>
+					</div>
+					<div>
+						<input type="checkbox" name="category" value="農学部">
+						<label>農学部</label>
+						<input type="checkbox" name="category" value="その他">
+						<label>その他</label>
+					</div>
+				</div>
+
+				<h3 style="color: darkgreen;">-学年-</h3>
+				<div>
+					<input type="checkbox" name="grade" value="1">
+					<label>1年</label>
+					<input type="checkbox" name="grade" value="2">
+					<label>2年</label>
+				</div>
+				<div>
+					<input type="checkbox" name="grade" value="3">
+					<label>3年</label>
+					<input type="checkbox" name="grade" value="4">
+					<label>4年</label>
+				</div>
+
+				<h3 style="color: brown;">-講義検索-</h3>
+				<div>
+					<input type="text" name="word" class="textbox" style="width: 200px; height: 25px;">
+				</div>
+				<br>
+				<button>絞り込み</button>
+			</form>
+		</div>
+		<!--メインコンテンツ-->
+		<div class="content">
+			<h1>商品一覧</h1>
+			<h2 th:if="${nullMessage}" style="text-align: center; color: red;">[[${nullMessage}]]</h2>
+
+
+			<div class="card-container">
+				<th:block th:each="book:${books}">
+					<div class="card card-skin">
+						<a class="card__imgframe" th:href="@{/items/detail(id=${book.id})}" style="text-align: center;">
+							<img th:src="'/img/' + ${book.imageName}" class="bookCard" width="280px" height="280px">
+						</a>
+						<div class="card__textbox">
+							<div class="cardDescriptionContainer">
+								<div class="card1">
+									<div class="card__titletext">
+										<a th:href="@{/items/detail(id=${book.id})}" th:text="${book.title}"></a>
+									</div>
+									<div class="card__overviewtext">
+										<th:block th:text="${book.price} + '円'"></th:block>
+									</div>
+								</div>
+								<div class="card2">
+									<div>
+										<a class="card__addCart" th:href="@{/cart/{id}/add(id=${book.id})}">
+											<img src="/img/addCart.png" class="ViewCard">
+										</a>
+									</div>
+									<div th:if="${!book.isBookmark}">
+										<a class="card__addCart" th:href="@{/bookmark/{id}/add(id=${book.id})}">
+											<img src="/img/bookmark.png" class="ViewCard">
+										</a>
+									</div>
+									<div th:if="${book.isBookmark}">
+										<a class="card__addCart" th:href="@{/bookmark/{id}/delete(id=${book.id})}">
+											<img src="/img/bookmarkDone.png" class="ViewCard">
+										</a>
+									</div>
+								</div>
 							</div>
-							<div class="card__overviewtext">
-								<th:block th:text="${book.price} + '円'"></th:block>
-							</div>
-						</div>
-						<div class="card2">
-							<div>
-								<a class="card__addCart" th:href="@{/cart/{id}/add(id=${book.id})}">
-									<img src="/img/addCart.png" class="ViewCard">
-								</a>
-							</div>
-							<div th:if="${!book.isBookmark}">
-								<a class="card__addCart" th:href="@{/bookmark/{id}/add(id=${book.id})}">
-									<img src="/img/bookmark.png" class="ViewCard">
-								</a>
-							</div>
-							<div th:if="${book.isBookmark}">
-								<a class="card__addCart" th:href="@{/bookmark/{id}/delete(id=${book.id})}">
-									<img src="/img/bookmarkDone.png" class="ViewCard">
-								</a>
-							</div>
+							<!--						<a class="card__addCart" th:href="@{/bookmark/{id}/add(id=${book.id})}">-->
+							<!--							<img src="/img/bookmarkDone.png" class="ViewCard">-->
+							<!--						</a>-->
 						</div>
 					</div>
-					<!--						<a class="card__addCart" th:href="@{/bookmark/{id}/add(id=${book.id})}">-->
-					<!--							<img src="/img/bookmarkDone.png" class="ViewCard">-->
-					<!--						</a>-->
-				</div>
+				</th:block>
 			</div>
-		</th:block>
-	</div>
-	<br>
-	<br>
+			<br>
+			<br>
 
-	<div style="text-align: center;">
-		<a href="/cart">カート一覧</a>
-		<br>
-		<br>
-		<a href="/bookmark">ブックマーク一覧</a>
-	</div>
-
-	<script src="/JS/ReSizeCard.js"></script>
+			<div style="text-align: center;">
+				<a href="/cart">カート一覧</a>
+				<br>
+				<br>
+				<a href="/bookmark">ブックマーク一覧</a>
+			</div>
+		</div>
+	</article>
 </body>
 
 </html>

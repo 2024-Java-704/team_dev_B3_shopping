@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.side {
+	background-color: white;
+	width: 300px;
+	height: auto;
+	text-align: center;
+	border-radius: 10px 20px 30px 40px;
+	margin-left: 30px;
+	overflow: hidden;
+	border-radius: 8px;
+	border-top: solid 3px #ddd;
+	border-left: solid 1px #ddd;
+	border-right: solid 3px #ddd;
+	border-bottom: solid 5px #888;
+}
+
+.content {
+	width: auto;
+	height: auto;
+	text-align: center;
+	margin-left: 10px;
+	/*サイドバーとメインコンテンツの間に隙間をあけた*/
+}
+
+article {
+	display: flex;
+	/*サイドバーとメインコンテンツを横並びにする指定をした*/
+}

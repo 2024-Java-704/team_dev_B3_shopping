@@ -16,24 +16,28 @@
 		<table>
 			<tr>
 				<th>名前</th>
-				<td><input type="text" name="name" class="textbox" placeholder="名前" required></td>
+				<td><input type="text" name="name" class="textbox" placeholder="名前" th:value="${name}" required></td>
 			</tr>
 			<tr>
 				<th>学籍番号</th>
-				<td><input type="text" maxlength="10" class="textbox" name="number" placeholder="学籍番号（最大10桁）" required>
+				<td><input type="text" maxlength="10" class="textbox" name="number" placeholder="学籍番号（最大10桁）" th:value="${number}" required>
 				</td>
 			</tr>
 			<tr>
 				<th>住所</th>
-				<td><input type="text" name="address" class="textbox" placeholder="住所" required></td>
+				<td><input type="text" name="address" class="textbox" placeholder="住所" th:value="${address}" required></td>
 			</tr>
 			<tr>
 				<th>生年月日</th>
-				<td><input type="date" name="birth" placeholder="生年月日" value="2001-01-01" required></td>
+				<td><input type="date" name="birth" placeholder="生年月日" th:value="${birth}" required></td>
 			</tr>
+<!--			<tr>-->
+<!--				<th>電話番号</th>-->
+<!--				<td><input type="text" name="phone" placeholder="電話番号" required></td>-->
+<!--			</tr>-->
 			<tr>
 				<th>メールアドレス</th>
-				<td><input type="email" name="email" class="textbox" placeholder="メールアドレス" required><br></td>
+				<td><input type="email" name="email" class="textbox" placeholder="メールアドレス" th:value="${email}" required><br></td>
 			</tr>
 			<tr>
 				<th>パスワード</th>
@@ -41,8 +45,7 @@
 						placeholder="パスワード（最大20文字）" required></td>
 			</tr>
 		</table>
-
-		<p>画像</p>
+		<br>
 
 		<button>確認</button>
 	</form>

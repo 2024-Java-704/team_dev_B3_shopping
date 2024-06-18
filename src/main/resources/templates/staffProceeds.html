@@ -14,7 +14,14 @@
 	<br>
 	<br>
 	<h1>売上受取申請一覧</h1>
-	
+
+	<table th:if="${saleList.size != 0}">
+	<div style="text-align:center">
+		<form action="/salesreceipt" method="get">
+			<input type="text" name="keyword" th:value="${search}">
+			<button>検索</button>
+		</form>
+	</div>
 	<table>
 		<tr>
 			<th>申請者</th>
@@ -34,6 +41,8 @@
 			</td>
 		</tr>
 	</table>
+	
+	<h2 th:if="${saleList.size == 0}" style="text-align: center; color: red;">申請はありません</h2>
 
 </body>
 
