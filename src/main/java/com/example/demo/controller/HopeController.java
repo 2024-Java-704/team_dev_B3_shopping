@@ -45,7 +45,25 @@ public class HopeController {
 //			Bookinfo bookinfo = bookinfoRepository.findById(hopeList.getBookinfoId()).get();
 //			hopeList.setTitle(bookinfo.getTitle());
 //		}
-		model.addAttribute("hope", hope);
+		if(hope.size() == 0) {
+			model.addAttribute("errorMessage", "リクエストはありません");
+		} else {
+			model.addAttribute("hope", hope);
+		}
+		model.addAttribute("methodNum", 1);
+		return "hopeList";
+	}
+	
+	//自身のリクエスト一覧を表示する
+	@GetMapping("/hope/mylist")
+	public String myHopeList(Model model) {
+		List<Hope> hope = hopeRepository.findByStatusAndStudentId(2, accountAndCart.getId());
+		if(hope.size() == 0) {
+			model.addAttribute("errorMessage", "自身のリクエストはありません");
+		} else {
+			model.addAttribute("hope", hope);
+		}
+		model.addAttribute("methodNum", 2);
 		return "hopeList";
 	}
 
@@ -124,7 +142,7 @@ public class HopeController {
 	}
 
 	//リクエスト申請処理を行い、完了画面を表示する
-	@PostMapping("")
+	@PostMapping("/hope/putup/complete")
 	public String hopePutUpComplete(@RequestParam("title") String title,
 			@RequestParam("author") String author,
 			@RequestParam("publisher") String publisher,
@@ -138,8 +156,8 @@ public class HopeController {
 	}
 
 	//リクエスト削除確認画面を表示する
-	@GetMapping("/hope/delete/confirm")
-	public String hopeDeleteConfirm(@RequestParam("id") Integer id, Model model) {
+	@GetMapping("/hope/{id}/delete/confirm")
+	public String hopeDeleteConfirm(@PathVariable("id") Integer id, Model model) {
 		Hope hope = hopeRepository.findById(id).get();
 		model.addAttribute("hope", hope);
 		return "hopeDeleteConfirm";
