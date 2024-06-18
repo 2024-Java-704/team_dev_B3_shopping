@@ -41,6 +41,10 @@
 		<input type="hidden" name="publisher" th:value="${hopeList.publisher}">
 		<button>出品</button>
 	</form>
+	<form action="/items" method="get">
+		<input type="hidden" name="keyword" th:value="${hopeList.title}">
+		<button>検索</button>
+	</form>
 	
 </body>
 

@@ -316,7 +316,8 @@ public class PutUpController {
 			@PathVariable("id") Integer id,
 			Model model) {
 		SaleList deleteSale = saleListRepository.findById(id).get();
-		saleListRepository.delete(deleteSale);
+		deleteSale.setItemStatus(6);
+		saleListRepository.save(deleteSale);
 
 		return "redirect:/order/history";
 	}

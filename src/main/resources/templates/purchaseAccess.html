@@ -13,14 +13,13 @@
 	<br>
 	<br>
 	<br>
-	<form action="/book" method="get">
+	<form action="/book" method="get" id="form">
 
 		<table border="1">
 			<tr>
 				<th>受け取り方法</th>
-				<td><label><input type="radio" name="recieve" value="1" required>郵便</label></td>
-				<td><label><input type="radio" name="recieve" value="2" required>窓口受け取り</label></td>
-				<!--ラジオボタンのフォント変更-->
+				<td><label><input type="radio" name="recieve" value="1" required> 郵便</label></td>
+				<td><label><input type="radio" name="recieve" value="2" required> 窓口受け取り</label></td>
 			</tr>
 			<tr>
 				<th>名前</th>
@@ -55,23 +54,23 @@
 				<th>名義人</th>
 
 				<td>
-					<input type="text" >
+					<input type="text" class="textbox">
 				</td>
 
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer2">
 				<th>カード番号</th>
 				<td>
-					<input type="number" oninput="javascript: this.value = this.value.slice(0, 16);" >
+					<input type="text" pattern="\d*" minlength="14" maxlength="16" title="14ケタ以上16ケタ以下の数字のみが入力出来ます" class="textbox" placeholder="1234 5678 9012 3456"  id="credit">
 				</td>
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer3">
 				<th>有効期限</th>
-				<td><input type="date" ></td>
+				<td><input type="date" class="textbox"></td>
 			</tr>
 			<tr style="visibility: collapse;" id="creditCardContainer4">
 				<th>セキュリティコード</th>
-				<td><input type="number" min="100" max="9999" oninput="javascript: this.value = this.value.slice(0, 4);"
+				<td><input type="number" min="100" max="9999" oninput="javascript: this.value = this.value.slice(0, 4);" class="textbox"
 						></td>
 			</tr>
 		</table>
@@ -81,21 +80,7 @@
 		<button>確認</button>
 
 	</form>
-	<script>
-		function onCheckCreditRadioButton() {
-			if (document.getElementById("credit").checked) {
-				document.getElementById("creditCardContainer1").style.visibility = "visible"
-				document.getElementById("creditCardContainer2").style.visibility = "visible"
-				document.getElementById("creditCardContainer3").style.visibility = "visible"
-				document.getElementById("creditCardContainer4").style.visibility = "visible"
-			} else {
-				document.getElementById("creditCardContainer1").style.visibility = "collapse"
-				document.getElementById("creditCardContainer2").style.visibility = "collapse"
-				document.getElementById("creditCardContainer3").style.visibility = "collapse"
-				document.getElementById("creditCardContainer4").style.visibility = "collapse"
-			}
-		}
-	</script>
+	<script src="/JS/creditOnCheck.js"></script>
 </body>
 
 </html>

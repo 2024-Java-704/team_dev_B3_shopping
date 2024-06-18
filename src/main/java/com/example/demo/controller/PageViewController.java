@@ -91,8 +91,12 @@ public class PageViewController {
 					books.add(bookinfos.get(0));
 				}
 			}
-
+			if (books.size() == 0) {
+				model.addAttribute("nullMessage", "検索したワードに一致する本は見つかりませんでした");
+				return "indexStyleCard";
+			}
 		}
+
 		//繰り返しfor文で画像名をセット
 		for (Bookinfo booksImg : books) {
 			String bookString = booksImg.getImageId() + "";

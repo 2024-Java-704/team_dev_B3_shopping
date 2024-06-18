@@ -64,6 +64,11 @@ button {
 	font-family: "Yusei Magic", sans-serif;
 }
 
+/*ラジオボタンデザイン*/
+input[type=radio] {
+	transform:scale(2.0);
+}
+
 button:hover {
 	color: #fff;
 	background: #27acd9;
