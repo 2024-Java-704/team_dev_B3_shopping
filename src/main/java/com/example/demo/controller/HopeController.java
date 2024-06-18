@@ -69,24 +69,27 @@ public class HopeController {
 
 	//リクエスト詳細画面を表示する
 	@GetMapping("/hope/{id}/detail")
-	public String hopeDetail(@PathVariable("id") Integer id,
-			RedirectAttributes redirect,Model model) 
-	{
+	public String hopeDetail(@PathVariable("id") Integer id,Model model,
+			RedirectAttributes redirect) {
 		Hope hopeList = hopeRepository.findById(id).get();
 		List<Bookinfo> bookinfo = bookinfoRepository.findByTitle(hopeList.getTitle());
-		if(bookinfo.size()>0) {
-			for(Bookinfo book:bookinfo) {
-				redirect.addFlashAttribute("keyword",book.getTitle());
-			}
+		if(bookinfo.size()<1) {
+			model.addAttribute("hopeList" , hopeList);
+			
+			return "hopeDetail";
+
+		}else {
+//			Bookinfo book = bookinfoRepository.findByTitle(hopeList.getTitle()).get(0);
+//			String keyword= book.getTitle();
+				redirect.addFlashAttribute("books",bookinfo);
+//				return"redirect:/items";
+//			}
 			return"redirect:/items";
 		}
 //		hopeList.setTitle(bookinfo.getTitle());
 //		hopeList.setAuthor(bookinfo.getAuthor());
 //		hopeList.setPublisher(bookinfo.getPublisher());
 		
-		model.addAttribute("hopeList" , hopeList);
-		
-		return "hopeDetail";
 	}
 
 	//リクエスト申請画面を表示する
