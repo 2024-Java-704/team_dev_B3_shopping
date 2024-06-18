@@ -124,7 +124,7 @@ public class HopeController {
 	}
 
 	//リクエスト申請処理を行い、完了画面を表示する
-	@PostMapping("/hope/putup/complete")
+	@PostMapping("")
 	public String hopePutUpComplete(@RequestParam("title") String title,
 			@RequestParam("author") String author,
 			@RequestParam("publisher") String publisher,
