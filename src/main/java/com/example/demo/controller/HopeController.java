@@ -130,10 +130,11 @@ public class HopeController {
 			@RequestParam("publisher") String publisher,
 			Model model) {
 		Hope hope=new Hope(accountAndCart.getId(), title , author , publisher , 1);
+		if(hopeRepository.existsByStudentIdAndTitle(accountAndCart.getId(), title)== false) {
 		hopeRepository.save(hope);
-			
+		return "hopePutUpComplete";}
 		
-		return "hopePutUpComplete";
+		return "hopeList";
 	}
 
 	//リクエスト削除確認画面を表示する
