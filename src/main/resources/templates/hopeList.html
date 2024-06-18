@@ -19,6 +19,18 @@
 		</div>
 		<br>
 
+	<div style="text-align: center">
+		<th:block th:if="${methodNum eq 1}">
+			<a href="/hope/mylist">自身のリクエスト</a>
+		</th:block>
+		<th:block th:if="${methodNum eq 2}">
+			<a href="/hope">リクエスト一覧</a>
+		</th:block>
+	</div>
+
+	<div style="text-align: center">
+		<a th:text="${errorMessage}"></a>
+	</div>
 
 	<table border="1">
 		<tr>
@@ -29,20 +41,17 @@
 			<td>
 				<div style="display: flex;" >
 				<form th:action="@{/hope/{id}/detail(id=${hope.id})}" method="get">
-					<input type="hidden">
 					<button>詳細</button>
 				</form>
-				<form action="/hope/delete/confirm" method="get">
-				<button >削除</button>
+
+				<form th:action="@{/hope/{id}/delete/confirm(id=${hope.id})}" method="get">
+					<th:block th:if="${@accountAndCart.id eq hope.studentId}">
+						<button>削除</button>
+					</th:block>
 				</form>
-				</div>
+
 			</td>
 		</tr>
-
-
-
-
-
 	</table>
 
 </body>

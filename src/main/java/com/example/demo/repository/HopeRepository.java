@@ -12,4 +12,6 @@ public interface HopeRepository extends JpaRepository<Hope, Integer> {
 	List<Hope> findByStudentIdAndTitle(Integer id, String title);
 
 	boolean existsByStudentIdAndTitle(Integer id, String title);
+	
+	List<Hope> findByStatusAndStudentId(Integer id, Integer studentId);
 }
