@@ -153,6 +153,12 @@ INSERT INTO bookmark(student_id,salelist_id) VALUES(5,1);
 
 
 INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(1,2,1,1,1);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(2,10,1,2,2);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(2,13,1,2,3);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(3,15,1,1,3);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(3,18,1,2,4);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(3,23,1,1,1);
+INSERT INTO bought_history(student_id,salelist_id,payment,accept,delivery) VALUES(3,29,1,1,2);
 
 
 INSERT INTO bought_certificate(salelist_id,bought_day) VALUES(2,CURRENT_TIMESTAMP);

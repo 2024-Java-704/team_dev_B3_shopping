@@ -39,6 +39,7 @@
 				<td th:if="${list.itemStatus}==3" style="width: 250px;">売上受取申請済み</td>
 				<td th:if="${list.itemStatus}==4" style="width: 250px;">売上受取済</td>
 				<td th:if="${list.itemStatus}==5" style="width: 250px;">出品申請中</td>
+				<td th:if="${list.itemStatus}==6" style="width: 250px;">キャンセル済</td>
 			</div>
 			<td th:if="${list.itemStatus}==1 or ${list.itemStatus}==5">
 				<form th:action="'/order/history/' + ${list.id} + '/delete'" method="post">
