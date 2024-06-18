@@ -12,7 +12,7 @@ public interface BookinfoRepository extends JpaRepository<Bookinfo, Integer> {
 
 	Bookinfo findByIsbn(String isbn);
 
-	Bookinfo findByCategoryId(Integer categoryId);
+	List<Bookinfo> findByCategoryId(Integer categoryId);
 
 	List<Bookinfo> findByGrade(Integer grade);
 

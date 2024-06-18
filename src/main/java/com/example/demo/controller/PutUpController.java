@@ -215,6 +215,7 @@ public class PutUpController {
 			redirectAttributes.addFlashAttribute("message", "File uploaded successfully!");
 		} catch (IOException e) {
 			redirectAttributes.addFlashAttribute("error", "Failed to upload file: " + e.getMessage());
+			return "redirect:/order/{id}/imgUp";
 		}
 
 		model.addAttribute("bookId", id);
@@ -288,12 +289,16 @@ public class PutUpController {
 			Model model) {
 		bookinfo = bookinfoRepository.findById(Id).get();
 
-		//画像
-		String imageString = bookinfo.getImageId() + "";
-		Long imageLong = Long.parseLong(imageString);
-		Images image = imagesRepository.findById(imageLong).get();
-		bookinfo.setImageName(image.getName());
-		model.addAttribute("book", bookinfo);
+		try {
+			//画像
+			String imageString = bookinfo.getImageId() + "";
+			Long imageLong = Long.parseLong(imageString);
+			Images image = imagesRepository.findById(imageLong).get();
+			bookinfo.setImageName(image.getName());
+			model.addAttribute("book", bookinfo);
+		} catch (Exception e) {
+			//画像がない場合そのまま無視する
+		}
 
 		model.addAttribute("book", bookinfo);
 		SaleList saleList = saleListRepository.findByBookInfoId(bookinfo.getId()).get(0);
