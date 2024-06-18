@@ -44,9 +44,9 @@ public class StaffOperationController {
 
 	//学生アカウント一覧
 	@GetMapping("/account")
-	public String accountAccess(@RequestParam(name = "keyword", defaultValue = "") String keyword,Model model) {
+	public String accountAccess(@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model) {
 		List<Student> studentList = new ArrayList<>();
-		if(keyword.equals("")) {
+		if (keyword.equals("")) {
 			studentList = studentRepository.findAll();
 		} else {
 			studentList = studentRepository.findByNameLike("%" + keyword + "%");
