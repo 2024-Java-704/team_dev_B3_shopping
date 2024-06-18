@@ -16,8 +16,8 @@
 	<h1>リクエスト一覧</h1>
 	<div style="text-align: center;">
 		<a href="/hope/putup">リクエスト申請</a>
-		</div>
-		<br>
+	</div>
+	<br>
 
 	<div style="text-align: center">
 		<th:block th:if="${methodNum eq 1}">
@@ -27,6 +27,8 @@
 			<a href="/hope">リクエスト一覧</a>
 		</th:block>
 	</div>
+	
+	<br>
 
 	<div style="text-align: center">
 		<a th:text="${errorMessage}"></a>
@@ -35,21 +37,22 @@
 	<table border="1">
 		<tr>
 			<th>タイトル</th>
+			<th></th>
 		</tr>
 		<tr th:each="hope:${hope}">
 			<td th:text="${hope.title}"></td>
 			<td>
-				<div style="display: flex;" >
-				<form th:action="@{/hope/{id}/detail(id=${hope.id})}" method="get">
-					<button>詳細</button>
-				</form>
+				<div style="display: flex; justify-content: center">
+					<form th:action="@{/hope/{id}/detail(id=${hope.id})}" method="get">
+						<button>詳細</button>
+					</form>
 
-				<form th:action="@{/hope/{id}/delete/confirm(id=${hope.id})}" method="get">
-					<th:block th:if="${@accountAndCart.id eq hope.studentId}">
-						<button>削除</button>
-					</th:block>
-				</form>
-
+					<form th:action="@{/hope/{id}/delete/confirm(id=${hope.id})}" method="get">
+						<th:block th:if="${@accountAndCart.id eq hope.studentId}">
+							<button>削除</button>
+						</th:block>
+					</form>
+				</div>
 			</td>
 		</tr>
 	</table>
