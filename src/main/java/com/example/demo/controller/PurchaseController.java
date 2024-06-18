@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,7 +150,37 @@ public class PurchaseController {
 			@RequestParam(name = "address", defaultValue = "") String address,
 			@RequestParam(name = "telephone", defaultValue = "") String telephone,
 			@RequestParam(name = "payment", defaultValue = "") Integer payment,
+			@RequestParam(name = "cardName", defaultValue = "") String cardName,
+			@RequestParam(name = "cardNumber", defaultValue = "") String cardNumber,
+			@RequestParam(name = "cardDate", defaultValue = "") String cardDate,
+			@RequestParam(name = "cardCode", defaultValue = "") String cardCode,
 			Model model) {
+
+		if (payment == 1) {
+			List<String> errorMessage = new ArrayList<>();
+
+			if (cardName.equals("")) {
+				errorMessage.add("名義人を入力してください");
+				model.addAttribute("cardName", cardName);
+			}
+			if (cardNumber.equals("")) {
+				errorMessage.add("カード番号を入力してください");
+				model.addAttribute("cardNumber", cardNumber);
+			}
+			if (cardDate.equals("")) {
+				errorMessage.add("有効期限を入力してください");
+				model.addAttribute("cardDate", cardDate);
+			}
+			if (cardCode.equals("")) {
+				errorMessage.add("セキュリティコードを入力してください");
+				model.addAttribute("cardCode", cardCode);
+			}
+			
+			if(errorMessage.size() > 0) {
+				model.addAttribute("errorMessage", errorMessage);
+				return "purchaseAccess";
+			}
+		}
 
 		String receiveString;
 		if (recieve == 1) {
@@ -194,7 +225,7 @@ public class PurchaseController {
 			SaleList updateSaleList = saleListRepository.findById(cartItems.getId()).get();
 			updateSaleList.setItemStatus(2);
 			saleListRepository.save(updateSaleList);
-			
+
 			boughtCertificate = new BoughtCertificate(boughtHistory.getSalelistId(), LocalDateTime.now());
 			boughtCertificateRepository.save(boughtCertificate);
 
@@ -224,7 +255,7 @@ public class PurchaseController {
 				boughtHistory.setBoughtDay(boughtCertificate.getBoughtDay());
 			}
 		}
-    if(boughtHistories.size() == 0) {
+		if (boughtHistories.size() == 0) {
 			model.addAttribute("errorMessage", "購入履歴はありません");
 		}
 		model.addAttribute("boughtHistories", boughtHistories);
