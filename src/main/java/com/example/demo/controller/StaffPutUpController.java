@@ -166,10 +166,6 @@ public class StaffPutUpController {
 	@GetMapping("/staff/hope")
 	public String hopeAccess(Model model) {
 		List<Hope> hopeList = hopeRepository.findByStatus(1);
-		for(Hope hope: hopeList) {
-			Bookinfo bookinfo = bookinfoRepository.findById(hope.getBookinfoId()).get();
-			hope.setTitle(bookinfo.getTitle());
-		}
 		if(hopeList.size() == 0) {
 			model.addAttribute("errorMessage", "リクエスト申請はありません");
 		}
@@ -181,10 +177,6 @@ public class StaffPutUpController {
 	@GetMapping("/staff/hope/{id}/detail")
 	public String hopeDetail(@PathVariable("id") Integer id, Model model) {
 		Hope hope = hopeRepository.findById(id).get();
-		Bookinfo bookinfo = bookinfoRepository.findById(hope.getBookinfoId()).get();
-		hope.setTitle(bookinfo.getTitle());
-		hope.setAuthor(bookinfo.getAuthor());
-		hope.setPublisher(bookinfo.getPublisher());
 		model.addAttribute("hope", hope);
 		return "staffHopeDetail";
 	}

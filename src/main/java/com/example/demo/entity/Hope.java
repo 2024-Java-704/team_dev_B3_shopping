@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "hope")
@@ -15,17 +14,16 @@ public class Hope {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "student_id")
 	private Integer studentId;
-	
 
-//	@Column(name = "bookinfo_id")
-//	private Integer bookinfoId;
-	
+	//	@Column(name = "bookinfo_id")
+	//	private Integer bookinfoId;
+
 	//@Transient
 	private String title;
-	
+
 	//@Transient
 	private String author;
 
@@ -34,8 +32,6 @@ public class Hope {
 
 	private Integer status;
 
-	
-	
 	public Hope() {
 	}
 
@@ -46,6 +42,7 @@ public class Hope {
 		this.publisher = publisher;
 		this.status = status;
 	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -54,7 +51,7 @@ public class Hope {
 		this.id = id;
 	}
 
-  public Integer getStudentId() {
+	public Integer getStudentId() {
 		return studentId;
 	}
 
@@ -62,12 +59,13 @@ public class Hope {
 		this.studentId = studentId;
 	}
 
-  public String getTitle() {
+	public String getTitle() {
 		return title;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
 
 	public String getAuthor() {
 		return author;
@@ -85,15 +83,6 @@ public class Hope {
 		this.publisher = publisher;
 	}
 
-	
-// 	public Integer getBookinfoId() {
-// 		return bookinfoId;
-// 	}
-
-// 	public void setBookinfoId(Integer bookinfoId) {
-// 		this.bookinfoId = bookinfoId;
-// 	}
-
 	public Integer getStatus() {
 		return status;
 	}
@@ -101,5 +90,7 @@ public class Hope {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+	
 
 }
