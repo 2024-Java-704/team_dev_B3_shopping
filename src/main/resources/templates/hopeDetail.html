@@ -34,6 +34,14 @@
 		</tr>
 		
 	</table>
+	<br>
+	<form action="/order" method="get">
+		<input type="hidden" name="title" th:value="${hopeList.title}">
+		<input type="hidden" name="author" th:value="${hopeList.author}">
+		<input type="hidden" name="publisher" th:value="${hopeList.publisher}">
+		<button>出品</button>
+	</form>
+	
 </body>
 
 </html>

@@ -58,13 +58,16 @@ public class PutUpController {
 
 	//出品申請画面の表示
 	@GetMapping("/order")
-	public String putUpAccess(Model model) {
-		List<Categories> categories = categoriesRepository.findAll();
-		List<String> categoryName = new ArrayList<>();
-		for (Categories category : categories) {
-			categoryName.add(category.getCategoryName());
+	public String putUpAccess(
+			@RequestParam(name = "title", defaultValue = "") String title,
+			@RequestParam(name = "author", defaultValue = "") String author,
+			@RequestParam(name = "publisher", defaultValue = "") String publisher,
+			Model model) {
+		if (title != "" && author != "" && publisher != "") {
+			model.addAttribute("title", title);
+			model.addAttribute("author", author);
+			model.addAttribute("publisher", publisher);
 		}
-		model.addAttribute("categoryName", categoryName);
 		return "order";
 	}
 
