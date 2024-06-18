@@ -14,6 +14,10 @@
 	<br>
 	<br>
 	<h1>リクエスト一覧</h1>
+	<div style="text-align: center;">
+		<a href="/hope/putup">リクエスト申請</a>
+		</div>
+		<br>
 
 
 	<table border="1">
@@ -23,10 +27,15 @@
 		<tr th:each="hope:${hope}">
 			<td th:text="${hope.title}"></td>
 			<td>
+				<div style="display: flex;" >
 				<form th:action="@{/hope/{id}/detail(id=${hope.id})}" method="get">
 					<input type="hidden">
 					<button>詳細</button>
 				</form>
+				<form action="/hope/delete/confirm" method="get">
+				<button >削除</button>
+				</form>
+				</div>
 			</td>
 		</tr>
 
