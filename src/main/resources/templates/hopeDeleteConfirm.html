@@ -31,7 +31,7 @@
 		</tr>
 	</table>
 	
-	<form action="/hope/delete/complete" action="post">
+	<form action="/hope/delete/complete" method="post">
 		<input type="hidden" name="id" th:value="${hope.id}" onsubmit="return confirm('本当に削除しますか？')">
 		<button>削除</button>
 	</form>
