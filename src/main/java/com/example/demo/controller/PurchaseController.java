@@ -63,10 +63,10 @@ public class PurchaseController {
 
 	@Autowired
 	SaleListRepository saleListRepository;
-	
+
 	@Autowired
 	StudentRepository studentRepository;
-	
+
 	@Autowired
 	ImagesRepository imagesRepository;
 
@@ -75,13 +75,13 @@ public class PurchaseController {
 	public String cartAccess(Model model) {
 		Student student = studentRepository.findById(accountAndCart.getId()).get();
 		model.addAttribute("student", student);
-		
+
 		Integer sum = 0;
 		for (CartItems cartItem : accountAndCart.getCartItems()) {
 			sum = sum + cartItem.getPrice();
 		}
 		model.addAttribute("sum", sum);
-		
+
 		return "cart";
 	}
 
@@ -103,26 +103,27 @@ public class PurchaseController {
 
 		return "redirect:/cart";
 	}
-		//指定した商品をカートに追加する(PathVariable)
-		@GetMapping("/cart/{id}/add")
-		public String cartAddPathVariable(
-				@PathVariable("id") Integer bookinfoId,
-				Model model) {
-			
-			Bookinfo bookinfo = bookinfoRepository.findById(bookinfoId).get();
-			//		String name = bookinfo.getTitle();
-			
-			CartItems cartItems = new CartItems(bookinfo.getId(), bookinfo.getTitle(), bookinfo.getPrice());
-			accountAndCart.add(cartItems);
-			
-			Integer sum = 0;
-			for (CartItems cartItem : accountAndCart.getCartItems()) {
-				sum = sum + cartItem.getPrice();
-			}
-			model.addAttribute("sum", sum);
-			
-			return "redirect:/cart";
+
+	//指定した商品をカートに追加する(PathVariable)
+	@GetMapping("/cart/{id}/add")
+	public String cartAddPathVariable(
+			@PathVariable("id") Integer bookinfoId,
+			Model model) {
+
+		Bookinfo bookinfo = bookinfoRepository.findById(bookinfoId).get();
+		//		String name = bookinfo.getTitle();
+
+		CartItems cartItems = new CartItems(bookinfo.getId(), bookinfo.getTitle(), bookinfo.getPrice());
+		accountAndCart.add(cartItems);
+
+		Integer sum = 0;
+		for (CartItems cartItem : accountAndCart.getCartItems()) {
+			sum = sum + cartItem.getPrice();
 		}
+		model.addAttribute("sum", sum);
+
+		return "redirect:/cart";
+	}
 
 	//　指定した商品をカートから削除
 
@@ -183,9 +184,7 @@ public class PurchaseController {
 		for (CartItems cartItems : accountAndCart.getCartItems()) {
 			//boughtHistory.setStudentId(accountAndCart.getId());
 			//boughtHistory.setSalelistId(cartItems.getId());
-			
-			
-			
+
 			boughtHistory = new BoughtHistory(accountAndCart.getId(), cartItems.getId(), boughtHistory.getPayment(),
 					boughtHistory.getAccept());
 			boughtHistory.setDelivery(4);
@@ -195,10 +194,11 @@ public class PurchaseController {
 			SaleList updateSaleList = saleListRepository.findById(cartItems.getId()).get();
 			updateSaleList.setItemStatus(2);
 			saleListRepository.save(updateSaleList);
+			
+			boughtCertificate = new BoughtCertificate(boughtHistory.getSalelistId(), LocalDateTime.now());
+			boughtCertificateRepository.save(boughtCertificate);
 
 		}
-		boughtCertificate = new BoughtCertificate(boughtHistory.getSalelistId(), LocalDateTime.now());
-		boughtCertificateRepository.save(boughtCertificate);
 
 		accountAndCart.clear(cartItems);
 
@@ -216,11 +216,18 @@ public class PurchaseController {
 	//	↓購入履歴画面の表示
 	@GetMapping("/buy")
 	private String purchaseHistory(Model model) {
-		List<BoughtHistory> boughtHistory = boughtHistoryRepository.findByStudentId(accountAndCart.getId());
-		if(boughtHistory.size() == 0) {
+		List<BoughtHistory> boughtHistories = boughtHistoryRepository.findByStudentId(accountAndCart.getId());
+		for (BoughtHistory boughtHistory : boughtHistories) {
+			Integer saleListId = boughtHistory.getSalelistId();
+			BoughtCertificate boughtCertificate = boughtCertificateRepository.findBySaleListId(saleListId);
+			if (boughtCertificate != null) {
+				boughtHistory.setBoughtDay(boughtCertificate.getBoughtDay());
+			}
+		}
+    if(boughtHistories.size() == 0) {
 			model.addAttribute("errorMessage", "購入履歴はありません");
 		}
-		model.addAttribute("boughtHistories", boughtHistory);
+		model.addAttribute("boughtHistories", boughtHistories);
 		return "purchaseHistory";
 	}
 
@@ -228,14 +235,14 @@ public class PurchaseController {
 	@GetMapping("/purchase/items/detail")
 	public String detail(@RequestParam("id") Integer id, Model model) {
 		Bookinfo book = bookinfoRepository.findById(id).get();
-		
+
 		//画像
 		String imageString = book.getImageId() + "";
 		Long imageLong = Long.parseLong(imageString);
 		Images image = imagesRepository.findById(imageLong).get();
 		book.setImageName(image.getName());
 		model.addAttribute("book", book);
-		
+
 		return "purchaseHistoryDetail";
 	}
 }

@@ -1,5 +1,8 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Column;
@@ -10,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Component
 @Entity
@@ -30,6 +34,21 @@ public class BoughtHistory {
 	private Integer payment;
 	private Integer accept;
 	private Integer delivery;
+	
+	@Transient
+	private LocalDateTime boughtDay;
+
+	public String getBoughtDay() {
+		if (boughtDay == null) {
+			return "なし";
+		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
+		return boughtDay.format(formatter);
+	}
+
+	public void setBoughtDay(LocalDateTime boughtDay) {
+		this.boughtDay = boughtDay;
+	}
 
 	public BoughtHistory() {
 
