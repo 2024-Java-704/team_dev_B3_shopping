@@ -138,13 +138,17 @@ public class HopeController {
 
 	//リクエスト削除確認画面を表示する
 	@GetMapping("/hope/delete/confirm")
-	public String hopeDeleteConfirm() {
+	public String hopeDeleteConfirm(@RequestParam("id") Integer id, Model model) {
+		Hope hope = hopeRepository.findById(id).get();
+		model.addAttribute("hope", hope);
 		return "hopeDeleteConfirm";
 	}
 
 	//リクエスト削除処理を行い、完了画面を表示する
 	@PostMapping("/hope/delete/complete")
-	public String hopeDeleteComplete() {
+	public String hopeDeleteComplete(@RequestParam("id") Integer id) {
+		Hope hope = hopeRepository.findById(id).get();
+		hopeRepository.delete(hope);
 		return "hopeDeleteComplete";
 	}
 
