@@ -16,8 +16,8 @@
 	<h1>リクエスト一覧</h1>
 	<div style="text-align: center;">
 		<a href="/hope/putup">リクエスト申請</a>
-		</div>
-		<br>
+	</div>
+	<br>
 
 	<div style="text-align: center; justify-content: space-evenly">
 		<th:block th:if="${methodNum eq 1}">
@@ -27,6 +27,8 @@
 			<a href="/hope">リクエスト一覧</a>
 		</th:block>
 	</div>
+	
+	<br>
 
 	<div style="text-align: center">
 		<a th:text="${errorMessage}"></a>
@@ -50,7 +52,6 @@
 						<button>削除</button>
 					</th:block>
 				</form>
-
 			</td>
 		</tr>
 	</table>

@@ -170,3 +170,4 @@ INSERT INTO hope(student_id,title,author,publisher,status) VALUES(3, 'Javaベー
 INSERT INTO hope(student_id,title,author,publisher,status) VALUES(3, 'やさしいPython', '高橋麻奈', 'SBクリエイティブ', 1);
 INSERT INTO hope(student_id,title,author,publisher,status) VALUES(3, 'JavaSilver', '志賀澄人', 'インプレス', 2);
 INSERT INTO hope(student_id,title,author,publisher,status) VALUES(3, 'HTML&CSS', '加藤善規', 'インプレス', 2);
+INSERT INTO hope(student_id,title,author,publisher,status) VALUES(3, '春はあけぼの', 'リスキル', 'リスキルテクノロジー株式会社', 2);
