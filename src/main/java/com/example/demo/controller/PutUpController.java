@@ -243,6 +243,44 @@ public class PutUpController {
 		return "orderHistory";
 	}
 
+	//出品履歴画面をソートする。
+	@GetMapping("/order/history/{sortNum}")
+	public String putUpHistorySort(
+			@PathVariable("sortNum") int num,
+			Model model) {
+		Integer accountId = accountAndCart.getId();
+		List<SaleList> salelist;
+		switch (num) {
+		case 1: {
+			salelist = saleListRepository.findByStudentIdOrderBySaleDayAsc(accountId);//idと一致するものを取得(昇順)
+			break;
+		}
+
+		case 2: {
+			salelist = saleListRepository.findByStudentIdOrderBySaleDayDesc(accountId);//idと一致するものを取得(降順)
+			break;
+		}
+		default: {
+			salelist = saleListRepository.findByStudentId(accountId);//idと一致するものを取得
+			break;
+		}
+		}
+
+		if (salelist.size() == 0) {
+			model.addAttribute("errorMessage", "出品履歴がありません");
+			return "orderHistory";
+		}
+
+		for (SaleList list : salelist) {
+			bookinfo = bookinfoRepository.findById(list.getBookInfoId()).get();
+			list.setTitle(bookinfo.getTitle());//title取得
+		}
+
+		//item_status - 1:出品中、2:売買済み、3:売上受取申請済み、4:売上受取済、5:出品申請中
+		model.addAttribute("salelist", salelist);
+		return "orderHistory";
+	}
+
 	//出品履歴詳細画面を表示する。
 	@GetMapping("/order/history/detail")
 	public String orderDetail(
