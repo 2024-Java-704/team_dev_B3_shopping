@@ -164,11 +164,14 @@ CREATE TABLE hope
 (
 id SERIAL,
 student_id INTEGER NOT NULL,
-bookinfo_id INTEGER NOT NULL,
+-- bookinfo_id INTEGER NOT NULL,
+title  TEXT,
+author TEXT,
+publisher TEXT,
 status INTEGER NOT NULL, --1:申請中 2:承認済
 
 PRIMARY KEY(id),
-FOREIGN KEY(student_id) REFERENCES students(id),
-FOREIGN KEY(bookinfo_id) REFERENCES bookinfo(id)
+FOREIGN KEY(student_id) REFERENCES students(id)
+-- FOREIGN KEY(bookinfo_id) REFERENCES bookinfo(id)
 );
 

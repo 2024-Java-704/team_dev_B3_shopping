@@ -4,10 +4,38 @@
 <head>
 	<meta charset="UTF-8">
 	<title>リクエスト一覧</title>
+	<link rel="stylesheet" type="text/css" href="/css/bodyStyle.css">
 </head>
 
 <body>
+	<header th:replace="header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h1>リクエスト一覧</h1>
+
+
+	<table border="1">
+		<tr>
+			<th>タイトル</th>
+		</tr>
+		<tr th:each="hope:${hope}">
+			<td th:text="${hope.title}"></td>
+			<td>
+				<form th:action="@{/hope/{id}/detail(id=${hope.id})}" method="get">
+					<input type="hidden">
+					<button>詳細</button>
+				</form>
+			</td>
+		</tr>
+
+
+
+
+
+	</table>
+
 </body>
 
 </html>
