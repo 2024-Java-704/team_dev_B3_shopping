@@ -64,17 +64,19 @@
 			<td th:if="${bookinfo.imageName == null}">なし</td>
 		</tr>
 	</table>
+	
+	<br>
 
 	<th:block th:if="${bought.accept eq 2}">
 		<form action="/purchased/change" method="post">
 			<input type="hidden" th:value="${bought.id}" name="id">
-			<input type="hidden" value="prepareHand" name="status">
+			<input type="hidden" value=1 name="status">
 			<button>受渡準備完了</button>
 		</form>
 
 		<form action="/purchased/change" method="post">
 			<input type="hidden" th:value="${bought.id}" name="id">
-			<input type="hidden" value="completeHand" name="status">
+			<input type="hidden" value=2 name="status">
 			<button>受渡完了</button>
 		</form>
 	</th:block>
@@ -82,7 +84,7 @@
 	<th:block th:if="${bought.accept eq 1}">
 		<form action="/purchased/change" method="post">
 			<input type="hidden" th:value="${bought.id}" name="id">
-			<input type="hidden" value="completeDelivery" name="status">
+			<input type="hidden" value=3 name="status">
 			<button>発送完了</button>
 		</form>
 	</th:block>

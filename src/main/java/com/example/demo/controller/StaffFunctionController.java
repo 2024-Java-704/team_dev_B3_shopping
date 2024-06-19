@@ -91,25 +91,23 @@ public class StaffFunctionController {
 	@PostMapping("/purchased/change")
 	public String orderStatus(
 			@RequestParam("id") Integer id,
-			@RequestParam("status") String status) {
+			@RequestParam("status") Integer status) {
 
+		BoughtHistory boughtHistory = boughtHistoryRepository.findById(id).get();
 		//受渡準備完了
-		if (status == "prepareHand") {
-			BoughtHistory boughtHistory = boughtHistoryRepository.findById(id).get();
+		if (status.equals(1)) {
 			boughtHistory.setDelivery(1);
 			boughtHistoryRepository.save(boughtHistory);
 		}
 
 		//受渡完了
-		if (status == "completeHand") {
-			BoughtHistory boughtHistory = boughtHistoryRepository.findById(id).get();
+		if (status.equals(2)) {
 			boughtHistory.setDelivery(2);
 			boughtHistoryRepository.save(boughtHistory);
 		}
 
 		//発送完了
-		if (status == "completeDelivery") {
-			BoughtHistory boughtHistory = boughtHistoryRepository.findById(id).get();
+		if (status.equals(3)) {
 			boughtHistory.setDelivery(3);
 			boughtHistoryRepository.save(boughtHistory);
 		}
