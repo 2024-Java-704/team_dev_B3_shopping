@@ -66,10 +66,12 @@
 				</td>
 			</tr>
 		</table>
+		<br>
 		<input type="hidden" th:value="${sale.id}" name="id">
 		<button>出品</button>
 	</form>
 
+	<br>
 	<form action="/itemrequest/reject" method="get">
 		<input type="hidden" th:value="${sale.id}" name="id">
 		<button>却下</button>
