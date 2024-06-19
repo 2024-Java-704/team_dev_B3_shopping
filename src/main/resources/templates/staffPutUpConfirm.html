@@ -80,8 +80,7 @@
 		</form>
 	</th:block>
 
-	<form action="/itemrequest/detail" method="get">
-		<input type="hidden" th:value="${sale.id}" name="id">
+	<form th:action="@{/itemrequest/{id}/detail(id=${sale.id})}" method="get">
 		<button>戻る</button>
 	</form>
 </body>
