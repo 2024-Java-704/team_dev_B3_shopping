@@ -37,19 +37,19 @@ INSERT INTO images(name, file_path) VALUES('syakai_kyukutsu_man.png', 'src/main/
 
 
 INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status, image_id) 
-VALUES('佐藤','2000-01-01','東京','a@a','himitu','a000001','1234',1,1);
+VALUES('佐藤','2000-01-01','東京','sato@aaa.com','himitu','a000001','1234',1,1);
 INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status, ban_day, image_id) 
-VALUES('鈴木','2000-02-02','神奈川','b@b','himitu','b000001','1234',3,CURRENT_TIMESTAMP,2);
+VALUES('鈴木','2000-02-02','神奈川','suzuki@aaa.com','himitu','b000001','1234',3,CURRENT_TIMESTAMP,2);
 INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status, image_id) 
-VALUES('田中','2000-03-03','埼玉','c@c','himitu','c000001','1234',2,3);
+VALUES('田中','2000-03-03','埼玉','tanaka@aaa.com','himitu','c000001','1234',2,3);
 INSERT INTO students(student_name,birthday, address, student_email, student_pass, student_number, bank_account, student_status, image_id) 
-VALUES('倉沢','2000-04-04','千葉','d@d','himitu','d000001','1234',4,4);
+VALUES('倉沢','2000-04-04','千葉','kurasawa@aaa.com','himitu','d000001','1234',4,4);
 INSERT INTO students(student_name,birthday, address,student_email,student_pass,student_number,bank_account,student_status, image_id) 
 VALUES('獄裏番之助','2000-01-02','東京','tuppari@gmail.com','himitu','s14550','4649',5,5);
 
 
-INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('大澤','a@a','himitu','a002001');
-INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('中山','b@b','himitu','b002002');
+INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('大澤','osawa@aaa.com','himitu','a002001');
+INSERT INTO staff(staff_name,staff_email,staff_pass,staff_number) VALUES('中山','nakayama@aaa.com','himitu','b002002');
 
 
 INSERT INTO admin(admin_name,admin_pass) VALUES('admin','himitu');
