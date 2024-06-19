@@ -173,7 +173,7 @@ public class PutUpController {
 
 	//商品画像のアップロード画面表示
 	@GetMapping("/order/{id}/imgUp")
-	public String imgUp(
+	public String bookImgUp(
 			@PathVariable("id") Integer id,
 			Model model) {
 		model.addAttribute("bookId", id);
@@ -182,7 +182,7 @@ public class PutUpController {
 
 	//画像のアップロード完了後、登録申請の完了画面表示
 	@PostMapping("/order/{id}/imgUp")
-	public String imgUploadSuccess(
+	public String bookImgUploadSuccess(
 			@PathVariable("id") Integer id,
 			@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
 			Model model) {
@@ -312,7 +312,7 @@ public class PutUpController {
 
 	//出品履歴をキャンセルする。
 	@PostMapping("/order/history/{id}/delete")
-	public String delteHistory(
+	public String deleteHistory(
 			@PathVariable("id") Integer id,
 			Model model) {
 		SaleList deleteSale = saleListRepository.findById(id).get();
