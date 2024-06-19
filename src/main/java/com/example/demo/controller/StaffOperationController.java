@@ -233,7 +233,7 @@ public class StaffOperationController {
 		return "Upload-ChangeStudentCard";
 	}
 
-	//画像のアップロード完了後、登録申請の完了画面表示
+	//画像のアップロード完了後、アカウント詳細画面へリダイレクト
 	@PostMapping("student/{id}/imgUp")
 	public String imgUploadSuccess(
 			@PathVariable("id") Integer id,
