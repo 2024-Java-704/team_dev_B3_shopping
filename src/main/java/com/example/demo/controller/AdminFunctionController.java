@@ -19,34 +19,34 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AdminFunctionController {//returnはhtml完成次第追記
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@Autowired
 	AccountAndCart accountAndCart;
-	
+
 	@Autowired
 	StaffRepository staffRepository;
 
 	//管理者用のマイページの表示
 	@GetMapping("/adminpage")
 	public String adminPage() {
-//		if(accountAndCart.getName().equals("admin")) {
+		//		if(accountAndCart.getName().equals("admin")) {
 		return "adminMyPage";
-//		} else {
-//			return "needLogin";
-//		}
+		//		} else {
+		//			return "needLogin";
+		//		}
 	}
 
 	//職員一覧画面の表示
 	@GetMapping("/staffList")
 	public String staffAll(@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model) {
 		List<Staff> staffList = new ArrayList<>();
-		
-		if(keyword.equals("")) {
+
+		if (keyword.equals("")) {
 			staffList = staffRepository.findAll();
-			if(staffList.size() == 0) {
+			if (staffList.size() == 0) {
 				model.addAttribute("errorMessage", "職員が登録されていません");
 				return "adminStaffList";
 			}
@@ -54,7 +54,7 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 			staffList = staffRepository.findByStaffNameLike("%" + keyword + "%");
 			model.addAttribute("search", keyword);
 		}
-		
+
 		model.addAttribute("staffList", staffList);
 		return "adminStaffList";
 	}
@@ -68,7 +68,7 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 		model.addAttribute("staff", staff);
 		return "adminStaffDetail";
 	}
-	
+
 	//職員アカウント更新画面の表示
 	@GetMapping("/staffList/{id}/update")
 	public String staffUpdeteInput(
@@ -83,23 +83,23 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 	@GetMapping("/staffList/{id}/update/confirm")
 	public String adminUpdateConfirm(
 			@PathVariable("id") Integer id,
-			@RequestParam(name = "number", defaultValue = "")String number,
-			@RequestParam(name = "name", defaultValue = "")String name,
-			@RequestParam(name = "email", defaultValue = "")String email,
-			@RequestParam(name = "pass", defaultValue = "")String pass,
+			@RequestParam(name = "number", defaultValue = "") String number,
+			@RequestParam(name = "name", defaultValue = "") String name,
+			@RequestParam(name = "email", defaultValue = "") String email,
+			@RequestParam(name = "pass", defaultValue = "") String pass,
 			Model model) {
-		
+
 		//更新前の情報
 		Staff lastInfo = staffRepository.findById(id).get();
 		model.addAttribute("lastInfo", lastInfo);
-		
+
 		//更新後の情報
 		model.addAttribute("id", id);
 		model.addAttribute("number", number);
 		model.addAttribute("name", name);
 		model.addAttribute("email", email);
 		model.addAttribute("pass", pass);
-		
+
 		return "adminStaffEditConfirm";
 	}
 
@@ -112,49 +112,48 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 			@RequestParam("pass") String pass,
 			@RequestParam("number") String number,
 			Model model) {
-		
+
 		//Nullチェックをしないとエラーが出るので後ほど記述
-		
+
 		//動きはするけど無駄コード
-//		Staff uniqueCheck = staffRepository.findById(id).get();
-//		Staff unique = staffRepository.findById(id).get();
-//		
-//		//メールアドレスと職員番号どちらも変わっていない場合
-//		if(uniqueCheck.getStaffEmail().equals(email) && uniqueCheck.getStaffNumber().equals(number)) {
-//			
-//			Staff staff = new Staff(id, name, unique.getStaffEmail(), pass, unique.getStaffNumber());
-//			staffRepository.save(staff);
-//		}
-//		//メールアドレスが変わっていない場合
-//		if(uniqueCheck.getStaffEmail().equals(email)) {
-//			Staff staff = new Staff(id, name, unique.getStaffEmail(), pass, number);
-//			staffRepository.save(staff);
-//			
-//			
-//		}
-//		//職員番号が変わっていない場合
-//		if(uniqueCheck.getStaffNumber().equals(number)) {
-//			Staff staff = new Staff(id, name, email, pass, unique.getStaffNumber());
-//			
-//			staffRepository.save(staff);
-//		}
-//		
+		//		Staff uniqueCheck = staffRepository.findById(id).get();
+		//		Staff unique = staffRepository.findById(id).get();
+		//		
+		//		//メールアドレスと職員番号どちらも変わっていない場合
+		//		if(uniqueCheck.getStaffEmail().equals(email) && uniqueCheck.getStaffNumber().equals(number)) {
+		//			
+		//			Staff staff = new Staff(id, name, unique.getStaffEmail(), pass, unique.getStaffNumber());
+		//			staffRepository.save(staff);
+		//		}
+		//		//メールアドレスが変わっていない場合
+		//		if(uniqueCheck.getStaffEmail().equals(email)) {
+		//			Staff staff = new Staff(id, name, unique.getStaffEmail(), pass, number);
+		//			staffRepository.save(staff);
+		//			
+		//			
+		//		}
+		//		//職員番号が変わっていない場合
+		//		if(uniqueCheck.getStaffNumber().equals(number)) {
+		//			Staff staff = new Staff(id, name, email, pass, unique.getStaffNumber());
+		//			
+		//			staffRepository.save(staff);
+		//		}
+		//		
 		try {
-		Staff staff = new Staff(id, name, email, pass, number);
-		staffRepository.save(staff);
-		return "redirect:/staffList";
-		} catch(Exception E) {
-			
+			Staff staff = new Staff(id, name, email, pass, number);
+			staffRepository.save(staff);
+			return "redirect:/staffList";
+		} catch (Exception E) {
+
 			//エラーメッセージ
 			model.addAttribute("uniqueError", "職員番号やメールアドレスが別のアカウントで既に存在しています");
-			
+
 			Staff staff = staffRepository.findById(id).get();
 			model.addAttribute("staff", staff);
-			return "adminStaffEdit";	
+			return "adminStaffEdit";
 		}
 	}
-	
-	
+
 	//職員アカウント削除確認画面の表示
 	@GetMapping("/staffList/{id}/delete")
 	public String staffDeleteConfirm(
@@ -168,63 +167,61 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 	//職員アカウント削除処理
 	@PostMapping("/staffList/{id}/delete")
 	public String staffDelete(
-			@PathVariable("id") Integer id
-			) {
+			@PathVariable("id") Integer id) {
 		staffRepository.deleteById(id);
 		return "redirect:/staffList";
 	}
 
-	
 	//職員アカウント追加画面の表示
 	@GetMapping("/staffList/add")
 	public String adminAdd() {
 		return "adminStaffAdd";
 	}
-	
+
 	//入力された情報を新規登録確認画面に表示する
-		@GetMapping("staffList/add/confirm")
-		public String staffAddConfirm(
-				@RequestParam("name") String name,
-				@RequestParam("number") String number,
-				@RequestParam("password") String password,
-				@RequestParam("email") String email,
-				Model model) {
-			List<String> errorList = new ArrayList<>();
-			List<Staff> userList = staffRepository.findByStaffNumber(number);
-			model.addAttribute("name", name);
-			model.addAttribute("number", number);
-			model.addAttribute("password", password);
-			model.addAttribute("email", email);
-			//エラーチェック
-			if (userList != null && userList.size() > 0) {
-				errorList.add("	既に登録されている学籍番号です");
-			}
-			if (name.length() == 0) {
-				errorList.add("名前を入力してください");
-			}
+	@GetMapping("staffList/add/confirm")
+	public String staffAddConfirm(
+			@RequestParam("name") String name,
+			@RequestParam("number") String number,
+			@RequestParam("password") String password,
+			@RequestParam("email") String email,
+			Model model) {
+		List<String> errorList = new ArrayList<>();
+		List<Staff> userList = staffRepository.findByStaffNumber(number);
+		model.addAttribute("name", name);
+		model.addAttribute("number", number);
+		model.addAttribute("password", password);
+		model.addAttribute("email", email);
+		//エラーチェック
+		if (userList != null && userList.size() > 0) {
+			errorList.add("	既に登録されている学籍番号です");
+		}
+		if (name.length() == 0) {
+			errorList.add("名前を入力してください");
+		}
 
-			if (number.length() == 0) {
-				errorList.add("学籍番号を入力してください");
-			}
+		if (number.length() == 0) {
+			errorList.add("学籍番号を入力してください");
+		}
 
-			if (email.length() == 0) {
-				errorList.add("メールアドレスを入力してください");
-			}
+		if (email.length() == 0) {
+			errorList.add("メールアドレスを入力してください");
+		}
 
-			if (password.length() == 0) {
-				errorList.add("パスワードを入力してください");
-			}
+		if (password.length() == 0) {
+			errorList.add("パスワードを入力してください");
+		}
 
-			// エラー発生時は新規登録に戻す
-			if (errorList.size() > 0) {
-				model.addAttribute("errorList", errorList);
-
-				return "adminStaffAddConfirm";
-			}
+		// エラー発生時は新規登録に戻す
+		if (errorList.size() > 0) {
+			model.addAttribute("errorList", errorList);
 
 			return "adminStaffAddConfirm";
 		}
-		
+
+		return "adminStaffAddConfirm";
+	}
+
 	//アカウント追加処理
 	@PostMapping("/staffList/add/complete")
 	public String adminStaffAdd(
@@ -235,16 +232,16 @@ public class AdminFunctionController {//returnはhtml完成次第追記
 			Model model) {
 
 		try {
-			Staff staff = new Staff(name, number, password, email);
+			Staff staff = new Staff(name, email, password, number);
 			staffRepository.save(staff);
 
 			return "adminStaffAddComplete";
-			} catch(Exception E) {
-				//エラーメッセージ
-				model.addAttribute("uniqueError", "職員番号やメールアドレスが別のアカウントで既に存在しています");
-				
-				return "adminStaffAdd";
-			}
+		} catch (Exception E) {
+			//エラーメッセージ
+			model.addAttribute("uniqueError", "職員番号やメールアドレスが別のアカウントで既に存在しています");
+
+			return "adminStaffAdd";
 		}
+	}
 
 }

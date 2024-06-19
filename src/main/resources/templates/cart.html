@@ -41,29 +41,27 @@
 		<h2 style="text-align: center; color: red;">カートに何も追加されていません</h2>
 	</th:block>
 
-	<th:block th:if="${student.status eq 2 && sum != 0}">
-		<form action="/purchase/order" method="get">
-			<button>購入</button>
+	<div style="display:flex; justify-content: center;">
+
+		<form action="/items" method="get">
+			<button>商品一覧</button>
 		</form>
-	</th:block>
 
-	<th:block th:unless="${student.status eq 2}">
-		<form action="/login" method="get">
-			<button>購入するにはログイン</button>
+		<form action="/bookmark" method="get">
+			<button>ブックマーク一覧</button>
 		</form>
-	</th:block>
+		
+		<th:block th:if="${student.status eq 2 && sum != 0}">
+			<form action="/purchase/order" method="get">
+				<button>購入</button>
+			</form>
+		</th:block>
 
-	<br>
-
-	<form action="/items" method="get">
-		<button>商品一覧</button>
-	</form>
-
-	<br>
-
-	<form action="/bookmark" method="get">
-		<button>ブックマーク一覧</button>
-	</form>
+		<th:block th:unless="${student.status eq 2}">
+			<form action="/login" method="get">
+				<button>購入するにはログイン</button>
+			</form>
+		</th:block>
 	</div>
 </body>
 

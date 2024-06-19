@@ -14,11 +14,11 @@
 	<br>
 	<br>
 	<h1>リクエスト詳細</h1>
-	
+
 	<div th:each="message:${errorMessage}" style="text-align:center">
 		<span th:text="${message}" style="color:red"></span>
 	</div>
-	
+
 	<table>
 		<tr>
 			<th>タイトル</th>
@@ -32,20 +32,22 @@
 			<th>出版社</th>
 			<td th:text="${hopeList.publisher}"></td>
 		</tr>
-		
+
 	</table>
 	<br>
-	<form action="/order" method="get">
-		<input type="hidden" name="title" th:value="${hopeList.title}">
-		<input type="hidden" name="author" th:value="${hopeList.author}">
-		<input type="hidden" name="publisher" th:value="${hopeList.publisher}">
-		<button>出品</button>
-	</form>
-	<form action="/items" method="get">
-		<input type="hidden" name="keyword" th:value="${hopeList.title}">
-		<button>検索</button>
-	</form>
-	
+	<div style="display: flex; justify-content: center;">
+		<form action="/order" method="get">
+			<input type="hidden" name="title" th:value="${hopeList.title}">
+			<input type="hidden" name="author" th:value="${hopeList.author}">
+			<input type="hidden" name="publisher" th:value="${hopeList.publisher}">
+			<button>出品</button>
+		</form>
+		<form action="/items" method="get">
+			<input type="hidden" name="keyword" th:value="${hopeList.title}">
+			<button>検索</button>
+		</form>
+	</div>
+
 </body>
 
 </html>

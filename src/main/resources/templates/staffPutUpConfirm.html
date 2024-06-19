@@ -47,12 +47,14 @@
 				<td th:text="${price + '円'}"></td>
 			</tr>
 		</table>
+		
+		<br>
 
 		<form action="/itemrequest/approval" method="post">
 			<input type="hidden" th:value="${sale.id}" name="id">
 			<input type="hidden" th:value="${condition}" name="condition">
 			<input type="hidden" th:value="${price}" name="price">
-			<button>出品する</button>
+			<button>出品</button>
 		</form>
 	</th:block>
 	
@@ -74,12 +76,15 @@
 			</tr>
 		</table>
 		
+		<br>
+		
 		<form action="/itemrequest/reject" method="post">
 			<input type="hidden" th:value="${sale.id}" name="id">
 			<button>却下</button>
 		</form>
 	</th:block>
 
+	<br>
 	<form th:action="@{/itemrequest/{id}/detail(id=${sale.id})}" method="get">
 		<button>戻る</button>
 	</form>
